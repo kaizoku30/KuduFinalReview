@@ -7,6 +7,9 @@
 
 import UIKit
 
-class AppImages {
-    
+final class AppImages {
+    func dummyFunction()
+    {
+        debugPrint("Remove this when you add images")
+    }
 }

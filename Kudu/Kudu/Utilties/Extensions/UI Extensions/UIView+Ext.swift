@@ -638,51 +638,6 @@ public extension UIView {
         return self
     }
 
-    /**
-     Causes the view to hop, either toward a particular edge or out of the screen (if "toward" is
-     .None).
-     - Parameters:
-     - toward: the edge to hop toward, or .None to hop out
-     - amount: distance to hop, expressed as a fraction of the view's size
-     - duration: duration of the animation, in seconds
-     - delay: delay before the animation starts, in seconds
-     - completion: block executed when the animation ends
-     */
-    @discardableResult func hop(toward edge: SimpleAnimationEdge = .none,
-                                amount: CGFloat = 0.4,
-                                duration: TimeInterval = 0.6,
-                                delay: TimeInterval = 0,
-                                completion: ((Bool) -> Void)? = nil) -> UIView {
-        var dx: CGFloat = 0, dy: CGFloat = 0, ds: CGFloat = 0
-        if edge == .none {
-            ds = amount / 2
-        } else if edge == .left || edge == .right {
-            dx = (edge == .left ? -1: 1) * self.bounds.size.width * amount
-            dy = 0
-        } else {
-            dx = 0
-            dy = (edge == .top ? -1: 1) * self.bounds.size.height * amount
-        }
-        UIView.animateKeyframes(
-            withDuration: duration, delay: delay, options: .calculationModeLinear, animations: {
-                UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 0.28) {
-                    let t = CGAffineTransform(translationX: dx, y: dy)
-                    self.transform = t.scaledBy(x: 1 + ds, y: 1 + ds)
-                }
-                UIView.addKeyframe(withRelativeStartTime: 0.28, relativeDuration: 0.28) {
-                    self.transform = .identity
-                }
-                UIView.addKeyframe(withRelativeStartTime: 0.56, relativeDuration: 0.28) {
-                    let t = CGAffineTransform(translationX: dx * 0.5, y: dy * 0.5)
-                    self.transform = t.scaledBy(x: 1 + ds * 0.5, y: 1 + ds * 0.5)
-                }
-                UIView.addKeyframe(withRelativeStartTime: 0.84, relativeDuration: 0.16) {
-                    self.transform = .identity
-                }
-        }, completion: completion)
-        return self
-    }
-
     private func offsetFor(edge: SimpleAnimationEdge) -> CGPoint {
         if let parentSize = self.superview?.frame.size {
             switch edge {
@@ -904,17 +859,7 @@ extension UIView {
         self.layer.addSublayer(gradient)
     }
 }
-extension AVPlayer {
-    func addProgressObserver(action:@escaping ((Double) -> Void)) -> Any {
-        return self.addPeriodicTimeObserver(forInterval: CMTime.init(value: 1, timescale: 1), queue: .main, using: { time in
-            if let duration = self.currentItem?.duration {
-                let duration = CMTimeGetSeconds(duration), time = CMTimeGetSeconds(time)
-                let progress = (time/duration)
-                action(progress)
-            }
-        })
-    }
-}
+
 // for chat
 public extension UIView {
     
@@ -970,30 +915,6 @@ extension UIView {
         })
         self.layer.insertSublayer(gradient, at: 0)
     }
-    
-    func addThemeGradient(alignCase: GradientAlign = GradientAlign.vertical, colorArray: [CGColor] = [UIColor.colorRGB(r: 0, g: 0, b: 0, alpha: 0.9).cgColor, UIColor.colorRGB(r: 0, g: 0, b: 0, alpha: 0.65).cgColor, UIColor.colorRGB(r: 0, g: 0, b: 0, alpha: 0.35).cgColor, UIColor.colorRGB(r: 0, g: 0, b: 0, alpha: 0.0).cgColor]) {
-        
-        let gradient:CAGradientLayer = CAGradientLayer()
-        
-        gradient.startPoint = CGPoint.zero
-        gradient.endPoint =  CGPoint(x: 0, y: 1)
-        if alignCase == GradientAlign.horizontal {
-            gradient.startPoint = CGPoint(x: 0, y: 0.5)
-            gradient.endPoint =  CGPoint(x: 1, y: 0)
-        }
-        
-        gradient.frame = self.bounds
-        gradient.colors = colorArray
-        
-        // Test Code for Mesh Gradient issue
-        self.layer.sublayers?.forEach({ (layer) in
-            if layer.isKind(of: CAGradientLayer.self) {
-                layer.removeFromSuperlayer()
-            }
-        })
-        self.layer.insertSublayer(gradient, at: 0)
-    }
-    
     
     func addGradientWithLocations(locations: [NSNumber] = [0.0, 1.0], colors: [CGColor] = [UIColor.clear.cgColor, UIColor.black.cgColor]) {
         let gradient:CAGradientLayer = CAGradientLayer()

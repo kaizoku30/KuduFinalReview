@@ -10,7 +10,7 @@ import ImageIO
 // MARK: - UIIMAGEVIEW
 extension UIImageView {
     
-    func setImage_kf(imageString: String, placeHolderImage: UIImage? = nil, loader: Bool = true, loaderTintColor:UIColor,completionHandler: ((Bool) -> ())? = nil) {
+    func setImageKF(imageString: String, placeHolderImage: UIImage? = nil, loader: Bool = true, loaderTintColor:UIColor,completionHandler: ((Bool) -> ())? = nil) {
         
         if loader {
             self.kf.indicatorType = .activity
@@ -559,7 +559,10 @@ extension UIImage {
         let colorSpace = self.cgImage?.colorSpace
         let bitmapInfo = self.cgImage?.bitmapInfo
         let context = CGContext(data: nil, width: width!, height: height!, bitsPerComponent: bits!, bytesPerRow: 0, space: colorSpace!, bitmapInfo: (bitmapInfo?.rawValue)!)
-        var red: CGFloat = 0, green: CGFloat = 0, blue: CGFloat = 0, alpha: CGFloat = 0
+        var red: CGFloat = 0
+        var green: CGFloat = 0
+        var blue: CGFloat = 0
+        var alpha: CGFloat = 0
         color.getRed(&red, green: &green, blue: &blue, alpha: &alpha)
         
         context?.setStrokeColor(red: red, green: green, blue: blue, alpha: alpha)

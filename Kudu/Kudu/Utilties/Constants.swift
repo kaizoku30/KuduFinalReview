@@ -30,8 +30,8 @@ class Constants
     }
     
     struct StatusCode {
-        static let BLOCKED = 401
-        static let DELETED = 401
+        static let blocked = 401
+        static let delete = 401
       //  static let OTP_EXPIRED = 400
     }
     

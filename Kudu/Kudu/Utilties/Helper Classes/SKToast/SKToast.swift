@@ -108,9 +108,7 @@ public class SKToast {
         statusLabel?.text = statusMessage
         
         /// Setup ToastView Size & Position
-        if statusMessage.count < 1 {
-            return
-        } else {
+        if statusMessage.count > 1 {
             setToastViewSize()
             setToastViewPosistion(notification: nil)
             showToastView()

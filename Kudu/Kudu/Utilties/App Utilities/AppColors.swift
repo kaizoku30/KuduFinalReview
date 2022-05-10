@@ -10,5 +10,8 @@ import UIKit
 
 final class AppColors:UIColor
 {
-    
+    func dummyFunction()
+    {
+        debugPrint("Remove this when you add images")
+    }
 }

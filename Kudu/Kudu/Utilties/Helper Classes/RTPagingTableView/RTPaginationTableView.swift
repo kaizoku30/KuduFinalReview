@@ -37,7 +37,8 @@ class RTPaginationTableView: UITableView {
     
     func configurePagination(inVC vc:UITableViewDelegate,pageConfigs:[RTPaginationConfig])
     {
-        if pageConfigs.count == 0 { return }
+        if pageConfigs.count == 0
+        { return }
         configs = pageConfigs
         if !paginationSetup
         {
@@ -109,66 +110,41 @@ extension RTPaginationTableView:UITableViewDelegate {
     
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        if scrollView.contentOffset.y + scrollView.frame.height >= scrollView.contentSize.height
-        {
-            if configs[currentConfigID].lastAPIResponseCount == configs[currentConfigID].limit && !configs[currentConfigID].contentLoading
-            {
-                configs[currentConfigID].contentLoading = true
-               // self.scrollToBottom()
-              //  self.scrollToRow(at: IndexPath(row: self.numberOfRows(inSection: 0) - 1, section: 0), at: .bottom, animated: true)
-                self.reloadData()
-                let point = CGPoint(x: 0, y: self.contentSize.height + self.contentInset.bottom - self.frame.height)
-                        if point.y >= 0{
-                            self.setContentOffset(point, animated: false)
-                        }
-                hitPaginationAPI?(configs[currentConfigID].currentPage + 1)
-                //self.reloadAndScroll(to: IndexPath(row: self.numberOfRows(inSection: 0) - 1, section: 0))
-                // reloadRowsWithoutAnimation(indexPaths: [IndexPath(row: self.numberOfRows(inSection: 0) - 1, section: 0)])
-                //self.scrollToRow(at: IndexPath(row: self.numberOfRows(inSection: 0) - 1, section: 0), at: .bottom, animated: false)
-            }
-        }
+        handleScrolling(scrollView)
     }
     
     func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
-        if scrollView.contentOffset.y + scrollView.frame.height >= scrollView.contentSize.height
+        handleScrolling(scrollView)
+    }
+    
+    func scrollViewWillBeginDecelerating(_ scrollView: UIScrollView) {
+        handleScrolling(scrollView)
+    }
+    
+    private func handleScrolling(_ scrollView:UIScrollView)
+    {
+        if scrollView.contentOffset.y + scrollView.frame.height >= scrollView.contentSize.height && checkConfigWhileScrolling()
         {
-            if configs[currentConfigID].lastAPIResponseCount == configs[currentConfigID].limit && !configs[currentConfigID].contentLoading
-            {
+            
                 configs[currentConfigID].contentLoading = true
-               // self.scrollToBottom()
-              //  self.scrollToRow(at: IndexPath(row: self.numberOfRows(inSection: 0) - 1, section: 0), at: .bottom, animated: true)
                 self.reloadData()
                 let point = CGPoint(x: 0, y: self.contentSize.height + self.contentInset.bottom - self.frame.height)
                         if point.y >= 0{
                             self.setContentOffset(point, animated: false)
                         }
                 hitPaginationAPI?(configs[currentConfigID].currentPage + 1)
-                //self.reloadAndScroll(to: IndexPath(row: self.numberOfRows(inSection: 0) - 1, section: 0))
-                // reloadRowsWithoutAnimation(indexPaths: [IndexPath(row: self.numberOfRows(inSection: 0) - 1, section: 0)])
-                //self.scrollToRow(at: IndexPath(row: self.numberOfRows(inSection: 0) - 1, section: 0), at: .bottom, animated: false)
-            }
         }
     }
     
-    
-    func scrollViewWillBeginDecelerating(_ scrollView: UIScrollView) {
-        if scrollView.contentOffset.y + scrollView.frame.height >= scrollView.contentSize.height
+    private func checkConfigWhileScrolling() -> Bool
+    {
+        if configs[currentConfigID].lastAPIResponseCount == configs[currentConfigID].limit && !configs[currentConfigID].contentLoading
         {
-            if configs[currentConfigID].lastAPIResponseCount == configs[currentConfigID].limit && !configs[currentConfigID].contentLoading
-            {
-                configs[currentConfigID].contentLoading = true
-               // self.scrollToBottom()
-              //  self.scrollToRow(at: IndexPath(row: self.numberOfRows(inSection: 0) - 1, section: 0), at: .bottom, animated: true)
-                self.reloadData()
-                let point = CGPoint(x: 0, y: self.contentSize.height + self.contentInset.bottom - self.frame.height)
-                        if point.y >= 0{
-                            self.setContentOffset(point, animated: false)
-                        }
-                hitPaginationAPI?(configs[currentConfigID].currentPage + 1)
-                //self.reloadAndScroll(to: IndexPath(row: self.numberOfRows(inSection: 0) - 1, section: 0))
-                // reloadRowsWithoutAnimation(indexPaths: [IndexPath(row: self.numberOfRows(inSection: 0) - 1, section: 0)])
-                //self.scrollToRow(at: IndexPath(row: self.numberOfRows(inSection: 0) - 1, section: 0), at: .bottom, animated: false)
-            }
+            return true
+        }
+        else
+        {
+            return false
         }
     }
 }

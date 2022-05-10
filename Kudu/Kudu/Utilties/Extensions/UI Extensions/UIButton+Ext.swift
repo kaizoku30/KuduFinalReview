@@ -36,8 +36,8 @@ extension UIButton {
     /// - Parameter opacity: Float opacity of radius.
     /// - Parameter shadowRadius: CGFloat radius of shadow.
     func addShadowOnButton(cornerRadius: CGFloat? = nil, color: UIColor = AppColors.gray, offset: CGSize = CGSize.init(width: 1.0, height: 1.0), opacity: Float = 1.0, shadowRadius: CGFloat = 7.0) {
-        let _cornerRadius = cornerRadius.isNil ? self.frame.height/2 : (cornerRadius ?? CGFloat.zero)
-        self.addShadow(cornerRadius: _cornerRadius, color: color, offset: offset, opacity: opacity, shadowRadius: shadowRadius)
+        let buttonRadius = cornerRadius.isNil ? self.frame.height/2 : (cornerRadius ?? CGFloat.zero)
+        self.addShadow(cornerRadius: buttonRadius, color: color, offset: offset, opacity: opacity, shadowRadius: shadowRadius)
     }
     
     /// Method to revere position Of the title and image
