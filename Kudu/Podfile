@@ -21,4 +21,5 @@ target 'Kudu' do
   pod 'AWSS3'
   pod 'SwiftyJSON'
   pod 'LanguageManager-iOS'
+  pod 'SwiftLint'
 end
