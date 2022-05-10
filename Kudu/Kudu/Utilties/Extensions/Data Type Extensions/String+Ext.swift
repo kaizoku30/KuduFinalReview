@@ -1,8 +1,7 @@
 import Foundation
 import UIKit
 
-extension String
-{
+extension String {
     func htmlAttributed(family: String?, size: CGFloat, color: UIColor = .black) -> NSAttributedString? {
         let colorString = color == .black ? "#000000" : "#FFFFFF"
         
@@ -30,7 +29,6 @@ extension String
         }
 }
 
-
 extension String {
     
     static func randomString(length: Int) -> String {
@@ -39,7 +37,7 @@ extension String {
     }
     
     func startsWith(string: String) -> Bool {
-        guard let range = range(of: string, options:[.caseInsensitive]) else {
+        guard let range = range(of: string, options: [.caseInsensitive]) else {
             return false
         }
         return range.lowerBound == startIndex
@@ -58,10 +56,7 @@ extension String {
         let modifiedString = String(chars)
         return modifiedString
     }
-
-    
-    
-    ///Removes all spaces from the string
+    /// Removes all spaces from the string
     var removeSpaces: String {
         return self.replacingOccurrences(of: CommonStrings.whiteSpace, with: CommonStrings.emptyString)
     }
@@ -75,12 +70,12 @@ extension String {
         return Double(self) ?? 0.0
     }
     
-    ///Removes all HTML Tags from the string
+    /// Removes all HTML Tags from the string
     var removeHTMLTags: String {
         return self.replacingOccurrences(of: "<[^>]+>", with: CommonStrings.emptyString, options: .regularExpression, range: nil)
     }
     
-    ///Removes leading and trailing white spaces from the string
+    /// Removes leading and trailing white spaces from the string
     var byRemovingLeadingTrailingWhiteSpaces: String {
         
         let spaceSet = CharacterSet.whitespaces
@@ -91,7 +86,7 @@ extension String {
         self = leadingText + self + trailingText
     }
     
-    ///Method to check that string is emoji
+    /// Method to check that string is emoji
     func isEmojiString() -> Bool {
         if !self.canBeConverted(to: String.Encoding.ascii) {
             return true
@@ -141,21 +136,21 @@ extension String {
     
     func hasUperChar() -> Bool {
         let capitalLetterRegEx  = ".*[A-Z]+.*"
-        let textTest = NSPredicate(format:CommonStrings.predicateMatcher, capitalLetterRegEx)
+        let textTest = NSPredicate(format: CommonStrings.predicateMatcher, capitalLetterRegEx)
         let result = textTest.evaluate(with: self)
         return result
     }
     
     func hasLowerChar() -> Bool {
         let smallLetterRegEx  = ".*[a-z]+.*"
-        let textTest = NSPredicate(format:CommonStrings.predicateMatcher, smallLetterRegEx)
+        let textTest = NSPredicate(format: CommonStrings.predicateMatcher, smallLetterRegEx)
         let result = textTest.evaluate(with: self)
         return result
     }
     
     func hasNumbers() -> Bool {
         let smallLetterRegEx  = ".*[0-9]+.*"
-        let textTest = NSPredicate(format:CommonStrings.predicateMatcher, smallLetterRegEx)
+        let textTest = NSPredicate(format: CommonStrings.predicateMatcher, smallLetterRegEx)
         let result = textTest.evaluate(with: self)
         return result
     }
@@ -172,7 +167,7 @@ extension String {
             return self
         }
     }
-    ///Returns 'true' if the string is any (file, directory or remote etc) url otherwise returns 'false'
+    /// Returns 'true' if the string is any (file, directory or remote etc) url otherwise returns 'false'
     var isAnyUrl: Bool {
         return (URL(string: self) != nil)
     }
@@ -187,7 +182,7 @@ extension String {
         return (self.rangeOfCharacter(from: spaceSet) == nil)
     }
     
-    ///Returns the json object if the string can be converted into it, otherwise returns 'nil'
+    /// Returns the json object if the string can be converted into it, otherwise returns 'nil'
     var jsonObject: Any? {
         if let data = self.data(using: .utf8) {
             do {
@@ -199,12 +194,12 @@ extension String {
         return nil
     }
     
-    ///Returns the base64Encoded string
+    /// Returns the base64Encoded string
     var base64Encoded: String {
         return Data(self.utf8).base64EncodedString()
     }
     
-    ///Returns the string decoded from base64Encoded string
+    /// Returns the string decoded from base64Encoded string
     var base64Decoded: String? {
         guard let data = Data(base64Encoded: self) else { return nil }
         return String(data: data, encoding: .utf8)
@@ -240,7 +235,6 @@ extension String {
         return CGSize(width: CGFloat(width), height: CGFloat(height))
     }
     
-    
     func localizedString(lang: String) -> String {
         
         let path = Bundle.main.path(forResource: lang, ofType: "lproj")
@@ -251,12 +245,12 @@ extension String {
         return NSLocalizedString(self, tableName: nil, bundle: bundle!, value: CommonStrings.emptyString, comment: CommonStrings.emptyString)
     }
     
-    ///Returns 'true' if string contains the substring, otherwise returns 'false'
+    /// Returns 'true' if string contains the substring, otherwise returns 'false'
     func contains(s: String) -> Bool {
         return self.range(of: s) != nil ? true: false
     }
     
-    ///Replaces occurances of a string with the given another string
+    /// Replaces occurances of a string with the given another string
     func replace(string: String, withString: String) -> String {
         return self.replacingOccurrences(of: string, with: withString, options: String.CompareOptions.literal, range: nil)
     }
@@ -273,8 +267,7 @@ extension String {
         return String(self.filter { chars.contains($0) })
     }
 
-    
-    ///Converts the string into 'Date' if possible, based on the given date format and timezone. otherwise returns nil
+    /// Converts the string into 'Date' if possible, based on the given date format and timezone. otherwise returns nil
     func toDate(dateFormat: String, timeZone: TimeZone = TimeZone.current) -> Date? {
         
         let frmtr = DateFormatter()
@@ -285,26 +278,26 @@ extension String {
         return frmtr.date(from: self)
     }
     
-    func getTotalNoOfDaysLeft(dateFormat: String, endDate: Date = Date())->Int{
-        if let startDate = self.toDate(dateFormat: dateFormat){
+    func getTotalNoOfDaysLeft(dateFormat: String, endDate: Date = Date()) -> Int {
+        if let startDate = self.toDate(dateFormat: dateFormat) {
            return startDate.noOfDaysFrom(date: endDate)
         }
         return 0
     }
     
-    func bookingDuration(endDate: String, dateFormat: String)->String{
-        if let startDate = self.toDate(dateFormat: dateFormat), let endDate = endDate.toDate(dateFormat: dateFormat){
-            if startDate.month == endDate.month{
-                let stDate = startDate.toString(dateFormat: "dd",timeZone: TimeZone(abbreviation: "GMT")!)
-                let etDate = endDate.toString(dateFormat: "dd",timeZone: TimeZone(abbreviation: "GMT")!)
-                if stDate == etDate{
-                    return startDate.toString(dateFormat: "MMM") + " " + startDate.toString(dateFormat: "dd",timeZone: TimeZone(abbreviation: "GMT")!)
-                }else{
-                    return startDate.toString(dateFormat: "MMM") + " " + startDate.toString(dateFormat: "dd",timeZone: TimeZone(abbreviation: "GMT")!) + "-" + endDate.toString(dateFormat: "dd",timeZone: TimeZone(abbreviation: "GMT")!)
+    func bookingDuration(endDate: String, dateFormat: String) -> String {
+        if let startDate = self.toDate(dateFormat: dateFormat), let endDate = endDate.toDate(dateFormat: dateFormat) {
+            if startDate.month == endDate.month {
+                let stDate = startDate.toString(dateFormat: "dd", timeZone: TimeZone(abbreviation: "GMT")!)
+                let etDate = endDate.toString(dateFormat: "dd", timeZone: TimeZone(abbreviation: "GMT")!)
+                if stDate == etDate {
+                    return startDate.toString(dateFormat: "MMM") + " " + startDate.toString(dateFormat: "dd", timeZone: TimeZone(abbreviation: "GMT")!)
+                } else {
+                    return startDate.toString(dateFormat: "MMM") + " " + startDate.toString(dateFormat: "dd", timeZone: TimeZone(abbreviation: "GMT")!) + "-" + endDate.toString(dateFormat: "dd", timeZone: TimeZone(abbreviation: "GMT")!)
                 }
                 
-            }else{
-                return startDate.toString(dateFormat: "MMM dd",timeZone: TimeZone(abbreviation: "GMT")!) + "-" + endDate.toString(dateFormat: "MMM dd",timeZone: TimeZone(abbreviation: "GMT")!)
+            } else {
+                return startDate.toString(dateFormat: "MMM dd", timeZone: TimeZone(abbreviation: "GMT")!) + "-" + endDate.toString(dateFormat: "MMM dd", timeZone: TimeZone(abbreviation: "GMT")!)
             }
         }
         return ""
@@ -334,7 +327,7 @@ extension String {
         return !self.checkIfValid(validityExression)
     }
     
-    ///Capitalize the very first letter of the sentence.
+    /// Capitalize the very first letter of the sentence.
     var capitalizedFirst: String {
         guard !isEmpty else { return self }
         var result = self
@@ -347,8 +340,7 @@ extension String {
         return unicodeScalars.reduce(CommonStrings.emptyString) {
             if CharacterSet.uppercaseLetters.contains($1) {
                 return ($0 + CommonStrings.whiteSpace + String($1))
-            }
-            else {
+            } else {
                 return $0 + String($1)
             }
         }
@@ -440,7 +432,6 @@ extension String {
         return indices
     }
     
-    
     func stringToStrDate(inputFormate: String = "yyyy-MM-dd", outputFormat: String = "dd MMM yyyy") -> String {
         let formatter = DateFormatter()
         formatter.dateFormat = inputFormate
@@ -468,12 +459,9 @@ extension String {
     func containsEmoji() -> Bool {
         var isEmoji = false
         
-        for scalar in unicodeScalars
-        {
+        for scalar in unicodeScalars {
            
                 switch scalar.value {
-                
-                
                 case 0x1F600...0x1F64F, // Emoticons
                                 0x1F300...0x1F5FF, // Misc Symbols and Pictographs
                                 0x1F680...0x1F6FF, // Transport and Map
@@ -483,7 +471,6 @@ extension String {
                                 0x1F900...0x1F9FF, // Supplemental Symbols and Pictographs
                                 0x1F1E6...0x1F1FF: // Flags
                     isEmoji = true
-                break
                 default:
                     debugPrint("")
                 }
@@ -494,27 +481,23 @@ extension String {
     }
     
     var isValidUrlByRegex: Bool {
-        get {
             let regEx = "((?:http|https)://)?(?:www\\.)?[\\w\\d\\-_]+\\.\\w{2,3}(\\.\\w{2})?(/(?<=/)(?:[\\w\\d\\-./_]+)?)?"
             let predicate = NSPredicate(format: CommonStrings.predicateMatcher, argumentArray: [regEx])
             let predicatedValue: Bool = predicate.evaluate(with: self)
             var isContainingAllUnicode: Bool = true
             /// Checking the non english characters in the link
-            let _ = self.unicodeScalars.map({ (char) in
-                if !char.isASCII{
+            _ = self.unicodeScalars.map({ (char) in
+                if !char.isASCII {
                     isContainingAllUnicode = false
                 }
             })
             return predicatedValue && isContainingAllUnicode
-        }
     }
     
     var isValidPrice: Bool {
-        get {
             let regEx = "^\\d{0,6}(\\.\\d{1,2})?$"
             let predicate = NSPredicate(format: CommonStrings.predicateMatcher, regEx)
             return predicate.evaluate(with: self)
-        }
     }
     
     func canOpenURL() -> Bool {
@@ -555,18 +538,16 @@ extension NSMutableAttributedString {
         self.addAttribute(NSAttributedString.Key.font, value: font, range: range)
     }
     
-    
 }
 
 extension String {
-    func getAttributedString(font:UIFont,color:UIColor,underline:Bool = false)->NSMutableAttributedString
-    {
-        let attrs:[NSAttributedString.Key:Any] = [
-            NSAttributedString.Key.font : font,
-            NSAttributedString.Key.foregroundColor : color,
-            NSAttributedString.Key.underlineStyle : underline ? 1 : 0]
-        let attributedString = NSMutableAttributedString(string:"")
-        let buttonTitleStr = NSMutableAttributedString(string:self, attributes:attrs)
+    func getAttributedString(font: UIFont, color: UIColor, underline: Bool = false) -> NSMutableAttributedString {
+        let attrs: [NSAttributedString.Key: Any] = [
+            NSAttributedString.Key.font: font,
+            NSAttributedString.Key.foregroundColor: color,
+            NSAttributedString.Key.underlineStyle: underline ? 1 : 0]
+        let attributedString = NSMutableAttributedString(string: "")
+        let buttonTitleStr = NSMutableAttributedString(string: self, attributes: attrs)
         attributedString.append(buttonTitleStr)
         return attributedString
     }
@@ -575,8 +556,8 @@ extension String {
 extension String {
     var isValidURL: Bool {
         let detector = try? NSDataDetector(types: NSTextCheckingResult.CheckingType.link.rawValue)
-        if detector.isNil
-        { return false }
+        if detector.isNil {
+            return false }
         if let match = detector!.firstMatch(in: self, options: [], range: NSRange(location: 0, length: self.utf16.count)) {
             // it is a link, if the match covers the whole string
             return match.range.length == self.utf16.count
@@ -593,8 +574,8 @@ extension String {
         let regex = try? NSRegularExpression(
             pattern: pattern,
             options: [.caseInsensitive])
-        if regex.isNil
-        { return false }
+        if regex.isNil {
+            return false }
         return regex!.firstMatch(
             in: self,
             options: [],
@@ -612,10 +593,8 @@ extension String {
     }
 }
 
-extension String
-{
-    func getWidth(font:UIFont)->CGFloat
-    {
+extension String {
+    func getWidth(font: UIFont) -> CGFloat {
            let fontAttributes = [NSAttributedString.Key.font: font]
            let myText = self
            let size = (myText as NSString).size(withAttributes: fontAttributes)

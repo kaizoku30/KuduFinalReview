@@ -1,15 +1,13 @@
-
 import Foundation
-
 
 extension Double {
     
     func roundToOneDigitCrore() -> String {
-        return String(format:"%.1f", self/10000000)
+        return String(format: "%.1f", self/10000000)
     }
     
     func roundToOneDigitLac() -> String {
-        return String(format:"%.1f", self/100000)
+        return String(format: "%.1f", self/100000)
     }
     
     var stringWithoutZeroFraction: String {
@@ -18,11 +16,11 @@ extension Double {
     }
     
     var roundToOneDigitCroreValue: Double {
-        return Double(String(format:"%.1f", roundDown(self/10000000, toNearest: 0.1))) ?? 0
+        return Double(String(format: "%.1f", roundDown(self/10000000, toNearest: 0.1))) ?? 0
     }
     
     var roundToOneDigitLacValue: Double {
-        return Double(String(format:"%.1f", self/100000)) ?? 0
+        return Double(String(format: "%.1f", self/100000)) ?? 0
     }
     
     func roundToNearest(toNearest: Double) -> Double {
@@ -36,7 +34,7 @@ extension Double {
         return floor(value / toNearest) * toNearest
     }
     
-    func truncate(places : Int)-> Double {
+    func truncate(places: Int) -> Double {
         return Double(floor(pow(10.0, Double(places)) * self)/pow(10.0, Double(places)))
     }
     

@@ -1,4 +1,3 @@
-
 import Foundation
 import UIKit
 
@@ -18,7 +17,7 @@ func swiftDebugPrint(_ items: Any..., separator: String = " ", terminator: Strin
 var isSimulatorDevice: Bool {
     var isSimulator = false
     #if arch(i386) || arch(x86_64)
-        //simulator
+        // simulator
         isSimulator = true
     #endif
     return isSimulator
@@ -39,7 +38,7 @@ func isDeviceIsIphoneX() -> Bool {
     return false
 }
 
-///checking Iphone model to set navigation bar bounds
+/// checking Iphone model to set navigation bar bounds
 func checkIsIphoneXOrGreater() -> Bool {
     switch UIScreen.main.nativeBounds.height {
     case 1136:
@@ -75,7 +74,7 @@ func suffixNumber(number: Double) -> String {
         return "\(sign)\(stringNum ?? "0")"
     }
 
-    let exp: Int = Int(log10(num) / 3.0 ) //log10(1000));
+    let exp: Int = Int(log10(num) / 3.0 ) // log10(1000));
 
     let units: [String] = ["K", "M", "B", "T", "Q", "E"]
 
@@ -84,7 +83,7 @@ func suffixNumber(number: Double) -> String {
     return "\(sign)\(stringNum ?? "0")\(units[exp-1])"
 }
 
-func mainThread(_ completion: @escaping () -> ()) {
+func mainThread(_ completion: @escaping () -> Void) {
     DispatchQueue.main.async {
         completion()
     }

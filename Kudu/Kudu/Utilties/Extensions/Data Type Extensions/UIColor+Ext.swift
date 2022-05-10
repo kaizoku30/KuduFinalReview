@@ -1,5 +1,3 @@
-
-
 import Foundation
 import UIKit
 
@@ -20,11 +18,10 @@ extension UIColor {
         self.init(red: CGFloat(r) / 255.0, green: CGFloat(g) / 255.0, blue: CGFloat(b) / 255.0, alpha: alpha)
     }
     
-    ///Returns the color based on the given R,G,B and alpha values
+    /// Returns the color based on the given R,G,B and alpha values
     class func colorRGB(r: Int, g: Int, b: Int, alpha: CGFloat = 1) -> UIColor {
         return UIColor(r: r, g: g, b: b, alpha: alpha)
     }
-    
     
     /// Variable to get random color
     static var random: UIColor {

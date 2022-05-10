@@ -1,4 +1,3 @@
-
 import Foundation
 
 extension Date {
@@ -122,20 +121,20 @@ extension Date {
         return (Calendar.current as NSCalendar).components(.second, from: date, to: self, options: []).second!
     }
     func offsetFrom(_ date: Date) -> String {
-        if yearsFrom(date)   > 0
-        { return "\(yearsFrom(date))y"}
-        if monthsFrom(date)  > 0
-        { return "\(monthsFrom(date))M"}
-        if weeksFrom(date)   > 0
-        { return "\(weeksFrom(date))w"}
-        if daysFrom(date)    > 0
-        { return "\(daysFrom(date))d"}
-        if hoursFrom(date)   > 0
-        { return "\(hoursFrom(date))h"}
-        if minutesFrom(date) > 0
-        { return "\(minutesFrom(date))m"}
-        if secondsFrom(date) > 0
-        { return "\(secondsFrom(date))s"}
+        if yearsFrom(date)   > 0 {
+            return "\(yearsFrom(date))y"}
+        if monthsFrom(date)  > 0 {
+            return "\(monthsFrom(date))M"}
+        if weeksFrom(date)   > 0 {
+            return "\(weeksFrom(date))w"}
+        if daysFrom(date)    > 0 {
+            return "\(daysFrom(date))d"}
+        if hoursFrom(date)   > 0 {
+            return "\(hoursFrom(date))h"}
+        if minutesFrom(date) > 0 {
+            return "\(minutesFrom(date))m"}
+        if secondsFrom(date) > 0 {
+            return "\(secondsFrom(date))s"}
         return CommonStrings.emptyString
     }
     
@@ -148,8 +147,7 @@ extension Date {
         let sameData = self.day == date.day && self.year == date.year && self.month == date.month
         if sameData {
             return self.hour <= date.hour
-        }
-        else {
+        } else {
             return self.isLessThan(date)
         }
     }
@@ -162,13 +160,12 @@ extension Date {
         let sameData = self.day == date.day && self.year == date.year && self.month == date.month
         if sameData {
             return self.hour >= date.hour
-        }
-        else {
+        } else {
             return self.isGreaterThan(date)
         }
     }
     
-    ///Converts a given Date into String based on the date format and timezone provided
+    /// Converts a given Date into String based on the date format and timezone provided
     func isDayEqualTo(dayName: String, timeZone: TimeZone = TimeZone.current) -> Bool {
         let frmtr = DateFormatter()
         frmtr.dateFormat = DateFormat.EEE.rawValue
@@ -176,7 +173,7 @@ extension Date {
         return frmtr.string(from: self) == dayName
     }
     
-    ///Converts a given Date into String based on the date format and timezone provided
+    /// Converts a given Date into String based on the date format and timezone provided
     func toString(dateFormat: String, timeZone: TimeZone = TimeZone.current) -> String {
         let frmtr = DateFormatter()
         frmtr.dateFormat = dateFormat
@@ -211,7 +208,7 @@ extension Date {
         return local
     }
     
-    func serverDateTime() -> String{
+    func serverDateTime() -> String {
         let formatter = DateFormatter()
         formatter.dateFormat = "YYYY-MM-dd'T'HH:mm:ss.SSSZ"
         formatter.timeZone = TimeZone.current
@@ -373,9 +370,9 @@ public extension Date {
     }
     
     func checkValidDod() -> Bool {
-        if self.calculateAge() >= 21 && self.calculateAge() < 115{
+        if self.calculateAge() >= 21 && self.calculateAge() < 115 {
             return true
-        }else{
+        } else {
             return false
         }
     }

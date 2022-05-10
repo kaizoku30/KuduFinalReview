@@ -41,21 +41,21 @@ class AppNavigationBar: UIView {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var widthFirstIcon: NSLayoutConstraint!
     
-    var navigationItemPressed:((NavigationButtons)->())?
+    var navigationItemPressed: ((NavigationButtons) -> Void)?
     
-    var title:String = "" {
+    var title: String = "" {
         didSet {
             titleLabel.text = title
         }
     }
     
-    var titleFont:UIFont? {
+    var titleFont: UIFont? {
         didSet {
             titleLabel.font = titleFont
         }
     }
     
-    var buttons:[NavigationButtons] = [.vidaLogo] {
+    var buttons: [NavigationButtons] = [.vidaLogo] {
         didSet {
             updateUI()
         }
@@ -73,34 +73,28 @@ class AppNavigationBar: UIView {
      }
 }
 
-extension AppNavigationBar
-{
-    private func commonInit()
-    {
+extension AppNavigationBar {
+    private func commonInit() {
         Bundle.main.loadNibNamed("AppNavigationBar", owner: self, options: nil)
         addSubview(mainContentView)
         mainContentView.frame = self.bounds
         mainContentView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        //firstLeftButton.isUserInteractionEnabled = false
+        // firstLeftButton.isUserInteractionEnabled = false
     }
     
-    private func updateUI()
-    {
-        
-        [firstRightImgButton,secondRightImgButton,thirdRightImgButton,fourthRightImgButton,firstRightButton,secondRightButton].forEach({$0?.isHidden = true})
-        buttons.iteratorFunction({
-            [weak self] (index) in
+    private func updateUI() {
+        [firstRightImgButton, secondRightImgButton, thirdRightImgButton, fourthRightImgButton, firstRightButton, secondRightButton].forEach({$0?.isHidden = true})
+        buttons.iteratorFunction({ [weak self] (index) in
                 
             guard let navigatioBar = self else { return }
             
-            switch index
-            {
+            switch index {
             case 0:
-                navigatioBar.setButton(type: navigatioBar.buttons[0], buttonOutlet: navigatioBar.firstLeftButton,container: firstLeftButtonContainerView)
+                navigatioBar.setButton(type: navigatioBar.buttons[0], buttonOutlet: navigatioBar.firstLeftButton, container: firstLeftButtonContainerView)
             case navigatioBar.buttons.count - 1 :
-                navigatioBar.setButton(type: navigatioBar.buttons[navigatioBar.buttons.count - 1], buttonOutlet: navigatioBar.firstRightButton,container: firstBtnContainerView)
+                navigatioBar.setButton(type: navigatioBar.buttons[navigatioBar.buttons.count - 1], buttonOutlet: navigatioBar.firstRightButton, container: firstBtnContainerView)
             case navigatioBar.buttons.count - 2 :
-                navigatioBar.setButton(type: navigatioBar.buttons[navigatioBar.buttons.count - 2], buttonOutlet: navigatioBar.secondRightButton,container: secondBtnContainerView)
+                navigatioBar.setButton(type: navigatioBar.buttons[navigatioBar.buttons.count - 2], buttonOutlet: navigatioBar.secondRightButton, container: secondBtnContainerView)
             case navigatioBar.buttons.count - 3 :
                 navigatioBar.setButton(type: navigatioBar.buttons[navigatioBar.buttons.count - 3], buttonOutlet: navigatioBar.thirdRightImgButton)
             case navigatioBar.buttons.count - 4 :
@@ -109,12 +103,9 @@ extension AppNavigationBar
                 break
             }
         })
-        
-        
     }
     
-    private func setButton(type:NavigationButtons,buttonOutlet:AppButton, container:UIView? = nil)
-    {
+    private func setButton(type: NavigationButtons, buttonOutlet: AppButton, container: UIView? = nil) {
         widthFirstIcon.constant = 40
         buttonOutlet.isHidden = false
         buttonOutlet.alpha = 1
@@ -134,7 +125,7 @@ extension AppNavigationBar
             }
           //  fourthRightImgButton.setImageForAllMode(image: AppImages.LocDetailNav.save)
             fourthRightImgButton.cornerRadius = 20
-            //fourthRightImgButton.backgroundColor = AppColors.roundButtonBgColor
+            // fourthRightImgButton.backgroundColor = AppColors.roundButtonBgColor
         case .locPin:
             buttonOutlet.isHidden = true
             thirdRightImgButton.alpha = 1
@@ -284,45 +275,39 @@ extension AppNavigationBar
     }
 }
 
-extension AppNavigationBar{
+extension AppNavigationBar {
     
-    @objc func previewTextPressed(){
+    @objc func previewTextPressed() {
         self.navigationItemPressed?(.previewTxtButton)
     }
     
-    @objc func shareTextPressed(){
+    @objc func shareTextPressed() {
         self.navigationItemPressed?(.shareTxtButton)
     }
     
-    @objc func saveTextPressed(){
+    @objc func saveTextPressed() {
         self.navigationItemPressed?(.saveTxtButton)
     }
     
-    @objc func vidaLogoPressed()
-    {
+    @objc func vidaLogoPressed() {
         self.navigationItemPressed?(.vidaLogo)
     }
     
-    @objc func crossDismissPressed()
-    {
+    @objc func crossDismissPressed() {
         self.navigationItemPressed?(.crossDismiss)
     }
     
-    @objc func leftChevronPressed()
-    {
+    @objc func leftChevronPressed() {
         self.navigationItemPressed?(.leftBackChevron)
     }
     
-    @objc func saveCoverImagePressed()
-    {
+    @objc func saveCoverImagePressed() {
         self.navigationItemPressed?(.saveCoverImage)
     }
 }
 
-extension AppNavigationBar
-{
-    func figmaShadowForRoundNavButtons(toView imageView:UIView)
-    {
+extension AppNavigationBar {
+    func figmaShadowForRoundNavButtons(toView imageView: UIView) {
         imageView.layer.shadowRadius = 20
         imageView.layer.shadowOffset = .zero
         imageView.layer.shadowOpacity = 0.1

@@ -1,4 +1,3 @@
-
 import Foundation
 import UIKit
 import QuartzCore
@@ -10,7 +9,7 @@ import ImageIO
 // MARK: - UIIMAGEVIEW
 extension UIImageView {
     
-    func setImageKF(imageString: String, placeHolderImage: UIImage? = nil, loader: Bool = true, loaderTintColor:UIColor,completionHandler: ((Bool) -> ())? = nil) {
+    func setImageKF(imageString: String, placeHolderImage: UIImage? = nil, loader: Bool = true, loaderTintColor: UIColor, completionHandler: ((Bool) -> Void)? = nil) {
         
         if loader {
             self.kf.indicatorType = .activity
@@ -19,7 +18,7 @@ extension UIImageView {
         }
         
         if let imageURL = URL(string: imageString) {
-            self.kf.setImage(with: imageURL, placeholder: placeHolderImage, completionHandler:  { (result) in
+            self.kf.setImage(with: imageURL, placeholder: placeHolderImage, completionHandler: { (result) in
                 switch result {
                 case .success(_):
                     completionHandler?(true)
@@ -64,7 +63,7 @@ extension UIImageView {
         }
     }
     
-    ///Rotates the image by the given angle and returns updated image
+    /// Rotates the image by the given angle and returns updated image
     func rotateImageBy(angleDegree: Float) {
         guard let image = image else { return }
         let rotatedViewBox: UIView = UIView(frame: CGRect(x: 0, y: 0, width: image.size.width, height: image.size.height))
@@ -91,7 +90,7 @@ extension UIImage {
         case scaleToFill, scaleAspectFit, scaleAspectFill
     }
     
-    ///Returns the image by fixing the orientation
+    /// Returns the image by fixing the orientation
     var imageByfixingOrientation: UIImage {
         
         if self.imageOrientation == UIImage.Orientation.up {
@@ -136,7 +135,7 @@ extension UIImage {
         return img
     }
     
-    ///Rotates the image by the given angle and returns updated image
+    /// Rotates the image by the given angle and returns updated image
     func rotateBy(angleDegree: Float) -> UIImage {
         
         let rotatedViewBox: UIView = UIView(frame: CGRect(x: 0, y: 0, width: self.size.width, height: self.size.height))
@@ -155,7 +154,7 @@ extension UIImage {
         return newImage
     }
     
-    ///Saves the image into the given directory and retruns the path
+    /// Saves the image into the given directory and retruns the path
     func saveAs(fileName path: NSString, directory: FileManager.SearchPathDirectory = FileManager.SearchPathDirectory.documentDirectory) -> String {
         
         let nsUserDomainMask = FileManager.SearchPathDomainMask.userDomainMask
@@ -290,7 +289,7 @@ extension UIImage {
      */
     convenience init?(fromView view: UIView) {
         UIGraphicsBeginImageContextWithOptions(view.bounds.size, false, 0)
-        //view.drawViewHierarchyInRect(view.bounds, afterScreenUpdates: true)
+        // view.drawViewHierarchyInRect(view.bounds, afterScreenUpdates: true)
         view.layer.render(in: UIGraphicsGetCurrentContext()!)
         self.init(cgImage: (UIGraphicsGetImageFromCurrentImageContext()?.cgImage!)!)
         UIGraphicsEndImageContext()
@@ -582,7 +581,7 @@ extension UIImage {
 }
 
 extension CGImage {
-    ///Get image color at point
+    /// Get image color at point
     func colors(at: [CGPoint]) -> [UIColor]? {
         let colorSpace = CGColorSpaceCreateDeviceRGB()
         let bytesPerPixel = 4
@@ -616,27 +615,24 @@ extension UIImage {
         UIGraphicsBeginImageContextWithOptions(newSize, false, 0.0)
         draw(in: CGRect(x: 0, y: 0, width: newSize.width, height: newSize.height))
         let newImage: UIImage = UIGraphicsGetImageFromCurrentImageContext()!
-        UIGraphicsEndImageContext();
+        UIGraphicsEndImageContext()
         return newImage
     }
 }
-
 
 extension UIImage {
     func resized(withPercentage percentage: CGFloat, isOpaque: Bool = true) -> UIImage? {
         let canvas = CGSize(width: size.width * percentage, height: size.height * percentage)
         let format = imageRendererFormat
         format.opaque = isOpaque
-        return UIGraphicsImageRenderer(size: canvas, format: format).image {
-            _ in draw(in: CGRect(origin: .zero, size: canvas))
+        return UIGraphicsImageRenderer(size: canvas, format: format).image { _ in draw(in: CGRect(origin: .zero, size: canvas))
         }
     }
     func resized(toWidth width: CGFloat, isOpaque: Bool = true) -> UIImage? {
         let canvas = CGSize(width: width, height: CGFloat(ceil(width/size.width * size.height)))
         let format = imageRendererFormat
         format.opaque = isOpaque
-        return UIGraphicsImageRenderer(size: canvas, format: format).image {
-            _ in draw(in: CGRect(origin: .zero, size: canvas))
+        return UIGraphicsImageRenderer(size: canvas, format: format).image { _ in draw(in: CGRect(origin: .zero, size: canvas))
         }
     }
     
@@ -644,7 +640,7 @@ extension UIImage {
         case byte, kilobyte, megabyte, gigabyte
     }
 
-    func getSizeIn(_ type: DataUnits)-> String {
+    func getSizeIn(_ type: DataUnits) -> String {
 
         guard let data = self.pngData() else {
             return CommonStrings.emptyString

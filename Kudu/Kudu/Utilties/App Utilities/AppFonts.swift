@@ -7,8 +7,7 @@
 
 import UIKit
 
-enum AppFonts : String
-{
+enum AppFonts: String {
     case robotoRegular = "Roboto-Regular"
     case robotoBlack = "Roboto-Black"
     case robotoBoldItalic = "Roboto-BoldItalic"
@@ -23,8 +22,7 @@ enum AppFonts : String
     case robotoThinItalic = "Roboto-ThinItalic"
 }
 
-extension AppFonts
-{
+extension AppFonts {
     func withSize(_ fontSize: CGFloat) -> UIFont {
         if let font = UIFont(name: self.rawValue, size: fontSize) {
           return font

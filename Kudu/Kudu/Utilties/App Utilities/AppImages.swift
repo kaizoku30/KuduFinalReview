@@ -9,6 +9,6 @@ import UIKit
 
 final class AppImages {
     struct MainImages {
-        static var kuduLogoWithText:UIImage  { #imageLiteral(resourceName: "kuduLogoWithText") }
+        static var kuduLogoWithText: UIImage { #imageLiteral(resourceName: "kuduLogoWithText") }
     }
 }

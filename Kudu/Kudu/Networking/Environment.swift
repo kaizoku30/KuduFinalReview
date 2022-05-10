@@ -24,14 +24,12 @@ enum EnvironmentType {
 
 public struct Environment {
     
-    fileprivate var infoDict: [String: Any]  {
-        get {
+    fileprivate var infoDict: [String: Any] {
             if let dict = Bundle.main.infoDictionary {
                 return dict
-            }else {
+            } else {
                 fatalError("Plist file not found")
             }
-        }
     }
     
     public func configuration(_ key: PlistKey) -> String {

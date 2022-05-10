@@ -1,4 +1,3 @@
-
 import Foundation
 import UIKit
 
@@ -14,16 +13,13 @@ extension AppStoryboard {
         return UIStoryboard(name: self.rawValue, bundle: Bundle.main)
     }
 
-    func viewController<T: UIViewController>(_ viewControllerClass: T.Type,
-                        function: String = #function, // debugging purposes
-                        line: Int = #line,
-                        file: String = #file) -> T {
+    func viewController<T: UIViewController>(_ viewControllerClass: T.Type) -> T {
 
         let storyboardID = (viewControllerClass as UIViewController.Type).storyboardID
 
         guard let scene = instance.instantiateViewController(withIdentifier: storyboardID) as? T else {
 
-            fatalError("ViewController with identifier \(storyboardID), not found in \(self.rawValue) Storyboard.\nFile: \(file) \nLine Number: \(line) \nFunction: \(function)")
+            fatalError("ViewController with identifier \(storyboardID), not found in \(self.rawValue)")
         }
 
         return scene
@@ -45,5 +41,3 @@ extension UIViewController {
         return "\(self)"
     }
 }
-
-

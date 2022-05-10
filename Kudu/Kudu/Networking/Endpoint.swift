@@ -1,14 +1,12 @@
-
-
 import Foundation
 import Alamofire
 
 enum Endpoint {
-    //MARK: PRELOGIN END POINTS
-    case payment(cardToken:String)
+    // MARK: PRELOGIN END POINTS
+    case payment(cardToken: String)
     
     /// GET, POST or PUT method for each request
-    var method:Alamofire.HTTPMethod {
+    var method: Alamofire.HTTPMethod {
         switch self {
         case .payment:
             return .post
@@ -16,13 +14,10 @@ enum Endpoint {
     }
     
     /// URLEncoding used for GET requests and JSONEncoding for POST and PUT requests
-    var encoding:Alamofire.ParameterEncoding {
-        if self.method == .get
-        {
+    var encoding: Alamofire.ParameterEncoding {
+        if self.method == .get {
             return URLEncoding.default
-        }
-        else
-        {
+        } else {
             return JSONEncoding.default
         }
     }
@@ -36,16 +31,16 @@ enum Endpoint {
     }
     
     /// parameters Dictionary for each request
-    var parameters:[String:Any] {
+    var parameters: [String: Any] {
         switch self {
         case .payment(let cardToken):
-            return ["source":["type":"token","token":cardToken],"amount":1,"currency":"USD","reference":"ORD=5023-4E38"]
+            return ["source": ["type": "token", "token": cardToken], "amount": 1, "currency": "USD", "reference": "ORD=5023-4E38"]
         }
     }
     
     /// http header for each request (if needed)
-    var header:HTTPHeaders? {
-        var headers = ["platform":"IOS","timezone":"0","api_key":"1234","language":"en"]
+    var header: HTTPHeaders? {
+        var headers = ["platform": "IOS", "timezone": "0", "api_key": "1234", "language": "en"]
         switch self {
         case .payment:
             headers = [:]

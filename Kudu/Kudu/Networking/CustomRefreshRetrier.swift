@@ -10,7 +10,7 @@ class CustomRequestRetrier: RequestAdapter, RequestRetrier {
 
     func adapt(_ urlRequest: URLRequest, for session: Session, completion: @escaping (Result<URLRequest, Error>) -> Void) {
         let modifiedUrlRequest = urlRequest
-        let _ = urlRequest.value(forHTTPHeaderField: "Authorization")
+        _ = urlRequest.value(forHTTPHeaderField: "Authorization")
         completion(.success(modifiedUrlRequest))
     }
 

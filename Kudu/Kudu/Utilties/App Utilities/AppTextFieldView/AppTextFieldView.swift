@@ -21,8 +21,6 @@ enum AppTextFieldUIType {
 }
 
 class AppTextFieldView: UIView {
-    
-    
     @IBOutlet weak var txtFieldBottomConstraint: NSLayoutConstraint!
     @IBOutlet weak var txtFieldTopConstraint: NSLayoutConstraint!
     @IBOutlet weak var txtFieldLeftConstraint: NSLayoutConstraint!
@@ -31,44 +29,42 @@ class AppTextFieldView: UIView {
     @IBOutlet weak var txtFieldClearBtn: AppButton!
     @IBOutlet weak var txtFieldShowPasswordBtn: AppButton!
     
-    var currentText:String {
+    var currentText: String {
         txtField.text ?? ""
     }
     
-    var placeholderText:String {
+    var placeholderText: String {
         didSet {
             txtField.placeholder = placeholderText
         }
     }
 
-    var textFieldClearBtnPressed:(()->())?
-    var textFieldDidChangeCharacters:((String?)->())?
-    var textFieldFinishedEditing:((String?)->())?
+    var textFieldClearBtnPressed:(() -> Void)?
+    var textFieldDidChangeCharacters: ((String?) -> Void)?
+    var textFieldFinishedEditing: ((String?) -> Void)?
     
-    var disableTextField:Bool? = nil {
+    var disableTextField: Bool? {
         didSet {
             setTextFieldEnabled()
         }
     }
     
-    var font:UIFont? {
+    var font: UIFont? {
         didSet {
             self.txtField.font = font
         }
     }
-    var textFieldType:AppTextFieldType {
-        didSet
-        {
-            configureTF()
-        }
-    }
-    var textFieldUI:AppTextFieldUIType {
+    var textFieldType: AppTextFieldType {
         didSet {
             configureTF()
         }
     }
-    var validInputEntered:Bool {
-        get {
+    var textFieldUI: AppTextFieldUIType {
+        didSet {
+            configureTF()
+        }
+    }
+    var validInputEntered: Bool {
             switch textFieldType {
             case .email:
                 return CommonValidation.isValidEmail(txtField.text ?? "")
@@ -79,7 +75,6 @@ class AppTextFieldView: UIView {
             case .name:
                 return true
             }
-        }
     }
     private var lastEnteredCharacter = ""
     
@@ -102,10 +97,8 @@ class AppTextFieldView: UIView {
 
 }
 
-extension AppTextFieldView
-{
-    private func commonInit()
-    {
+extension AppTextFieldView {
+    private func commonInit() {
         Bundle.main.loadNibNamed("AppTextFieldView", owner: self, options: nil)
         addSubview(mainContentView)
         mainContentView.frame = self.bounds
@@ -118,22 +111,17 @@ extension AppTextFieldView
         txtField.spellCheckingType = .no
         txtField.tintColor = AppColors.darkGray
         configureTF()
-        
     }
     
-    func setTextFieldEnabled()
-    {
-        if self.disableTextField ?? false
-        {
+    func setTextFieldEnabled() {
+        if self.disableTextField ?? false {
             self.isUserInteractionEnabled = false
             self.backgroundColor = AppColors.gray
             txtField.attributedPlaceholder = NSAttributedString(
                 string: txtField.placeholder ?? "",
                 attributes: [NSAttributedString.Key.foregroundColor: UIColor.gray]
             )
-        }
-        else
-        {
+        } else {
             self.isUserInteractionEnabled = true
             self.backgroundColor = .clear
             txtField.attributedPlaceholder = NSAttributedString(
@@ -143,13 +131,11 @@ extension AppTextFieldView
         }
     }
     
-    func configureTF()
-    {
-        switch textFieldType
-        {
+    func configureTF() {
+        switch textFieldType {
         case .email:
             
-            //txtField.placeholder = LS.Placeholder.email
+            // txtField.placeholder = LS.Placeholder.email
             txtField.keyboardType = .emailAddress
             
         case.userName:
@@ -164,8 +150,7 @@ extension AppTextFieldView
          //   txtField.placeholder = LS.Placeholder.name
             txtField.keyboardType = .alphabet
         }
-        switch textFieldUI
-        {
+        switch textFieldUI {
         case .plain:
             break
         case .roundedWithBorder:
@@ -173,8 +158,7 @@ extension AppTextFieldView
         }
     }
     
-    func setUpRoundedTFWithBorder()
-    {
+    func setUpRoundedTFWithBorder() {
         txtFieldTopConstraint.constant = 10
         txtFieldLeftConstraint.constant = 10
         txtFieldBottomConstraint.constant = 10
@@ -186,16 +170,13 @@ extension AppTextFieldView
     
 }
 
-extension AppTextFieldView:UITextFieldDelegate
-{
+extension AppTextFieldView: UITextFieldDelegate {
     @objc func textFieldDidChange(_ textField: UITextField) {
-        switch textFieldType
-        {
+        switch textFieldType {
         case .email:
             textField.text = textField.text?.lowercased()
         case .name:
-            if currentText.contains(".")
-            {
+            if currentText.contains(".") {
                 textField.text = currentText.replacingOccurrences(of: ".", with: "")
             }
         case .userName:
@@ -211,9 +192,8 @@ extension AppTextFieldView:UITextFieldDelegate
         
         debugPrint("Textfield selected")
         CommonFunctions.hideToast()
-        switch textFieldType
-        {
-        case .email,.name,.userName:
+        switch textFieldType {
+        case .email, .name, .userName:
             txtFieldClearBtn.isHidden = false
         case .password:
             break
@@ -225,15 +205,13 @@ extension AppTextFieldView:UITextFieldDelegate
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         let text: NSString = (textField.text ?? "") as NSString
         let newString = text.replacingCharacters(in: range, with: string)
-        switch textFieldType
-        {
+        switch textFieldType {
         case .email:
             return string != CommonStrings.whiteSpace && !newString.contains(CommonStrings.whiteSpace) && !string.isEmojiString()
         case .userName:
             return self.validateUserNameTextField(newString, string)
         case .password:
-            if newString.count > 16 || string == CommonStrings.whiteSpace || newString.contains(CommonStrings.whiteSpace) || string.isEmojiString()
-            {
+            if newString.count > 16 || string == CommonStrings.whiteSpace || newString.contains(CommonStrings.whiteSpace) || string.isEmojiString() {
                 return false
             }
             return true
@@ -242,40 +220,33 @@ extension AppTextFieldView:UITextFieldDelegate
         }
     }
     
-    private func validateUserNameTextField(_ newString:String,_ string:String)->Bool
-    {
+    private func validateUserNameTextField(_ newString: String, _ string: String) -> Bool {
         let alphaNumericCharacter = CharacterSet.alphanumerics
         let specialCharsAllows = CharacterSet(charactersIn: "._")
         let allAllowedUsernameChars = alphaNumericCharacter.union(specialCharsAllows)
         let enteredCharacterSet = CharacterSet(charactersIn: newString)
-        if !enteredCharacterSet.isSubset(of: allAllowedUsernameChars)
-        {
+        if !enteredCharacterSet.isSubset(of: allAllowedUsernameChars) {
             return false
         }
-        if newString.count > 15 || string == CommonStrings.whiteSpace || newString.contains(CommonStrings.whiteSpace) || string.isEmojiString()
-        {
+        if newString.count > 15 || string == CommonStrings.whiteSpace || newString.contains(CommonStrings.whiteSpace) || string.isEmojiString() {
             return false
         }
         return true
     }
     
-    private func validateNameTextField(_ newString:String,_ string:String)->Bool
-    {
+    private func validateNameTextField(_ newString: String, _ string: String) -> Bool {
         let alphabetSet = CharacterSet.letters
         let allowedSet = alphabetSet.union(CharacterSet(charactersIn: CommonStrings.whiteSpace))
         let enteredSet = CharacterSet(charactersIn: newString)
         
-        if currentText == CommonStrings.emptyString && string == CommonStrings.whiteSpace
-        {
+        if currentText == CommonStrings.emptyString && string == CommonStrings.whiteSpace {
             return false
         }
         
-        if newString.count > 20 || (string == CommonStrings.whiteSpace && lastEnteredCharacter == CommonStrings.whiteSpace) || string.isEmojiString()
-        {
+        if newString.count > 20 || (string == CommonStrings.whiteSpace && lastEnteredCharacter == CommonStrings.whiteSpace) || string.isEmojiString() {
             return false
         }
-        if !enteredSet.isSubset(of: allowedSet)
-        {
+        if !enteredSet.isSubset(of: allowedSet) {
             return false
         }
         lastEnteredCharacter = string
@@ -284,30 +255,25 @@ extension AppTextFieldView:UITextFieldDelegate
     
     func textFieldDidEndEditing(_ textField: UITextField) {
         txtFieldClearBtn.isHidden = true
-        switch textFieldType
-        {
+        switch textFieldType {
         case .email:
             debugPrint("Valid email :\(CommonValidation.isValidEmail(textField.text ?? ""))")
-        case .userName,.password,.name:
+        case .userName, .password, .name:
             debugPrint("Valid?")
         }
         textFieldFinishedEditing?(textField.text)
     }
 }
 
-
-extension AppTextFieldView
-{
+extension AppTextFieldView {
     @IBAction func clearBtnPressed() {
         txtField.resignFirstResponder()
         txtField.text = ""
         textFieldDidChangeCharacters?(txtField.text)
     }
     
-    func resetShowPasswordBtnState()
-    {
-        if self.textFieldType == .password
-        {
+    func resetShowPasswordBtnState() {
+        if self.textFieldType == .password {
             txtField.isSecureTextEntry = true
            // txtFieldShowPasswordBtn.setImageForAllMode(image: AppImages.PasswordTF.showPassword)
         }
@@ -316,17 +282,13 @@ extension AppTextFieldView
     
     @IBAction func showPasswordBtnTapped() {
         txtField.isSecureTextEntry = !txtField.isSecureTextEntry
-        switch txtField.isSecureTextEntry
-        {
+        switch txtField.isSecureTextEntry {
         case true:
             debugPrint("show password")
            // txtFieldShowPasswordBtn.setImageForAllMode(image: AppImages.PasswordTF.showPassword)
         case false:
             debugPrint("hide password")
-            //txtFieldShowPasswordBtn.setImageForAllMode(image: AppImages.PasswordTF.hidePassword)
+            // txtFieldShowPasswordBtn.setImageForAllMode(image: AppImages.PasswordTF.hidePassword)
         }
     }
 }
-
-
-

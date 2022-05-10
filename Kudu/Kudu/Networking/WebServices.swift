@@ -7,13 +7,10 @@
 
 import Foundation
 
-final class WebServices
-{
+final class WebServices {
     final class PaymentTestEndPoints {
-        static func payADollar(cardToken:String,success: @escaping SuccessCompletionBlock<EmptyDataResponse>, failure: @escaping ErrorFailureCompletionBlock)
-        {
+        static func payADollar(cardToken: String, success: @escaping SuccessCompletionBlock<EmptyDataResponse>, failure: @escaping ErrorFailureCompletionBlock) {
             Api.requestNew(endpoint: .payment(cardToken: cardToken), successHandler: success, failureHandler: failure)
         }
     }
 }
-

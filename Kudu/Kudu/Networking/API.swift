@@ -1,11 +1,9 @@
-
 import Foundation
 import Alamofire
 import SystemConfiguration
 
-
 typealias SuccessCompletionBlock<T> = ( _ response: T ) -> Void
-typealias FailureCompletionBlock = ( _ error : String ) -> Void
+typealias FailureCompletionBlock = ( _ error: String ) -> Void
 typealias ErrorFailureCompletionBlock = ( _ status: ResponseStatus ) -> Void
 
 /// API request method used for all requests
@@ -35,7 +33,6 @@ struct Api {
         return (isReachable && !needsConnection)
     }
     
-    
     static var session: Session?
     
     static func requestNew<T: Codable>(endpoint: Endpoint, successHandler: @escaping SuccessCompletionBlock<T>, failureHandler: @escaping ErrorFailureCompletionBlock) {
@@ -56,11 +53,10 @@ struct Api {
                        encoding: endpoint.encoding,
                        headers: endpoint.header,
                        interceptor: interceptor)
-                .validate(contentType:["application/json"])
+                .validate(contentType: ["application/json"])
                 .authenticate(with: credentials)
                 .responseJSON { (response) in
-                    if endpoint.method == .get && response.request?.url != nil
-                    {
+                    if endpoint.method == .get && response.request?.url != nil {
                         debugPrint("Request GET URL with Parameters : \((response.request?.url)!)")
                     }
                     print("""
@@ -82,7 +78,7 @@ struct Api {
                         handleSuccessNew(response: response, successHandler: successHandler, failureHandler: failureHandler)
                     }
                 }
-        }else {
+        } else {
             failureHandler(.init(code: 100, msg: "No Internet Connection"))
         }
     }
@@ -96,47 +92,44 @@ struct Api {
                // let decodableObject = try JSONDecoder().decode(T.self, from: value)
              //   successHandler(decodableObject)
                 
-                //MARK: HANDLE DELETION/BLOCKED ACROSS APP AFTER CODES ARE PROVIDED FROM BACKEND
-                //emptyDataResponse.statusCode == Constants.StatusCode.BLOCKED || emptyDataResponse.statusCode == Constants.StatusCode.DELETED ||
+                // MARK: HANDLE DELETION/BLOCKED ACROSS APP AFTER CODES ARE PROVIDED FROM BACKEND
+                // emptyDataResponse.statusCode == Constants.StatusCode.BLOCKED || emptyDataResponse.statusCode == Constants.StatusCode.DELETED ||
                 if emptyDataResponse.type == "SESSION_EXPIRED" || emptyDataResponse.type == "INVALID_TOKEN" {
                    // NotificationCenter.postNotificationForObservers(.resetLoginState)
-                    handleUserDeletedOrBlocked(msg:emptyDataResponse.message ?? "LS.Errors.somethingWentWrong")
+                    handleUserDeletedOrBlocked(msg: emptyDataResponse.message ?? "LS.Errors.somethingWentWrong")
                 } else {
                     let decodableObject = try JSONDecoder().decode(T.self, from: value)
                     successHandler(decodableObject)
                 }
 
-            }catch let errorCaught {
+            } catch let errorCaught {
                
-                failureHandler(.init(msg: errorCaught.localizedDescription,errorObject: errorCaught as? DecodingError))
+                failureHandler(.init(msg: errorCaught.localizedDescription, errorObject: errorCaught as? DecodingError))
             }
-        }else {
+        } else {
             failureHandler(.init(msg: "Unable to get body data"))
         }
     }
     
-    static func handleUserDeletedOrBlocked(msg:String){
+    static func handleUserDeletedOrBlocked(msg: String) {
         debugPrint("Handle Delete Response Here :\(msg)")
     }
     
-    static func downloadFile(with url:URL,progressBlock:((_ progress:CGFloat)->())?,completion:((_ url:URL?,_ error:Error?)->())?){
-        let destination = DownloadRequest.suggestedDownloadDestination(for: .documentDirectory,in: .userDomainMask,options: .removePreviousFile)
-    
-//        FileManager.init().clearTmpDirectory()
-
+    static func downloadFile(with url: URL, progressBlock: ((_ progress: CGFloat) -> Void)?, completion: ((_ url: URL?, _ error: Error?) -> Void)?) {
+        let destination = DownloadRequest.suggestedDownloadDestination(for: .documentDirectory, in: .userDomainMask, options: .removePreviousFile)
         AF.download(
             url,
             method: .get,
             encoding: JSONEncoding.default,
             headers: nil,
             to: destination).downloadProgress(closure: { (progress) in
-                //progress closure
-                print("download",progress)
+                // progress closure
+                print("download", progress)
                 progressBlock?(CGFloat(progress.fractionCompleted))
             }).response(completionHandler: { (defaultDownloadResponse) in
-                //here you able to access the DefaultDownloadResponse
-                //result closure
-                completion?(defaultDownloadResponse.fileURL,defaultDownloadResponse.error)
+                // here you able to access the DefaultDownloadResponse
+                // result closure
+                completion?(defaultDownloadResponse.fileURL, defaultDownloadResponse.error)
 //                print("url is ",defaultDownloadResponse.fileURL)
             })
     }

@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-final class AppColors:UIColor {
+final class AppColors: UIColor {
     
-    static var gray636367:UIColor { #colorLiteral(red: 0.3882352941, green: 0.3882352941, blue: 0.4039215686, alpha: 1) }
+    static var gray636367: UIColor { #colorLiteral(red: 0.3882352941, green: 0.3882352941, blue: 0.4039215686, alpha: 1) }
 }

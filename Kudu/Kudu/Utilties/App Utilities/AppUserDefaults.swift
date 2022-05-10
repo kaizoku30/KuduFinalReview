@@ -40,12 +40,11 @@ class AppUserDefaults {
         UserDefaults.standard.synchronize()
     }
     
-    static func saveWithUniqueKey(value : Any, forKey key : String) {
+    static func saveWithUniqueKey(value: Any, forKey key: String) {
         
         UserDefaults.standard.set(value, forKey: key)
         UserDefaults.standard.synchronize()
     }
-    
     
     static func removeValue(forKey key: Key) {
         
