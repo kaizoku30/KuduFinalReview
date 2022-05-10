@@ -22,14 +22,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         Self.shared = self
-        //let _ = DataManager.shared
-        //AWSUploadCache.logCacheStatus()
-        //AWSUploadCache.deleteUnusedAWSFiles()
+        // let _ = DataManager.shared
+        // AWSUploadCache.logCacheStatus()
+        // AWSUploadCache.deleteUnusedAWSFiles()
         SceneDelegate.shared?.window = UIWindow(windowScene: windowScene)
-        LanguageManager.shared.setLanguage(language: .ar, for: nil, viewControllerFactory: nil, animation: nil)
-        let launchVC = LaunchVC.instantiate(fromAppStoryboard: .Onboarding)
-        SceneDelegate.shared?.window?.rootViewController = launchVC
-        window?.makeKeyAndVisible()
+        Router.shared.initialiseLaunchVC()
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
@@ -60,6 +57,4 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // to restore the scene back to its current state.
     }
 
-
 }
-

@@ -34,7 +34,7 @@ class AppUserDefaults {
         return value
     }
     
-    static func save(value : Any, forKey key : Key) {
+    static func save(value: Any, forKey key: Key) {
         
         UserDefaults.standard.set(value, forKey: key.rawValue)
         UserDefaults.standard.synchronize()
@@ -47,13 +47,13 @@ class AppUserDefaults {
     }
     
     
-    static func removeValue(forKey key : Key) {
+    static func removeValue(forKey key: Key) {
         
         UserDefaults.standard.removeObject(forKey: key.rawValue)
         UserDefaults.standard.synchronize()
     }
     
-    static func removeValue(forUniqueKey key : String) {
+    static func removeValue(forUniqueKey key: String) {
         
         UserDefaults.standard.removeObject(forKey: key)
         UserDefaults.standard.synchronize()
@@ -68,9 +68,14 @@ class AppUserDefaults {
 
 extension AppUserDefaults {
     
-    enum Key : String {
+    enum Key: String {
         case selectedLanguage
         case pendingAWSRequests
+    }
+    
+    enum Language: String {
+        case en
+        case ar
     }
     
 }

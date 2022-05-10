@@ -5,7 +5,7 @@ enum PushTransition:Int {
     case horizontal
 }
 
-class BaseNavVC: UINavigationController,UIGestureRecognizerDelegate {
+class BaseNavVC: UINavigationController, UIGestureRecognizerDelegate {
 
     override init(rootViewController: UIViewController) {
         super.init(rootViewController: rootViewController)
@@ -38,8 +38,7 @@ class BaseNavVC: UINavigationController,UIGestureRecognizerDelegate {
            return viewControllers.count > 1
        }
     
-    func push(vc:BaseVC,animated:Bool = true)
-    {
+    func push(vc:BaseVC, animated:Bool = true) {
         pushViewController(vc, animated: animated)
     }
 
@@ -47,7 +46,6 @@ class BaseNavVC: UINavigationController,UIGestureRecognizerDelegate {
         return super.popViewController(animated: animated)
     }
     
-
 }
 
 extension UINavigationController {

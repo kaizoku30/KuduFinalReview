@@ -8,8 +8,7 @@
 import UIKit
 
 final class AppImages {
-    func dummyFunction()
-    {
-        debugPrint("Remove this when you add images")
+    struct MainImages {
+        static var kuduLogoWithText:UIImage  { #imageLiteral(resourceName: "kuduLogoWithText") }
     }
 }

@@ -8,12 +8,18 @@
 import UIKit
 
 class LaunchVC:BaseVC
+
 {
-    @IBOutlet weak var testLabel: UILabel!
-    
+    @IBOutlet weak var welcomeBackLabel: UILabel!
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        testLabel.text = "Hello".localiz()
+        delayAndGoToNextVC()
     }
     
+    private func delayAndGoToNextVC() {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2, execute: {
+            Router.shared.goToLanguagePrefSelectionVC(fromVC: self)
+        })
+    }
 }

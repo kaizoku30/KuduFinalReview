@@ -6,4 +6,6 @@
   
 */
 
-"Hello" = "أهلا";
+"greatTasteLabel" = "طعم رائع.\nسلمت آمنة";
+"getFoodDelivery" = "احصل على الطعام الذي تم توصيله دون توصيل";
+"Continue" = "يكمل";

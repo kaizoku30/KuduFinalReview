@@ -10,7 +10,7 @@ import UIKit
 class Router: NSObject {
     
     static let shared = Router()
-    var mainNavigation:BaseNavVC?
+    private var mainNavigation:BaseNavVC?
     var appWindow: UIWindow? {
         var window: UIWindow?
         window = SceneDelegate.shared?.window
@@ -25,5 +25,24 @@ class Router: NSObject {
     private override init()
     {
         //Private Init for Singleton Pattern
+    }
+    
+    func initialiseLaunchVC() {
+        mainNavigation = BaseNavVC(rootViewController: LaunchVC.instantiate(fromAppStoryboard: .Onboarding))
+        SceneDelegate.shared?.window?.rootViewController = mainNavigation
+        appWindow?.makeKeyAndVisible()
+    }
+    
+    func goToLanguagePrefSelectionVC(fromVC: BaseVC) {
+        if fromVC.navigationController.isNotNil
+        {
+            fromVC.navigationController!.pushViewController(LanguageSelectionVC.instantiate(fromAppStoryboard: .Onboarding), animated: true)
+        }
+    }
+    
+    func goToTutorialVC(fromVC: BaseVC) {
+        if fromVC.navigationController.isNotNil {
+            fromVC.navigationController!.pushViewController(TutorialVC.instantiate(fromAppStoryboard: .Onboarding), animated: true)
+        }
     }
 }
