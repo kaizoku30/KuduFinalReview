@@ -63,7 +63,12 @@ struct Api {
                     {
                         debugPrint("Request GET URL with Parameters : \((response.request?.url)!)")
                     }
-                    print("NEW REQUEST: \n\n Now: \(Date()) \n Url: \(endpoint.path) \n Parameters: \(endpoint.parameters) \n Value: \n \(String(describing: response.value)) \n Header: \(String(describing: endpoint.header)) \n Validation Error: \(String(describing: response.error?.localizedDescription)) \n\n")
+                    print("""
+                          NEW REQUEST: \n\n Now: \(Date()) \n
+                          Url: \(endpoint.path) \n Parameters: \(endpoint.parameters) \n Value: \n \
+                          (String(describing: response.value)) \n Header: \(String(describing: endpoint.header)) \n
+                          Validation Error: \(String(describing: response.error?.localizedDescription)) \n\n
+                          """)
                     
                     switch response.result {
                     

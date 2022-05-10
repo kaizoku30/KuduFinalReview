@@ -1,0 +1,20 @@
+reporter: "xcode" # reporter type (xcode, json, csv, checkstyle, junit, html, emoji)
+
+excluded: # paths to ignore during linting. Takes precedence over `included`.
+    - Carthage
+    - Pods
+
+disabled_rules: # rule identifiers to exclude from running
+    - trailing_whitespace
+    - force_cast
+    - force_unwrapping
+    - force_try
+    - empty_enum_arguments
+    - overridden_super_call
+    - sorted_imports
+    - line_length
+    - type_name
+    - identifier_name
+    - function_body_length
+    - large_tuple
+    - file_length
