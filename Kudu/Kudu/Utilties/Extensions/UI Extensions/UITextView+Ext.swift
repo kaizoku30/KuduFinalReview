@@ -4,12 +4,6 @@ import UIKit
 // MARK: - Methods
 public extension UITextView {
     
-    /// Scroll to the bottom of text view
-    func scrollToBottom() {
-        let range = NSRange(location: (text as NSString).length - 1, length: 1)
-        scrollRangeToVisible(range)
-    }
-    
     /// Scroll to the top of text view
     func scrollToTop() {
         let range = NSRange(location: 0, length: 1)
@@ -44,26 +38,5 @@ public extension UITextView {
     var cursorDistance: Int? {
         guard let cursorIndex = cursorIndex else { return nil }
         return text.distance(from: text.startIndex, to: cursorIndex)
-    }
-}
-
-extension UITextView {
-
-    ///Returns Number of Lines
-    public var numberOfLines: Int {
-        let layoutManager = self.layoutManager
-        let numberOfGlyphs = layoutManager.numberOfGlyphs
-        var lineRange: NSRange = NSRange(location: 0, length: 1)
-        var index = 0
-        var numberOfLines = 0
-
-        while index < numberOfGlyphs {
-            layoutManager.lineFragmentRect(
-                forGlyphAt: index, effectiveRange: &lineRange
-            )
-            index = NSMaxRange(lineRange)
-            numberOfLines += 1
-        }
-        return numberOfLines
     }
 }

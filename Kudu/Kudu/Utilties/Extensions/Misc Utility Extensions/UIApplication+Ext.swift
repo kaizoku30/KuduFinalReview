@@ -39,22 +39,4 @@ extension UIApplication {
             UIApplication.shared.applicationIconBadgeNumber = newValue
         }
     }
-    
-    /// Method to get top view controller
-    /// - Parameter base: optional base ViewController
-    /// - Returns: Top view controller
-//    public class func topViewController(_ base: UIViewController? = UISceneDelegate.shared.keyWindow?.rootViewController) -> UIViewController? {
-//        if let nav = base as? UINavigationController {
-//            return topViewController(nav.visibleViewController)
-//        }
-//        if let tab = base as? UITabBarController {
-//            if let selected = tab.selectedViewController {
-//                return topViewController(selected)
-//            }
-//        }
-//        if let presented = base?.presentedViewController {
-//            return topViewController(presented)
-//        }
-//        return base
-//    }
 }

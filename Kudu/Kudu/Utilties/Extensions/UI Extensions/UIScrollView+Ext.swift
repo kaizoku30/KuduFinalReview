@@ -13,7 +13,7 @@ extension UIScrollView {
 
     /// Method to scroll to bottom
     /// - Parameter animated: Bool value which determine whether animated or not
-    func scrollToBottom(animated: Bool = true) {
+    func scrollToBottom() {
         guard contentSize.height > bounds.height else{return}
         let offSetToSet = contentSize.height - (bounds.height + contentOffset.y)
         guard offSetToSet > 0 else{return}

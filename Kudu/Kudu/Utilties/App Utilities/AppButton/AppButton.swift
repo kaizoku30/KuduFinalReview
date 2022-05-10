@@ -1,6 +1,6 @@
 //
 //  AppBottomActionBtn.swift
-//  VIDA
+//  KUDU
 //
 //  Created by Admin on 05/01/22.
 //
@@ -37,7 +37,7 @@ class AppButton: UIButton {
 extension AppButton
 {
     private func setupSubviews() {
-        self.addTarget(self, action: #selector(buttonAction(sender:)), for: .touchUpInside)
+        self.addTarget(self, action: #selector(buttonAction), for: .touchUpInside)
         enabledFontColor = self.titleLabel?.textColor ?? .clear
         enabledBgColor = self.backgroundColor ?? .clear
         activityIndicator = NVActivityIndicatorView(frame:CGRect(x: 0, y: 0, width: 25, height: 25) , type: .lineSpinFadeLoader, color: .white)
@@ -92,8 +92,7 @@ extension AppButton
 
 extension AppButton
 {
-    @objc private func buttonAction(sender: UIButton!) {
-       // debugPrint("AppActionButton tapped")
+    @objc private func buttonAction() {
         handleBtnTap?()
     }
 }

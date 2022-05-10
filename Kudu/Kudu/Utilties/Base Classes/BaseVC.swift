@@ -71,9 +71,6 @@ class BaseVC: UIViewController {
         self.view.endEditing(true)
         }
     }
-    
-    //MARK:- Functions
-    //================
 }
 
 extension BaseVC {

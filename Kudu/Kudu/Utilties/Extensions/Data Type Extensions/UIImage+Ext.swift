@@ -8,26 +8,6 @@ import Kingfisher
 import ImageIO
 
 // MARK: - UIIMAGEVIEW
-//=====================
-
-extension UIImage {
-    class func colorForNavBar(color: UIColor) -> UIImage? {
-        let rect = CGRect(x: 0, y: 0, width: 1, height: 1)
-        UIGraphicsBeginImageContext(rect.size)
-        let context = UIGraphicsGetCurrentContext()
-        guard let context = context else { return nil }
-        context.setFillColor(color.cgColor)
-        context.fill(rect)
-
-        let image = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-        guard let image = image else {
-            return nil
-        }
-        return image
-    }
-}
-
 extension UIImageView {
     
     func setImage_kf(imageString: String, placeHolderImage: UIImage? = nil, loader: Bool = true, loaderTintColor:UIColor,completionHandler: ((Bool) -> ())? = nil) {
@@ -88,7 +68,7 @@ extension UIImageView {
     func rotateImageBy(angleDegree: Float) {
         guard let image = image else { return }
         let rotatedViewBox: UIView = UIView(frame: CGRect(x: 0, y: 0, width: image.size.width, height: image.size.height))
-        let angleRadians: CGFloat = CGFloat(angleDegree * Float((Double.pi / 180.0)))
+        let angleRadians: CGFloat = CGFloat(angleDegree * Float(Double.pi / 180.0))
         let t: CGAffineTransform = CGAffineTransform(rotationAngle: angleRadians)
         rotatedViewBox.transform = t
         let rotatedSize: CGSize = rotatedViewBox.frame.size
@@ -160,7 +140,7 @@ extension UIImage {
     func rotateBy(angleDegree: Float) -> UIImage {
         
         let rotatedViewBox: UIView = UIView(frame: CGRect(x: 0, y: 0, width: self.size.width, height: self.size.height))
-        let angleRadians: CGFloat = CGFloat(angleDegree * Float((Double.pi / 180.0)))
+        let angleRadians: CGFloat = CGFloat(angleDegree * Float(Double.pi / 180.0))
         let t: CGAffineTransform = CGAffineTransform(rotationAngle: angleRadians)
         rotatedViewBox.transform = t
         let rotatedSize: CGSize = rotatedViewBox.frame.size
@@ -475,54 +455,6 @@ extension UIImage {
         return crop(bounds: insetRect)
     }
     
-    // MARK: Resize
-    
-    /**
-     Creates a resized copy of an image.
-     
-     - Parameter size: The new size of the image.
-     - Parameter contentMode: The way to handle the content in the new size.
-     
-     - Returns A new image
-     */
-    func resize(toSize: CGSize, contentMode: UIImageContentMode = .scaleToFill) -> UIImage? {
-        let horizontalRatio = size.width / self.size.width
-        let verticalRatio = size.height / self.size.height
-        var ratio: CGFloat!
-        
-        switch contentMode {
-        case .scaleToFill:
-            ratio = 1
-        case .scaleAspectFill:
-            ratio = max(horizontalRatio, verticalRatio)
-        case .scaleAspectFit:
-            ratio = min(horizontalRatio, verticalRatio)
-        }
-        
-        let rect = CGRect(x: 0, y: 0, width: size.width * ratio, height: size.height * ratio)
-        
-        let colorSpace = CGColorSpaceCreateDeviceRGB()
-        let bitmapInfo = CGBitmapInfo(rawValue: CGImageAlphaInfo.premultipliedLast.rawValue)
-        let context = CGContext(data: nil, width: Int(rect.size.width), height: Int(rect.size.height), bitsPerComponent: 8, bytesPerRow: 0, space: colorSpace, bitmapInfo: bitmapInfo.rawValue)
-        
-        let transform = CGAffineTransform.identity
-        
-        // Rotate and/or flip the image if required by its orientation
-        context?.concatenate(transform)
-        
-        // Set the quality level to use when rescaling
-        context!.interpolationQuality = CGInterpolationQuality(rawValue: 3)!
-        
-        //CGContextSetInterpolationQuality(context, CGInterpolationQuality(kCGInterpolationHigh.value))
-        
-        // Draw into the context; this scales the image
-        context?.draw(self.cgImage!, in: rect)
-        
-        // Get the resized image from the context and a UIImage
-        let newImage = UIImage(cgImage: (context?.makeImage()!)!, scale: self.scale, orientation: self.imageOrientation)
-        return newImage
-    }
-    
     // MARK: Corner Radius
     
     /**
@@ -644,138 +576,6 @@ extension UIImage {
         
         return image
     }
-    /**
-     Applies a blur to an image based on the specified radius, tint color saturation and mask image
-     
-     - Parameter blurRadius: The radius of the blur.
-     - Parameter tintColor: The optional tint color.
-     - Parameter saturationDeltaFactor: The detla for saturation.
-     - Parameter maskImage: The optional image for masking.
-     
-     - Returns New image or nil
-     */
-        func applyBlur(withRadius blurRadius: CGFloat, tintColor: UIColor?, saturationDeltaFactor: CGFloat, maskImage: UIImage? = nil) -> UIImage? {
-    
-            guard size.width > 0 && size.height > 0 && cgImage != nil else {
-                return nil
-            }
-            if maskImage != nil {
-                guard maskImage?.cgImage != nil else {
-                    return nil
-                }
-            }
-            let imageRect = CGRect(origin: CGPoint.zero, size: size)
-            var effectImage = self
-            let hasBlur = blurRadius > CGFloat(Float.ulpOfOne)
-            let hasSaturationChange = abs(saturationDeltaFactor - 1.0) > CGFloat(Float.ulpOfOne)
-            if hasBlur || hasSaturationChange {
-    
-                UIGraphicsBeginImageContextWithOptions(size, false, 0.0)
-                let effectInContext = UIGraphicsGetCurrentContext()
-                effectInContext?.scaleBy(x: 1.0, y: -1.0)
-                effectInContext?.translateBy(x: 0, y: -size.height)
-                effectInContext?.draw(cgImage!, in: imageRect)
-    
-                var effectInBuffer = vImage_Buffer(
-                    data: effectInContext?.data,
-                    height: UInt((effectInContext?.height)!),
-                    width: UInt((effectInContext?.width)!),
-                    rowBytes: (effectInContext?.bytesPerRow)!)
-    
-                UIGraphicsBeginImageContextWithOptions(size, false, 0.0)
-                let effectOutContext = UIGraphicsGetCurrentContext()
-    
-                var effectOutBuffer = vImage_Buffer(
-                    data: effectOutContext?.data,
-                    height: UInt((effectOutContext?.height)!),
-                    width: UInt((effectOutContext?.width)!),
-                    rowBytes: (effectOutContext?.bytesPerRow)!)
-    
-                if hasBlur {
-                    let inputRadius = blurRadius * UIScreen.main.scale
-                    let sqrtPi: CGFloat = CGFloat(sqrt(Double.pi * 2.0))
-                    var radius = UInt32(floor(inputRadius * 3.0 * sqrtPi / 4.0 + 0.5))
-                    if radius % 2 != 1 {
-                        radius += 1 // force radius to be odd so that the three box-blur methodology works.
-                    }
-                    let imageEdgeExtendFlags = vImage_Flags(kvImageEdgeExtend)
-                    vImageBoxConvolve_ARGB8888(&effectInBuffer, &effectOutBuffer, nil, 0, 0, radius, radius, nil, imageEdgeExtendFlags)
-                    vImageBoxConvolve_ARGB8888(&effectOutBuffer, &effectInBuffer, nil, 0, 0, radius, radius, nil, imageEdgeExtendFlags)
-                    vImageBoxConvolve_ARGB8888(&effectInBuffer, &effectOutBuffer, nil, 0, 0, radius, radius, nil, imageEdgeExtendFlags)
-                }
-    
-                var effectImageBuffersAreSwapped = false
-    
-                if hasSaturationChange {
-                    let s: CGFloat = saturationDeltaFactor
-                    let floatingPointSaturationMatrix: [CGFloat] = [
-                        0.0722 + 0.9278 * s, 0.0722 - 0.0722 * s, 0.0722 - 0.0722 * s, 0,
-                        0.7152 - 0.7152 * s, 0.7152 + 0.2848 * s, 0.7152 - 0.7152 * s, 0,
-                        0.2126 - 0.2126 * s, 0.2126 - 0.2126 * s, 0.2126 + 0.7873 * s, 0,
-                        0, 0, 0, 1 ]
-    
-                    let divisor: CGFloat = 256
-                    let matrixSize = floatingPointSaturationMatrix.count
-                    var saturationMatrix = [Int16](repeating: 0, count: matrixSize)
-    
-                    for index: Int in 0 ..< matrixSize {
-                        saturationMatrix[index] = Int16(round(floatingPointSaturationMatrix[index] * divisor))
-                    }
-    
-                    if hasBlur {
-                        vImageMatrixMultiply_ARGB8888(&effectOutBuffer, &effectInBuffer, saturationMatrix, Int32(divisor), nil, nil, vImage_Flags(kvImageNoFlags))
-                        effectImageBuffersAreSwapped = true
-                    } else {
-                        vImageMatrixMultiply_ARGB8888(&effectInBuffer, &effectOutBuffer, saturationMatrix, Int32(divisor), nil, nil, vImage_Flags(kvImageNoFlags))
-                    }
-                }
-    
-                if !effectImageBuffersAreSwapped {
-                    effectImage = UIGraphicsGetImageFromCurrentImageContext()!
-                }
-    
-                UIGraphicsEndImageContext()
-    
-                if effectImageBuffersAreSwapped {
-                    effectImage = UIGraphicsGetImageFromCurrentImageContext()!
-                }
-    
-                UIGraphicsEndImageContext()
-            }
-    
-            // Set up output context.
-            UIGraphicsBeginImageContextWithOptions(size, false, UIScreen.main.scale)
-            let outputContext = UIGraphicsGetCurrentContext()
-            outputContext?.scaleBy(x: 1.0, y: -1.0)
-            outputContext?.translateBy(x: 0, y: -size.height)
-    
-            // Draw base image.
-            outputContext?.draw(self.cgImage!, in: imageRect)
-    
-            // Draw effect image.
-            if hasBlur {
-                outputContext?.saveGState()
-                if let image = maskImage {
-                    outputContext?.clip(to: imageRect, mask: image.cgImage!)
-                }
-                outputContext?.draw(effectImage.cgImage!, in: imageRect)
-                outputContext?.restoreGState()
-            }
-            // Add in color tint
-            if let color = tintColor {
-                outputContext?.saveGState()
-                outputContext?.setFillColor(color.cgColor)
-                outputContext?.fill(imageRect)
-                outputContext?.restoreGState()
-            }
-    
-            // Output image is ready.
-            let outputImage = UIGraphicsGetImageFromCurrentImageContext()
-            UIGraphicsEndImageContext()
-    
-            return outputImage
-    
-        }
 }
 
 extension CGImage {
@@ -920,7 +720,6 @@ extension UIImage {
 
 extension UIImage {
     convenience init?(base64String: String) {
-//        guard let data = Data(base64Encoded: base64String) else { return nil }
         guard let data = Data.init(base64Encoded: base64String, options: [])  else { return nil }
         self.init(data: data)
     }

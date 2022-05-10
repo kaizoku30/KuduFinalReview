@@ -1,6 +1,4 @@
-//
-//  File.swift
-//  VIDA
+
 //
 //  Created by Admin on 11/02/22.
 //
@@ -44,7 +42,8 @@ struct AWSUploadCache {
                 var updatedUploadIds = unusedUploadIds
                 updatedUploadIds.remove(object: $0)
                 AppUserDefaults.save(value: updatedUploadIds, forKey: .pendingAWSRequests)
-                if object.awsLink != "" { deleteOnAWS(awsLink: object.awsLink) }
+                if object.awsLink != ""
+                { deleteOnAWS(awsLink: object.awsLink) }
             }
         })
         logCacheStatus()
@@ -58,8 +57,8 @@ struct AWSUploadCache {
     
     private static func fetchAwsRequest(uploadId:String)->AWSUploadRequest?
     {
-        let data = AppUserDefaults.value(forUniqueKey: uploadId)
-        guard let data = data as? Data else { return nil }
+        let userDefaultData = AppUserDefaults.value(forUniqueKey: uploadId)
+        guard let data = userDefaultData as? Data else { return nil }
         let decoder = JSONDecoder()
         let decoded = try? decoder.decode(AWSUploadRequest.self, from: data)
         return decoded

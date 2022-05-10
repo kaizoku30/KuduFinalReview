@@ -199,13 +199,6 @@ extension UILabel {
         attribute.addAttribute(NSAttributedString.Key.underlineColor, value: lineColor, range: range)
         self.attributedText = attribute
     }
-    
-    func estimatedHeightOfLabel(text: String) -> CGFloat {
-        self.origin.y = .greatestFiniteMagnitude
-        self.sizeToFit()
-        return self.frame.height + 20
-    }
-
 }
 
 extension UILabel {
@@ -292,14 +285,7 @@ extension UILabel {
         }
         return nil
     }
-    
-//    func isTruncated() -> Bool {
-//        guard let text = text, !text.isEmpty, let textFont = self.font else { return false }
-//
-//        let size: CGSize = text.size(withAttributes: [NSAttributedString.Key.font: textFont])
-//        return size.width > self.bounds.size.width
-//    }
-    
+
     var isTruncated: Bool {
 
         guard let labelText = text, let _font = self.font else {

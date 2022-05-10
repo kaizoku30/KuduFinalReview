@@ -68,10 +68,8 @@ public class SKToast {
             }
         } else {
             // Fallback on earlier versions
-            if let delegate: UIApplicationDelegate = UIApplication.shared.delegate {
-                if let windowObj = delegate.window {
+            if let delegate: UIApplicationDelegate = UIApplication.shared.delegate,let windowObj = delegate.window {
                     window = windowObj
-                }
             }
         }
         
@@ -246,14 +244,14 @@ public class SKToast {
     // MARK: - Helper Methods
     @available(iOS 13.0, *)
     fileprivate func getKeyWindow() -> UIWindow? {
-        let window = UIApplication.shared.connectedScenes
+        let currentWindow = UIApplication.shared.connectedScenes
             .filter({$0.activationState == .foregroundActive})
             .map({$0 as? UIWindowScene})
             .compactMap({$0})
             .first?.windows
             .filter({$0.isKeyWindow}).first
         
-        return window ?? Router.shared.appWindow
+        return currentWindow ?? Router.shared.appWindow
     }
 }
 

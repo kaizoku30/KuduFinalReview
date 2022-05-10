@@ -63,21 +63,6 @@ extension Double {
     }
     
     func priceLocaleFormat() -> String {
-//        let numberFormatter = NumberFormatter()
-//        numberFormatter.groupingSeparator = ","
-//        numberFormatter.groupingSize = 3
-//        numberFormatter.usesGroupingSeparator = true
-//        numberFormatter.decimalSeparator = "."
-//        numberFormatter.numberStyle = .decimal
-//        numberFormatter.maximumFractionDigits = 2
-//        var returnString = numberFormatter.string(from: self as NSNumber) ?? self.checkDecimalZeroAndGiveFormat()
-//        if returnString.contains("."), let str = (returnString.split(separator: ".").last), str.count < 2{
-//            let diff = 2 - str.count
-//            for _ in 0..<diff{
-//                returnString = returnString + "0"
-//            }
-//        }
-//        return returnString
         return self.zeroFormat()
     }
     

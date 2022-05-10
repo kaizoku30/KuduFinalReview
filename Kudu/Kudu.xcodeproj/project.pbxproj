@@ -63,7 +63,6 @@
 		84719A032823B80100FECB8D /* UIDevice+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847199FE2823B80100FECB8D /* UIDevice+Ext.swift */; };
 		84719A042823B80100FECB8D /* URL+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847199FF2823B80100FECB8D /* URL+Ext.swift */; };
 		84719A112823B80600FECB8D /* UILabel+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84719A062823B80600FECB8D /* UILabel+Ext.swift */; };
-		84719A122823B80600FECB8D /* UITableViewCell+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84719A072823B80600FECB8D /* UITableViewCell+Ext.swift */; };
 		84719A132823B80600FECB8D /* UICollectionView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84719A082823B80600FECB8D /* UICollectionView+Ext.swift */; };
 		84719A142823B80600FECB8D /* UITextView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84719A092823B80600FECB8D /* UITextView+Ext.swift */; };
 		84719A152823B80600FECB8D /* UISearchBar+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84719A0A2823B80600FECB8D /* UISearchBar+Ext.swift */; };
@@ -86,6 +85,7 @@
 		84719A3B2823B81F00FECB8D /* ShimmerSwift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84719A302823B81F00FECB8D /* ShimmerSwift.swift */; };
 		84719A3D2823B84E00FECB8D /* Environment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84719A3C2823B84E00FECB8D /* Environment.swift */; };
 		84719A3F2823B85300FECB8D /* WebServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84719A3E2823B85300FECB8D /* WebServices.swift */; };
+		8486CC50282A186A00C33329 /* UITableViewCell+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8486CC4F282A186A00C33329 /* UITableViewCell+Ext.swift */; };
 		84D9EAF1282386F2008512C5 /* LaunchVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D9EAF0282386F2008512C5 /* LaunchVC.swift */; };
 		84D9EAF528238C33008512C5 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 84D9EAF728238C33008512C5 /* Localizable.strings */; };
 		A0BF189938AAB534CB16FB25 /* Pods_Kudu.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18BA9C7CF9BBA17A25FA8F55 /* Pods_Kudu.framework */; };
@@ -151,7 +151,6 @@
 		847199FE2823B80100FECB8D /* UIDevice+Ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIDevice+Ext.swift"; sourceTree = "<group>"; };
 		847199FF2823B80100FECB8D /* URL+Ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "URL+Ext.swift"; sourceTree = "<group>"; };
 		84719A062823B80600FECB8D /* UILabel+Ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UILabel+Ext.swift"; sourceTree = "<group>"; };
-		84719A072823B80600FECB8D /* UITableViewCell+Ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITableViewCell+Ext.swift"; sourceTree = "<group>"; };
 		84719A082823B80600FECB8D /* UICollectionView+Ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UICollectionView+Ext.swift"; sourceTree = "<group>"; };
 		84719A092823B80600FECB8D /* UITextView+Ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITextView+Ext.swift"; sourceTree = "<group>"; };
 		84719A0A2823B80600FECB8D /* UISearchBar+Ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UISearchBar+Ext.swift"; sourceTree = "<group>"; };
@@ -174,6 +173,7 @@
 		84719A302823B81F00FECB8D /* ShimmerSwift.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShimmerSwift.swift; sourceTree = "<group>"; };
 		84719A3C2823B84E00FECB8D /* Environment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Environment.swift; sourceTree = "<group>"; };
 		84719A3E2823B85300FECB8D /* WebServices.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebServices.swift; sourceTree = "<group>"; };
+		8486CC4F282A186A00C33329 /* UITableViewCell+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableViewCell+Ext.swift"; sourceTree = "<group>"; };
 		84D9EAF0282386F2008512C5 /* LaunchVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchVC.swift; sourceTree = "<group>"; };
 		84D9EAF628238C33008512C5 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		84D9EAF828238C53008512C5 /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -422,7 +422,6 @@
 			isa = PBXGroup;
 			children = (
 				84719A062823B80600FECB8D /* UILabel+Ext.swift */,
-				84719A072823B80600FECB8D /* UITableViewCell+Ext.swift */,
 				84719A082823B80600FECB8D /* UICollectionView+Ext.swift */,
 				84719A092823B80600FECB8D /* UITextView+Ext.swift */,
 				84719A0A2823B80600FECB8D /* UISearchBar+Ext.swift */,
@@ -432,6 +431,7 @@
 				84719A0E2823B80600FECB8D /* UIScrollView+Ext.swift */,
 				84719A0F2823B80600FECB8D /* UIViewController+Ext.swift */,
 				84719A102823B80600FECB8D /* UIView+Ext.swift */,
+				8486CC4F282A186A00C33329 /* UITableViewCell+Ext.swift */,
 			);
 			path = "UI Extensions";
 			sourceTree = "<group>";
@@ -716,7 +716,6 @@
 				840AFD14281F967A003CE5A0 /* AppFonts.swift in Sources */,
 				847199F72823B7F500FECB8D /* NSError+Ext.swift in Sources */,
 				847199E12823B7C100FECB8D /* AppTextFieldView.swift in Sources */,
-				84719A122823B80600FECB8D /* UITableViewCell+Ext.swift in Sources */,
 				84719A3F2823B85300FECB8D /* WebServices.swift in Sources */,
 				847199E32823B7D500FECB8D /* CommonStrings.swift in Sources */,
 				840AFD1A281F9BA1003CE5A0 /* Optional+Ext.swift in Sources */,
@@ -725,6 +724,7 @@
 				8463D387281A58DA002D6553 /* EmptyDataResponse.swift in Sources */,
 				84719A152823B80600FECB8D /* UISearchBar+Ext.swift in Sources */,
 				8463D384281A58DA002D6553 /* API.swift in Sources */,
+				8486CC50282A186A00C33329 /* UITableViewCell+Ext.swift in Sources */,
 				84719A172823B80600FECB8D /* CGPoint+Ext.swift in Sources */,
 				840AFD0E281F93C0003CE5A0 /* DeviceDetail.swift in Sources */,
 				84719A182823B80600FECB8D /* UIButton+Ext.swift in Sources */,

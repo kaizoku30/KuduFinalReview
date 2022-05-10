@@ -4,7 +4,6 @@ import Foundation
 extension Date {
 
     // MARK: - DATE FORMAT ENUM
-    //==========================
     enum DateFormat: String {
 
         case yyyy_MM_dd = "yyyy-MM-dd"
@@ -123,13 +122,20 @@ extension Date {
         return (Calendar.current as NSCalendar).components(.second, from: date, to: self, options: []).second!
     }
     func offsetFrom(_ date: Date) -> String {
-        if yearsFrom(date)   > 0 { return "\(yearsFrom(date))y"   }
-        if monthsFrom(date)  > 0 { return "\(monthsFrom(date))M"  }
-        if weeksFrom(date)   > 0 { return "\(weeksFrom(date))w"   }
-        if daysFrom(date)    > 0 { return "\(daysFrom(date))d"    }
-        if hoursFrom(date)   > 0 { return "\(hoursFrom(date))h"   }
-        if minutesFrom(date) > 0 { return "\(minutesFrom(date))m" }
-        if secondsFrom(date) > 0 { return "\(secondsFrom(date))s" }
+        if yearsFrom(date)   > 0
+        { return "\(yearsFrom(date))y"}
+        if monthsFrom(date)  > 0
+        { return "\(monthsFrom(date))M"}
+        if weeksFrom(date)   > 0
+        { return "\(weeksFrom(date))w"}
+        if daysFrom(date)    > 0
+        { return "\(daysFrom(date))d"}
+        if hoursFrom(date)   > 0
+        { return "\(hoursFrom(date))h"}
+        if minutesFrom(date) > 0
+        { return "\(minutesFrom(date))m"}
+        if secondsFrom(date) > 0
+        { return "\(secondsFrom(date))s"}
         return CommonStrings.emptyString
     }
     
@@ -199,9 +205,9 @@ extension Date {
     }
 
     func convertToString(dateFormat: String = "MM/dd/yyyy") -> String {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = dateFormat
-        let local = dateFormatter.string(from: self)
+        let formatterForString = DateFormatter()
+        formatterForString.dateFormat = dateFormat
+        let local = formatterForString.string(from: self)
         return local
     }
     

@@ -1,6 +1,6 @@
 //
 //  AppNavigationBar.swift
-//  VIDA
+//  KUDU
 //
 //  Created by Admin on 17/01/22.
 //
@@ -91,20 +91,20 @@ extension AppNavigationBar
         buttons.iteratorFunction({
             [weak self] (index) in
                 
-            guard let `self` = self else { return }
+            guard let navigatioBar = self else { return }
             
             switch index
             {
             case 0:
-                self.setButton(type: self.buttons[0], buttonOutlet: self.firstLeftButton,container: firstLeftButtonContainerView)
-            case self.buttons.count - 1 :
-                self.setButton(type: self.buttons[self.buttons.count - 1], buttonOutlet: self.firstRightButton,container: firstBtnContainerView)
-            case self.buttons.count - 2 :
-                self.setButton(type: self.buttons[self.buttons.count - 2], buttonOutlet: self.secondRightButton,container: secondBtnContainerView)
-            case self.buttons.count - 3 :
-                self.setButton(type: self.buttons[self.buttons.count - 3], buttonOutlet: self.thirdRightImgButton)
-            case self.buttons.count - 4 :
-                self.setButton(type: self.buttons[self.buttons.count - 4], buttonOutlet: self.fourthRightImgButton)
+                navigatioBar.setButton(type: navigatioBar.buttons[0], buttonOutlet: navigatioBar.firstLeftButton,container: firstLeftButtonContainerView)
+            case navigatioBar.buttons.count - 1 :
+                navigatioBar.setButton(type: navigatioBar.buttons[navigatioBar.buttons.count - 1], buttonOutlet: navigatioBar.firstRightButton,container: firstBtnContainerView)
+            case navigatioBar.buttons.count - 2 :
+                navigatioBar.setButton(type: navigatioBar.buttons[navigatioBar.buttons.count - 2], buttonOutlet: navigatioBar.secondRightButton,container: secondBtnContainerView)
+            case navigatioBar.buttons.count - 3 :
+                navigatioBar.setButton(type: navigatioBar.buttons[navigatioBar.buttons.count - 3], buttonOutlet: navigatioBar.thirdRightImgButton)
+            case navigatioBar.buttons.count - 4 :
+                navigatioBar.setButton(type: navigatioBar.buttons[navigatioBar.buttons.count - 4], buttonOutlet: navigatioBar.fourthRightImgButton)
             default:
                 break
             }

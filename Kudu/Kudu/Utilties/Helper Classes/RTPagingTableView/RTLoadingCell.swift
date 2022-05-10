@@ -1,7 +1,5 @@
 //
 //  RTLoadingCell.swift
-//  VIDA
-//
 //  Created by Admin on 27/01/22.
 //
 

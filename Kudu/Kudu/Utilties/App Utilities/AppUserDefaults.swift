@@ -10,25 +10,7 @@ import SwiftyJSON
 
 class AppUserDefaults {
     
-    static func jsonValue(forKey key: Key,
-                      file : String = #file,
-                      line : Int = #line,
-                      function : String = #function) -> JSON {
-        
-        guard let value = UserDefaults.standard.object(forKey: key.rawValue) else {
-            
-            debugPrint("No Value Found in UserDefaults for key \(key.rawValue)")
-            
-            return JSON.null
-        }
-        
-        return JSON(value)
-    }
-    
-    static func value(forKey key: Key,
-                      file : String = #file,
-                      line : Int = #line,
-                      function : String = #function) -> Any? {
+    static func value(forKey key: Key) -> Any? {
         
         guard let value = UserDefaults.standard.object(forKey: key.rawValue) else {
             
@@ -40,10 +22,7 @@ class AppUserDefaults {
         return value
     }
     
-    static func value(forUniqueKey key: String,
-                      file : String = #file,
-                      line : Int = #line,
-                      function : String = #function) -> Any? {
+    static func value(forUniqueKey key: String) -> Any? {
         
         guard let value = UserDefaults.standard.object(forKey: key) else {
             

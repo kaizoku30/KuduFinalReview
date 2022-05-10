@@ -4,7 +4,6 @@ import AVFoundation
 import UIKit
 
 // MARK: - UIDEVICE
-//==================
 extension UIDevice {
     
     static var isSimulator: Bool {

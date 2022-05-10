@@ -33,19 +33,6 @@ extension String
 
 extension String {
     
-    var localized:String {
-        let lang = "en"
-//        switch AppUserDefaults.value(forKey: .selectedLanguage){
-//        default:
-//            lang = "en"
-//        }
-        let path = Bundle.main.path(forResource: lang, ofType: "lproj")
-        
-        let bundle = Bundle(path: path!)
-        
-        return NSLocalizedString(self, tableName: nil, bundle: bundle!, value: "", comment: "")
-    }
-    
     static func randomString(length: Int) -> String {
         let letters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
         return String((0..<length).map{ _ in letters.randomElement()! })
@@ -479,11 +466,6 @@ extension String {
     }
     
     func containsEmoji() -> Bool {
-//        for scalar in unicodeScalars {
-//            if !scalar.properties.isEmoji { continue }
-//            return true
-//        }
-        
         var isEmoji = false
         
         for scalar in unicodeScalars
@@ -593,7 +575,8 @@ extension String {
 extension String {
     var isValidURL: Bool {
         let detector = try? NSDataDetector(types: NSTextCheckingResult.CheckingType.link.rawValue)
-        if detector.isNil { return false }
+        if detector.isNil
+        { return false }
         if let match = detector!.firstMatch(in: self, options: [], range: NSRange(location: 0, length: self.utf16.count)) {
             // it is a link, if the match covers the whole string
             return match.range.length == self.utf16.count
@@ -610,7 +593,8 @@ extension String {
         let regex = try? NSRegularExpression(
             pattern: pattern,
             options: [.caseInsensitive])
-        if regex.isNil { return false }
+        if regex.isNil
+        { return false }
         return regex!.firstMatch(
             in: self,
             options: [],

@@ -43,21 +43,6 @@ extension UITableView {
         return cell
     }
     
-    /// Method to get indexpath for table cells in selection section
-    /// - Parameters:
-    ///   - inSection: Int value for which section to be used
-    ///   - exceptRows: Int array value for except row
-    /// - Returns: IndexPath array will be returned
-    func indexPathForCells(inSection: Int, exceptRows: [Int] = []) -> [IndexPath] {
-        let rows = self.numberOfRows(inSection: inSection)
-        var indices: [IndexPath] = []
-        for row in 0..<rows {
-            if exceptRows.contains(row) { continue }
-            indices.append([inSection, row])
-        }
-        return indices
-    }
-    
     /// Method to scroll to last cell
     /// - Parameter animated: Bool value which determine whether animated or not
     func scrollToLastCell(animated: Bool = true) {
@@ -108,34 +93,7 @@ extension UITableView {
             self.reloadRows(at: indexPaths, with: .none)
         }
     }
-    
-    /// Method to show bottom loader
-    /// - Parameters:
-    ///   - delegate: RetryButtonDelegate by which retry button action will be called
-    ///   - isNetworkConnected: Is connected to network
-//    func showBottomLoader(delegate: RetryButtonDelegate? = nil, isNetworkConnected: Bool = true) {
-//        if CommonFunctions.isConnectedToNetwork() && isNetworkConnected {
-//            guard !(self.tableFooterView?.isKind(of: UIActivityIndicatorView.self) ?? false) else { return }
-//            let spinner: UIActivityIndicatorView
-//            if #available(iOS 13.0, *) {
-//                spinner = UIActivityIndicatorView(style: .medium)
-//            } else {
-//                spinner = UIActivityIndicatorView(style: .gray)
-//            }
-//            spinner.isHidden = false
-//            spinner.color = AppColors.themeColor
-//            spinner.startAnimating()
-//            spinner.frame = CGRect(x: 0, y: 0, width: self.bounds.width, height: 44)
-//            self.tableFooterView = spinner
-//        }else {
-//            guard !(self.tableFooterView?.isKind(of: RetryButton.self) ?? false) else { return }
-//            let retryButton = RetryButton.init(frame: CGRect(x: 0, y: 0, width: self.bounds.width, height: 44))
-//            retryButton.delegate = delegate
-//            self.tableFooterView = retryButton
-//        }
-//        self.tableFooterView?.isHidden = false
-//    }
-    
+
     ///Method to hide bottom loader
     func hideBottomLoader() {
         self.tableFooterView?.isHidden = true
@@ -200,16 +158,6 @@ extension UITableView {
         }
     }
 
-}
-
-extension UIResponder {
-    /**
-     * Returns the next responder in the responder chain cast to the given type, or
-     * if nil, recurses the chain until the next responder is nil or castable.
-     */
-    func next<U: UIResponder>(of type: U.Type = U.self) -> U? {
-        return self.next.flatMap({ $0 as? U ?? $0.next() })
-    }
 }
 
 extension UITableView {

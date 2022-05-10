@@ -1,6 +1,6 @@
 //
 //  AppTextFieldView.swift
-//  VIDA
+//  KUDU
 //
 //  Created by Admin on 05/01/22.
 //
@@ -298,7 +298,7 @@ extension AppTextFieldView:UITextFieldDelegate
 
 extension AppTextFieldView
 {
-    @IBAction func clearBtnPressed(_ sender: Any) {
+    @IBAction func clearBtnPressed() {
         txtField.resignFirstResponder()
         txtField.text = ""
         textFieldDidChangeCharacters?(txtField.text)
@@ -314,7 +314,7 @@ extension AppTextFieldView
         
     }
     
-    @IBAction func showPasswordBtnTapped(_ sender: Any) {
+    @IBAction func showPasswordBtnTapped() {
         txtField.isSecureTextEntry = !txtField.isSecureTextEntry
         switch txtField.isSecureTextEntry
         {

@@ -30,7 +30,7 @@ class AWSUploadController {
         let expression = AWSS3TransferUtilityUploadExpression()
         let transferUtility = AWSS3TransferUtility.default()
         let pathExt = url.pathExtension.lowercased()
-        let name = "VIDA_\(UUID().uuidString)." + pathExt
+        let name = "KUDU_\(UUID().uuidString)." + pathExt
         let progressBlock: AWSS3TransferUtilityProgressBlock = {(task, progres) in
             DispatchQueue.main.async(execute: {
                 progress?(progres.fractionCompleted)
@@ -84,7 +84,7 @@ class AWSUploadController {
         
         let expression = AWSS3TransferUtilityUploadExpression()
         let transferUtility = AWSS3TransferUtility.default()
-        let name = "VIDA_\(UUID().uuidString).png"
+        let name = "KUDU_\(UUID().uuidString).png"
         
       //   MARK: - Compressing image before making upload request...
         guard let data = image.jpegData(compressionQuality: compression) else {
@@ -179,7 +179,6 @@ class AWSUploadController {
 
     }
     // MARK: Setting S3 server with the credentials...
-    // =========================================
     /// Set up Amazon s3 (For image uploading) with pool ID
     static func setupAmazonS3(withPoolID poolID: String) {
         

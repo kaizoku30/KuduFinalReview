@@ -22,14 +22,11 @@ struct TLImageUploadRequest {
 
 final class PhotoVideoUploadHandler {
     
-    static func uploadVideoOnAws(path: URL,uploadId:String,progress:@escaping (CGFloat)->(),handler:@escaping (Bool,String?,String?)->()) {
+    static func uploadVideoOnAws(path: URL,uploadId:String,progress:@escaping progressBlock,handler:@escaping (Bool,String?,String?)->()) {
         var request = AWSUploadRequest(awsLink: "", uploaded: false, videoLocalURL: path, uploadIdentifier: uploadId)
         AWSUploadCache.addAWSRequest(request)
         //DataManager.shared.awsRequests?.append(AWSUploadRequest(awsLink: "", uploaded: false, localURL: path))
-        AWSUploadController.uploadTheVideoToAWS(videoUrl: path, progress: {
-            (progress) in
-            debugPrint("Upload Progress :\(progress)")
-        }, completion: {
+        AWSUploadController.uploadTheVideoToAWS(videoUrl: path, progress: progress, completion: {
             (awsUploadLink,error) in
             if error.isNil && awsUploadLink.isNotNil
             {

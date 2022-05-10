@@ -3,67 +3,6 @@
 import UIKit
 import Kingfisher
 
-// UIButton Extension
-extension UIButton {
-    
-    func setImage_kf(imageString: String, placeHolderImage: UIImage?, loader: Bool = true, completionHandler: ((Bool) -> ())? = nil) {
-        guard let url = URL.init(string: imageString) else {
-            return
-        }
-        let resource = ImageResource(downloadURL: url, cacheKey: imageString)
-        if loader {
-//            self.kf.indicatorType = .activity
-//            self.kf.indicator?.view.tintColor = AppColors.themeColor
-//            (self.kf.indicator?.view as? UIActivityIndicatorView)?.color = AppColors.themeColor
-        }
-        
-        self.kf.setImage(with: resource, for: .normal, placeholder: placeHolderImage, options: nil, progressBlock: { (prog1, prog2) in
-            printDebug("\(prog1), \(prog2)")
-        }) { (result) in
-            switch result {
-            case .success(_):
-                completionHandler?(true)
-            case .failure(let error):
-                if error.isInvalidResponseStatusCode {
-                    completionHandler?(false)
-                }
-            }
-
-        }
-    }
-    
-    func cancelImageDownloading() {
-        self.kf.cancelImageDownloadTask()
-    }
-    
-    static func cacheImage(url: String) {
-        guard let imageUrl = URL(string: url) else {return}
-        
-        if ImageCache.default.retrieveImageInMemoryCache(forKey: imageUrl.absoluteString) == nil {
-            
-            ImageDownloader.default.downloadImage(with: imageUrl, options: nil, progressBlock: nil, completionHandler: { (result) in
-                switch result {
-                case .success(let value):
-                    printDebug("Image Downloaded: \(String(describing: value.url))")
-                    ImageCache.default.store(value.image, forKey: imageUrl.absoluteString)
-                case .failure(let error):
-                    printDebug("Error: \(error)")
-                }
-            })
-        } else {
-            printDebug("image is already cached")
-        }
-    }
-    
-    static func saveImage(image: UIImage, url: String) {
-        if ImageCache.default.retrieveImageInMemoryCache(forKey: url) == nil {
-            ImageCache.default.store(image, forKey: url)
-            printDebug("image cached successfully")
-        }
-    }
-    
-}
-
 extension UIButton {
     
     /// Method to add right image with offset

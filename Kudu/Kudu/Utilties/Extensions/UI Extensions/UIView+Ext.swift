@@ -24,10 +24,14 @@ extension UIView {
         border.backgroundColor = color
         
         switch side {
-        case .Left: border.frame = CGRect(x: frame.minX, y: frame.minY, width: thickness, height: frame.height); break
-        case .Right: border.frame = CGRect(x: frame.maxX, y: frame.minY, width: thickness, height: frame.height); break
-        case .Top: border.frame = CGRect(x: frame.minX, y: frame.minY, width: frame.width, height: thickness); break
-        case .Bottom: border.frame = CGRect(x: frame.minX, y: frame.maxY, width: frame.width, height: thickness); break
+        case .Left:
+            border.frame = CGRect(x: frame.minX, y: frame.minY, width: thickness, height: frame.height)
+        case .Right:
+            border.frame = CGRect(x: frame.maxX, y: frame.minY, width: thickness, height: frame.height)
+        case .Top:
+            border.frame = CGRect(x: frame.minX, y: frame.minY, width: frame.width, height: thickness)
+        case .Bottom:
+            border.frame = CGRect(x: frame.minX, y: frame.maxY, width: frame.width, height: thickness)
         }
         
         layer.addSublayer(border)
@@ -43,7 +47,7 @@ extension UIView {
     }
     
     // define function to add inner shadow
-    public func addInnerShadow(onSide: InnerShadowSide, shadowColor: UIColor, shadowSize: CGFloat, cornerRadius: CGFloat = 0.0, shadowOpacity: Float) {
+    public func addInnerShadow(onSide: InnerShadowSide, shadowColor: UIColor, shadowSize: CGFloat, shadowOpacity: Float) {
         // define and set a shaow layer
         let shadowLayer = CAShapeLayer()
         shadowLayer.frame = bounds
@@ -257,18 +261,7 @@ extension UIView {
             return layer.shadowOffset
         }
     }
-
-//    ///Sets the shadow radius of the view
-//    @IBInspectable
-//    var shadowRadius: CGFloat {
-//        get {
-//            return layer.shadowRadius
-//        }
-//        set {
-//            layer.shadowRadius = shadowRadius
-//        }
-//    }
-
+    
     ///Sets the circle shadow in the view
     func setCircleShadow(shadowRadius: CGFloat = 2,
                          shadowOpacity: Float = 0.3,
@@ -807,22 +800,6 @@ extension UIView {
         }
         return subviewClass as? UITableView
     }
-    
-    func getAllTableViews() -> [UIView] {
-        var tableViews: [UIView] = []
-        tableViews = self.subviews.filter({ (view) -> Bool in
-            return view.isKind(of: UITableView.self)
-        })
-        return tableViews
-    }
-    
-    func getAllCollectionViews() -> [UIView] {
-        var collectionViews: [UIView] = []
-        collectionViews = self.subviews.filter({ (view) -> Bool in
-            return view.isKind(of: UICollectionView.self)
-        })
-        return collectionViews
-    }
 
     var tableViewCell: UITableViewCell? {
 
@@ -940,34 +917,6 @@ extension AVPlayer {
 }
 // for chat
 public extension UIView {
-    
-    class func fromNib(nibNameOrNil: String? = nil) -> Self {
-        return fromNib(nibNameOrNil: nibNameOrNil, type: self)
-    }
-    
-    class func fromNib<T: UIView>(nibNameOrNil: String? = nil, type: T.Type) -> T {
-        let v: T? = fromNib(nibNameOrNil: nibNameOrNil, type: T.self)
-        return v!
-    }
-    
-    class func fromNib<T: UIView>(nibNameOrNil: String? = nil, type: T.Type) -> T? {
-        var view: T?
-        let name: String
-        if let nibName = nibNameOrNil {
-            name = nibName
-        } else {
-            // Most nibs are demangled by practice, if not, just declare string explicitly
-            name = self.nibName
-        }
-        if let nibViews = Bundle.main.loadNibNamed(name, owner: nil, options: nil) {
-            for v in nibViews {
-                if let tog = v as? T {
-                    view = tog
-                }
-            }
-        }
-        return view
-    }
     
     class var nibName: String {
         let name = "\(self)".components(separatedBy: CommonStrings.dot).first ?? CommonStrings.emptyString
@@ -1281,7 +1230,8 @@ extension UIView {
         UIView.animate(withDuration: duration,
                        animations: { self.alpha = 1 },
                        completion: { (value: Bool) in
-                        if let complete = onCompletion { complete() }
+                        if let complete = onCompletion
+                        { complete() }
         })
     }
     
@@ -1290,7 +1240,8 @@ extension UIView {
                        animations: { self.alpha = 0 },
                        completion: { (value: Bool) in
                         self.isHidden = true
-                        if let complete = onCompletion { complete() }
+                        if let complete = onCompletion
+                        { complete() }
         })
     }
     
