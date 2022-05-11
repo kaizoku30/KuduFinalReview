@@ -125,19 +125,19 @@ open class TLPhotoCollectionViewCell: UICollectionViewCell {
     }
     
     @objc open func update(with phAsset: PHAsset) {
-        
+        // Empty Function
     }
     
     @objc open func selectedCell() {
-        
+        // Empty Function
     }
     
     @objc open func willDisplayCell() {
-        
+        // Empty Function
     }
     
     @objc open func endDisplayingCell() {
-        
+        // Empty Function
     }
     
     @objc func stopPlay() {

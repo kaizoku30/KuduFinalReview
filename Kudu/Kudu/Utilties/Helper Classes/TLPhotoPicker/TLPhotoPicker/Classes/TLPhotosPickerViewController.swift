@@ -24,16 +24,32 @@ public protocol TLPhotosPickerViewControllerDelegate: AnyObject {
 }
 
 extension TLPhotosPickerViewControllerDelegate {
-    public func deninedAuthoization() { }
-    public func dismissPhotoPicker(withPHAssets: [PHAsset]) { }
-    public func dismissPhotoPicker(withTLPHAssets: [TLPHAsset]) { }
+    public func deninedAuthoization() {
+        // Supposed to be empty
+    }
+    public func dismissPhotoPicker(withPHAssets: [PHAsset]) {
+        // Supposed to be empty
+    }
+    public func dismissPhotoPicker(withTLPHAssets: [TLPHAsset]) {
+        // Supposed to be empty
+    }
     public func shouldDismissPhotoPicker(withTLPHAssets: [TLPHAsset]) -> Bool { return true }
-    public func dismissComplete() { }
-    public func photoPickerDidCancel() { }
+    public func dismissComplete() {
+        // Supposed to be empty
+    }
+    public func photoPickerDidCancel() {
+        // Supposed to be empty
+    }
     public func canSelectAsset(phAsset: PHAsset) -> Bool { return true }
-    public func didExceedMaximumNumberOfSelection(picker: TLPhotosPickerViewController) { }
-    public func handleNoAlbumPermissions(picker: TLPhotosPickerViewController) { }
-    public func handleNoCameraPermissions(picker: TLPhotosPickerViewController) { }
+    public func didExceedMaximumNumberOfSelection(picker: TLPhotosPickerViewController) {
+        // Supposed to be empty
+    }
+    public func handleNoAlbumPermissions(picker: TLPhotosPickerViewController) {
+        // Supposed to be empty
+    }
+    public func handleNoCameraPermissions(picker: TLPhotosPickerViewController) {
+        // Supposed to be empty
+    }
 }
 
 //for log
@@ -83,7 +99,7 @@ public struct TLPhotosPickerConfigure {
     public var maxSelectedAssets: Int?
     public var fetchOption: PHFetchOptions?
     public var fetchCollectionOption: [FetchCollectionType: PHFetchOptions] = [:]
-    public var selectedColor = UIColor(red: 88/255, green: 144/255, blue: 255/255, alpha: 1.0)
+    public var selectedColor = UIColor(red: 88/255, green: 144/255, blue: 1.0, alpha: 1.0)
     public var cameraBgColor = UIColor(red: 221/255, green: 223/255, blue: 226/255, alpha: 1)
     public var cameraIcon = TLBundle.podBundleImage(named: "camera")
     public var videoIcon = TLBundle.podBundleImage(named: "video")
@@ -1233,7 +1249,9 @@ extension TLPhotosPickerViewController: UIViewControllerPreviewingDelegate {
         return previewController
     }
     
-    public func previewingContext(_ previewingContext: UIViewControllerPreviewing, commit viewControllerToCommit: UIViewController) {}
+    public func previewingContext(_ previewingContext: UIViewControllerPreviewing, commit viewControllerToCommit: UIViewController) {
+        // Supposed to be empty
+    }
     
     @available(iOS 13.0, *)
     public func collectionView(_ collectionView: UICollectionView, contextMenuConfigurationForItemAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {

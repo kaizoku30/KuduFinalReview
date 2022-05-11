@@ -56,7 +56,8 @@ struct VideoThumbnail {
     private static func loadImage(videoUrl: String) -> VideoThumbnail? {
          guard let data = UserDefaults.standard.data(forKey: videoUrl) else { return nil }
          let decoded = try? PropertyListDecoder().decode(Data.self, from: data)
-         if decoded.isNil { return nil }
+         if decoded.isNil {
+             return nil }
          let image = UIImage(data: decoded!)
          debugPrint("Loaded image for \(videoUrl)")
          return image.isNil ? nil : VideoThumbnail(image: image!, url: videoUrl)
