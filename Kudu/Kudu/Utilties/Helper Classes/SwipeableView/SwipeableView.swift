@@ -14,21 +14,18 @@ enum SwipeDirection {
 
 class SwipeableView: UIView {
     
-    var upSwipe:(()->())?
-    var downSwipe:(()->())?
-    var leftSwipe:(()->())?
-    var rightSwipe:(()->())?
+    var upSwipe: (() -> Void)?
+    var downSwipe: (() -> Void)?
+    var leftSwipe: (() -> Void)?
+    var rightSwipe: (() -> Void)?
     
-    
-    var swipeGestures:[SwipeDirection]? {
-        didSet
-        {
+    var swipeGestures: [SwipeDirection]? {
+        didSet {
             addSwipeGestures()
         }
     }
     
-    func addSwipeGestures()
-    {
+    func addSwipeGestures() {
         swipeGestures?.forEach({
             switch $0 {
             case .down:

@@ -21,11 +21,9 @@ class RTLoadingCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
-    func animateLoader(_ customColor:UIColor)
-    {
+    func animateLoader(_ customColor: UIColor) {
         activityIndicator.color = customColor
-        mainThread {
-            [weak self] in
+        mainThread { [weak self] in
             self?.activityIndicator.startAnimating()
         }
     }

@@ -1,4 +1,3 @@
-
 import UIKit
 import IQKeyboardManagerSwift
 import AVFoundation
@@ -7,37 +6,33 @@ class BaseVC: UIViewController {
     
     var isApiHitting = false
     
-    func hitApi(viewsToDisable:[UIView],block:(()->())?)
-    {
+    func hitApi(viewsToDisable: [UIView], block: (() -> Void)?) {
         isApiHitting = true
         block?()
         viewsToDisable.forEach({$0.isUserInteractionEnabled = false})
     }
     
-    func responseReceived(viewsToEnable:[UIView],block:(()->())?)
-    {
+    func responseReceived(viewsToEnable: [UIView], block:(() -> Void)?) {
         isApiHitting = false
         block?()
         viewsToEnable.forEach({$0.isUserInteractionEnabled = true})
     }
     
-    func getNavController() -> BaseNavVC?{
+    func getNavController() -> BaseNavVC? {
         return self.navigationController as? BaseNavVC
     }
     
-    func push(vc:BaseVC,animated:Bool = true)
-    {
+    func push(vc: BaseVC, animated: Bool = true) {
         self.navigationController?.pushViewController(vc, animated: animated)
     }
     
-    func pop(animated:Bool = true)
-    {
+    func pop(animated: Bool = true) {
         self.navigationController?.popViewController(animated: animated)
     }
     
     @discardableResult
     func popToSpecificViewController(kindOf viewController: UIViewController.Type, animated: Bool = true) -> Bool {
-        guard let _ = self.navigationController else { return false }
+        if self.navigationController.isNil { return false }
         
         for vc in self.navigationController!.viewControllers where vc.isKind(of: viewController.classForCoder()) {
             self.navigationController!.popToViewController(vc, animated: animated)
@@ -67,7 +62,7 @@ class BaseVC: UIViewController {
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesBegan(touches, with: event)
-        if let touch = touches.first, let view = touch.view, view.isKind(of: UITextField.self) || view.isKind(of: UITextView.self){
+        if let touch = touches.first, let view = touch.view, view.isKind(of: UITextField.self) || view.isKind(of: UITextView.self) {
         self.view.endEditing(true)
         }
     }
@@ -110,10 +105,8 @@ extension BaseVC {
     }
 }
 
-extension BaseVC
-{
-    func setupToHideKeyboardOnTapOnView()
-       {
+extension BaseVC {
+    func setupToHideKeyboardOnTapOnView() {
            let tap: UITapGestureRecognizer = UITapGestureRecognizer(
                target: self,
                action: #selector(BaseVC.dismissKeyboard))
@@ -122,8 +115,7 @@ extension BaseVC
            view.addGestureRecognizer(tap)
        }
 
-       @objc func dismissKeyboard()
-       {
+       @objc func dismissKeyboard() {
            view.endEditing(true)
        }
 }

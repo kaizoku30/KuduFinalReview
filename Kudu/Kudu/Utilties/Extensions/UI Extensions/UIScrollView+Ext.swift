@@ -1,5 +1,3 @@
-
-
 import UIKit
 
 extension UIScrollView {
@@ -14,13 +12,13 @@ extension UIScrollView {
     /// Method to scroll to bottom
     /// - Parameter animated: Bool value which determine whether animated or not
     func scrollToBottom() {
-        guard contentSize.height > bounds.height else{return}
+        guard contentSize.height > bounds.height else { return }
         let offSetToSet = contentSize.height - (bounds.height + contentOffset.y)
-        guard offSetToSet > 0 else{return}
+        guard offSetToSet > 0 else { return }
         UIView.animate(withDuration: 0.5) {[weak self] in
-            guard let self = self else{return}
+            guard let self = self else { return }
             self.contentOffset = CGPoint(x: 0, y: offSetToSet + self.contentOffset.y)
-        } completion: { success in
+        } completion: { _ in
             self.layoutIfNeeded()
         }
     }

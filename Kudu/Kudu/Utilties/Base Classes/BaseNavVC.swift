@@ -1,6 +1,6 @@
 import UIKit
 
-enum PushTransition:Int {
+enum PushTransition: Int {
     case vertical = 0
     case horizontal
 }
@@ -12,8 +12,7 @@ class BaseNavVC: UINavigationController, UIGestureRecognizerDelegate {
         setNavigationBarHidden(true, animated: false)
     }
     
-    func popToSpecific(viewcontroller:UIViewController.Type)
-    {
+    func popToSpecific(viewcontroller: UIViewController.Type) {
         for vc in self.viewControllers where vc.isKind(of: viewcontroller.classForCoder()) {
             self.popToViewController(vc, animated: true)
         }
@@ -38,7 +37,7 @@ class BaseNavVC: UINavigationController, UIGestureRecognizerDelegate {
            return viewControllers.count > 1
        }
     
-    func push(vc:BaseVC, animated:Bool = true) {
+    func push(vc: BaseVC, animated: Bool = true) {
         pushViewController(vc, animated: animated)
     }
 
@@ -54,10 +53,10 @@ extension UINavigationController {
         return false
     }
     
-    override open var preferredInterfaceOrientationForPresentation: UIInterfaceOrientation{
+    override open var preferredInterfaceOrientationForPresentation: UIInterfaceOrientation {
         return .portrait
     }
     
-    override open var supportedInterfaceOrientations: UIInterfaceOrientationMask{
+    override open var supportedInterfaceOrientations: UIInterfaceOrientationMask {
         return .portrait
     }}

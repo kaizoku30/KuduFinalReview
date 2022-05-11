@@ -8,17 +8,17 @@
 import Foundation
 
 struct CommonStrings {
-    static var dot: String  { return "." }
+    static var dot: String { return "." }
     static var middleDotWithSpace: String {"  •  "}
     static var middleDotWithOneSpace: String {"  •  "}
     static var middleDot: String {"•"}
-    static var emptyString: String  { return "" }
-    static var whiteSpace: String  { return " " }
-    static var whiteSpacex2: String  { return "  " }
-    static var whiteSpacex4: String  { return "    " }
-    static var percentage: String  { return "%" }
-    static var nextLine: String  { return "\n" }
-    static var nextLinex2: String  { return "\n\n" }
+    static var emptyString: String { return "" }
+    static var whiteSpace: String { return " " }
+    static var whiteSpacex2: String { return "  " }
+    static var whiteSpacex4: String { return "    " }
+    static var percentage: String { return "%" }
+    static var nextLine: String { return "\n" }
+    static var nextLinex2: String { return "\n\n" }
     static var forwdSlash: String { return "/" }
     static var dollar: String { return "$" }
     static var prePostSpaceWithDash: String { return " - " }
@@ -38,5 +38,5 @@ struct CommonStrings {
     static var apostroph_s: String { return "'s" }
     static var urlHttps: String { return "http://" }
     static var urlHttp: String { return "https://" }
-    static var predicateMatcher:String { return "SELF MATCHES %@"}
+    static var predicateMatcher: String { return "SELF MATCHES %@"}
 }

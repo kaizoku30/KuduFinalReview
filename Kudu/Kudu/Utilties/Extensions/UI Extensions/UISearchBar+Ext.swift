@@ -1,5 +1,3 @@
-
-
 import UIKit
 
 //UISearch bar extension
@@ -52,8 +50,7 @@ extension UISearchBar {
             for subview in view.subviews {
                 if let textField = subview as? UITextField {
                     return textField
-                }
-                else if let v = findInView(subview) {
+                } else if let v = findInView(subview) {
                     return v
                 }
             }
@@ -61,13 +58,11 @@ extension UISearchBar {
         }
         if #available(iOS 13.0, *) {
             return self.searchTextField
-        }
-        else {
+        } else {
             return findInView(self)
         }
     }
 }
-
 
 extension UISearchBar {
     
@@ -82,13 +77,11 @@ extension UISearchBar {
         }
     }
     
-    
-    func setAttributedPlaceholderText(placeHolderText: String = "Search" ,color: UIColor = AppColors.black, font: UIFont = AppFonts.robotoRegular.withSize(17.0)) {
+    func setAttributedPlaceholderText(placeHolderText: String = "Search", color: UIColor = AppColors.black, font: UIFont = AppFonts.robotoRegular.withSize(17.0)) {
         guard let textField = self.getTextField() else { return }
-        textField.attributedPlaceholder = NSAttributedString(string: placeHolderText, attributes: [NSAttributedString.Key.font: font,.foregroundColor: color])
+        textField.attributedPlaceholder = NSAttributedString(string: placeHolderText, attributes: [NSAttributedString.Key.font: font, .foregroundColor: color])
     }
 
-    
     func setSearchImage(color: UIColor, searchIcon: UIImage? = nil) {
         guard let imageView = self.getTextField()?.leftView as? UIImageView else { return }
         if let image = searchIcon {

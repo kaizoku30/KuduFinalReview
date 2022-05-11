@@ -8,8 +8,7 @@
 import Foundation
 
 final class CommonFunctions {
-    static func hideToast()
-    {
+    static func hideToast() {
         mainThread {
             NotificationCenter.default.removeObserver(SKToast.shared)
             SKToast.shared.statusLabel?.removeFromSuperview()

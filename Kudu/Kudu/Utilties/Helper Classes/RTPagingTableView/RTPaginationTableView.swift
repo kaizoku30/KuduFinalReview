@@ -11,37 +11,31 @@ struct RTPaginationConfig {
     var limit = 10
     var currentPage = 1
     var lastAPIResponseCount = 0
-    var contentLoading:Bool = false
-    var refreshLoaderColor:UIColor = .black
+    var contentLoading: Bool = false
+    var refreshLoaderColor: UIColor = .black
 }
 
 class RTPaginationTableView: UITableView {
 
     private var paginationSetup = false
-    private weak var vcDelegate:UITableViewDelegate?
-    private var configs:[RTPaginationConfig] = []
-    var isLoadingContent:Bool {
-        if currentConfigID < configs.count
-        {
+    private weak var vcDelegate: UITableViewDelegate?
+    private var configs: [RTPaginationConfig] = []
+    var isLoadingContent: Bool {
+        if currentConfigID < configs.count {
             return configs[currentConfigID].contentLoading
         }
         return false
          }
     private var currentConfigID = 0
-    var hitPaginationAPI:((Int)->())?
-    var currentConfig:Int {
-        get {
+    var hitPaginationAPI: ((Int) -> Void)?
+    var currentConfig: Int {
             currentConfigID
-        }
     }
     
-    func configurePagination(inVC vc:UITableViewDelegate,pageConfigs:[RTPaginationConfig])
-    {
-        if pageConfigs.count == 0
-        { return }
+    func configurePagination(inVC vc: UITableViewDelegate, pageConfigs: [RTPaginationConfig]) {
+        if pageConfigs.count == 0 { return }
         configs = pageConfigs
-        if !paginationSetup
-        {
+        if !paginationSetup {
             self.showsVerticalScrollIndicator = false
             self.separatorStyle = .none
             self.delegate = self
@@ -51,42 +45,36 @@ class RTPaginationTableView: UITableView {
         self.register(UINib(nibName: "RTLoadingCell", bundle: nil), forCellReuseIdentifier: "RTLoadingCell")
     }
     
-    func switchConfig(_ index:Int)
-    {
-        if index < configs.count
-        {
+    func switchConfig(_ index: Int) {
+        if index < configs.count {
             currentConfigID = index
         }
     }
     
-    func reloadContent(addedItemsCount:Int,updatedPageNo:Int? = nil,configID:Int)
-    {
-        if configID < configs.count
-        {
+    func reloadContent(addedItemsCount: Int, updatedPageNo: Int? = nil, configID: Int) {
+        if configID < configs.count {
             configs[configID].lastAPIResponseCount = addedItemsCount
             configs[configID].contentLoading = false
-            if updatedPageNo != nil
-            {
+            if updatedPageNo != nil {
                 configs[configID].currentPage = updatedPageNo!
             }
             
         }
-        if configID == currentConfigID
-        {
+        if configID == currentConfigID {
             reloadData()
         }
         
     }
 }
 
-extension RTPaginationTableView:UITableViewDelegate {
+extension RTPaginationTableView: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         vcDelegate?.tableView?(tableView, didEndDisplaying: cell, forRowAt: indexPath)
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        vcDelegate?.tableView?(tableView,willDisplay:cell,forRowAt:indexPath)
+        vcDelegate?.tableView?(tableView, willDisplay: cell, forRowAt: indexPath)
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -102,12 +90,10 @@ extension RTPaginationTableView:UITableViewDelegate {
     }
     
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
-        if currentConfigID < configs.count
-        {
+        if currentConfigID < configs.count {
             self.refreshControl?.tintColor = configs[currentConfigID].refreshLoaderColor
         }
     }
-    
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         handleScrolling(scrollView)
@@ -121,29 +107,23 @@ extension RTPaginationTableView:UITableViewDelegate {
         handleScrolling(scrollView)
     }
     
-    private func handleScrolling(_ scrollView:UIScrollView)
-    {
-        if scrollView.contentOffset.y + scrollView.frame.height >= scrollView.contentSize.height && checkConfigWhileScrolling()
-        {
+    private func handleScrolling(_ scrollView: UIScrollView) {
+        if scrollView.contentOffset.y + scrollView.frame.height >= scrollView.contentSize.height && checkConfigWhileScrolling() {
             
                 configs[currentConfigID].contentLoading = true
                 self.reloadData()
                 let point = CGPoint(x: 0, y: self.contentSize.height + self.contentInset.bottom - self.frame.height)
-                        if point.y >= 0{
+                        if point.y >= 0 {
                             self.setContentOffset(point, animated: false)
                         }
                 hitPaginationAPI?(configs[currentConfigID].currentPage + 1)
         }
     }
     
-    private func checkConfigWhileScrolling() -> Bool
-    {
-        if configs[currentConfigID].lastAPIResponseCount == configs[currentConfigID].limit && !configs[currentConfigID].contentLoading
-        {
+    private func checkConfigWhileScrolling() -> Bool {
+        if configs[currentConfigID].lastAPIResponseCount == configs[currentConfigID].limit && !configs[currentConfigID].contentLoading {
             return true
-        }
-        else
-        {
+        } else {
             return false
         }
     }
@@ -154,7 +134,7 @@ extension UITableView {
         
         UIView.animate(withDuration: 0, animations: {
                 self.reloadData()
-             }, completion:{ _ in
+             }, completion: { _ in
                  self.scrollToRow(at: indexPath, at: .top, animated: true)
              })
       }

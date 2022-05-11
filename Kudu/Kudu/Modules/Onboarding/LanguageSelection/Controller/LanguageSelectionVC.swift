@@ -8,8 +8,7 @@
 import UIKit
 import LanguageManager_iOS
 
-class LanguageSelectionVC:BaseVC
-{
+class LanguageSelectionVC: BaseVC {
     @IBOutlet private var baseView: LanguageSelectionView!
     
     override func viewDidLoad() {
@@ -24,16 +23,13 @@ class LanguageSelectionVC:BaseVC
         LanguageManager.shared.setLanguage(language: .en, for: nil, viewControllerFactory: nil, animation: nil)
     }
     
-    private func handleActions()
-    {
+    private func handleActions() {
         baseView.handleViewActions = {
             [weak self] in
             guard let vc = self else { return }
-            switch $0
-            {
+            switch $0 {
             case .continueButtonPressed:
-                if vc.baseView.currentLanguage == .arabic
-                {
+                if vc.baseView.currentLanguage == .arabic {
                     LanguageManager.shared.setLanguage(language: .ar, for: nil, viewControllerFactory: nil, animation: nil)
                 }
                 Router.shared.goToTutorialVC(fromVC: vc)

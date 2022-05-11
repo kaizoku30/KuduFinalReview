@@ -10,29 +10,26 @@ class Debouncer: NSObject {
     public let delay: TimeInterval
     
     /** Next Date when the Debouncer will fire */
-    public var fireDate: Date?{
-        get{
+    public var fireDate: Date? {
             return timer?.fireDate
-        }
     }
     
     /** Timer to fire the callback event */
     private var timer: Timer?
     
-    
     /** Init with delay time as argument */
-    public init(delay: TimeInterval){
+    public init(delay: TimeInterval) {
         self.delay = delay
     }
     
     /** Init with delay time and callback argument */
-    public init(delay: TimeInterval, callback: @escaping (()->Void)){
+    public init(delay: TimeInterval, callback: @escaping (() -> Void)) {
         self.delay = delay
         self.callback = callback
     }
     
     /** Call debouncer to start the callback after the delayed time. Multiple calls will ignore the older calls and overwrite the firing time */
-    public func call(){
+    public func call() {
         // Cancle timer, if already running
         timer?.invalidate()
         // Reset timer to fire next event

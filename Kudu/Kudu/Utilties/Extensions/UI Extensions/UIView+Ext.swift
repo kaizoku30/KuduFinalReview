@@ -1,5 +1,3 @@
-
-
 import Foundation
 import UIKit
 import AVFoundation
@@ -149,12 +147,12 @@ extension UIView {
         set { self.center = CGPoint(x: self.centerX, y: newValue) }
     }
     var origin: CGPoint {
-        set { self.frame.origin = newValue }
         get { return self.frame.origin }
+        set { self.frame.origin = newValue }
     }
     var size: CGSize {
-        set { self.frame.size = newValue }
         get { return self.frame.size }
+        set { self.frame.size = newValue }
     }
 
     ///Returns the parent view controller ( if any ) of the view
@@ -230,9 +228,6 @@ extension UIView {
 
     ///Sets the shadow color of the view
     @IBInspectable var shadowColor: UIColor? {
-        set {
-            layer.shadowColor = newValue!.cgColor
-        }
         get {
             if let color = layer.shadowColor {
                 return UIColor(cgColor: color)
@@ -240,25 +235,28 @@ extension UIView {
                 return nil
             }
         }
+        set {
+            layer.shadowColor = newValue!.cgColor
+        }
     }
 
     ///Sets the shadow opacity of the view
     @IBInspectable var shadowOpacity: Float {
-        set {
-            layer.shadowOpacity = newValue
-        }
         get {
             return layer.shadowOpacity
+        }
+        set {
+            layer.shadowOpacity = newValue
         }
     }
 
     ///Sets the shadow offset of the view
     @IBInspectable var shadowOffset: CGSize {
-        set {
-            layer.shadowOffset = newValue
-        }
         get {
             return layer.shadowOffset
+        }
+        set {
+            layer.shadowOffset = newValue
         }
     }
     
@@ -410,9 +408,7 @@ public extension UIView {
      - completion: block executed when the animation ends
      */
     @discardableResult
-    func fadeInOnView(duration: TimeInterval = 0.25,
-                                   delay: TimeInterval = 0,
-                                   completion: ((Bool) -> Void)? = nil) -> UIView {
+    func fadeInOnView(duration: TimeInterval = 0.25, delay: TimeInterval = 0, completion: ((Bool) -> Void)? = nil) -> UIView {
         isHidden = false
         alpha = 0
         UIView.animate(
@@ -434,9 +430,7 @@ public extension UIView {
      - completion: block executed when the animation ends
      */
     @discardableResult
-    func fadeOutOnView(duration: TimeInterval = 0.25,
-                                    delay: TimeInterval = 0,
-                                    completion: ((Bool) -> Void)? = nil) -> UIView {
+    func fadeOutOnView(duration: TimeInterval = 0.25, delay: TimeInterval = 0, completion: ((Bool) -> Void)? = nil) -> UIView {
             UIView.animate(
                 withDuration: duration, delay: delay, options: .curveEaseOut, animations: {
                     self.alpha = 0
@@ -834,14 +828,13 @@ extension UIView {
         }
         return img
     }
-    func applyGradient(colours: [UIColor]) -> Void
-    {
+    func applyGradient(colours: [UIColor]) {
         let gradient: CAGradientLayer = CAGradientLayer()
         gradient.frame = self.bounds
         gradient.colors = colours.map { $0.cgColor }
-        gradient.startPoint = CGPoint(x:0.5,y:0.0)
-        gradient.endPoint = CGPoint(x:0.5,y:1.0)
-        gradient.locations = [0.1,0.9]
+        gradient.startPoint = CGPoint(x: 0.5, y: 0.0)
+        gradient.endPoint = CGPoint(x: 0.5, y: 1.0)
+        gradient.locations = [0.1, 0.9]
         self.layer.insertSublayer(gradient, at: 0)
     }
     func setGradientBorder(firstColor: UIColor, secondColor: UIColor) {
@@ -895,7 +888,7 @@ extension UIView {
                                                                                                  UIColor.colorRGB(r: 0, g: 0, b: 0, alpha: 0.25).cgColor,
                                                                                                  UIColor.colorRGB(r: 0, g: 0, b: 0, alpha: 0.5).cgColor,
                                                                                                  UIColor.colorRGB(r: 0, g: 0, b: 0, alpha: 1.0).cgColor]) {
-        let gradient:CAGradientLayer = CAGradientLayer()
+        let gradient: CAGradientLayer = CAGradientLayer()
         
         gradient.startPoint = CGPoint.zero
         gradient.endPoint =  CGPoint(x: 0, y: 1)
@@ -917,7 +910,7 @@ extension UIView {
     }
     
     func addGradientWithLocations(locations: [NSNumber] = [0.0, 1.0], colors: [CGColor] = [UIColor.clear.cgColor, UIColor.black.cgColor]) {
-        let gradient:CAGradientLayer = CAGradientLayer()
+        let gradient: CAGradientLayer = CAGradientLayer()
         CATransaction.begin()
         gradient.frame = self.superview?.bounds ?? .null
         gradient.colors = colors
@@ -938,8 +931,7 @@ extension UIView {
         
     }
     
-    
-    func animateView(view:UIView, hideStatus: Bool)  {
+    func animateView(view: UIView, hideStatus: Bool) {
         //           self.frame = CGRect(x: self.frame.origin.x, y: self.frame.y + 100, width: self.frame.width, height: self.frame.height)
         
         UIView.animate(
@@ -949,10 +941,10 @@ extension UIView {
             initialSpringVelocity: 1,
             options: .curveEaseInOut,
             animations: {
-                if(hideStatus){
+                if hideStatus {
                     //                    self.frame = CGRect(x: self.frame.origin.x, y: self.frame.y + 100, width: self.frame.width, height: self.frame.height)
                     self.alpha = 0.0
-                }else{
+                } else {
                     //                    self.frame = CGRect(x: self.frame.origin.x, y: self.frame.y - 100, width: self.frame.width, height: self.frame.height)
                     self.alpha = 1.0
                     
@@ -964,7 +956,7 @@ extension UIView {
         )
     }
     
-    func slideY(y:CGFloat) {
+    func slideY(y: CGFloat) {
         
         let xPosition = self.frame.origin.x
         
@@ -1142,7 +1134,6 @@ extension UIView {
     
 }
 
-
 extension UIView {
     
     func fadeIn(_ duration: TimeInterval = 0.33, onCompletion: (() -> Void)? = nil) {
@@ -1150,26 +1141,24 @@ extension UIView {
         self.isHidden = false
         UIView.animate(withDuration: duration,
                        animations: { self.alpha = 1 },
-                       completion: { (value: Bool) in
-                        if let complete = onCompletion
-                        { complete() }
+                       completion: { _ in
+                        if let complete = onCompletion { complete() }
         })
     }
     
     func fadeOut(_ duration: TimeInterval = 0.33, onCompletion: (() -> Void)? = nil) {
         UIView.animate(withDuration: duration,
                        animations: { self.alpha = 0 },
-                       completion: { (value: Bool) in
+                       completion: { _ in
                         self.isHidden = true
-                        if let complete = onCompletion
-                        { complete() }
+            if let complete = onCompletion {
+                complete() }
         })
     }
     
 }
 
-extension UIView
-{
+extension UIView {
     
       func linearGradientBackground(angleInDegs: Int, colors: [CGColor]) {
         // Create New Gradient Layer
@@ -1184,14 +1173,14 @@ extension UIView
           self.layer.insertSublayer(gradientBaseLayer, at: 0)
       }
     
-    func startAndEndPointsFrom(angle: Int) -> (startPoint:CGPoint, endPoint:CGPoint) {
+    func startAndEndPointsFrom(angle: Int) -> (startPoint: CGPoint, endPoint: CGPoint) {
     // Set default points for angle of 0°
-      var startPointX:CGFloat = 0.5
-      var startPointY:CGFloat = 1.0
+      var startPointX: CGFloat = 0.5
+      var startPointY: CGFloat = 1.0
 
     // Define point objects
-      var startPoint:CGPoint
-      var endPoint:CGPoint
+      var startPoint: CGPoint
+      var endPoint: CGPoint
 
     // Define points
       switch true {
@@ -1251,7 +1240,7 @@ extension UIView {
         return frame.intersects(otherFrame)
     }
     
-    func distanceFromBottomToTheTopOfUIView(_ view:UIView, in viewController:UIViewController) -> CGFloat {
+    func distanceFromBottomToTheTopOfUIView(_ view: UIView, in viewController: UIViewController) -> CGFloat {
         let frame = self.convert(self.bounds, to: viewController.view)
         let otherFrame = view.convert(view.bounds, to: viewController.view)
         return otherFrame.minY - frame.maxY

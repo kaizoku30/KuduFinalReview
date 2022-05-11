@@ -1,5 +1,3 @@
-
-
 import UIKit
 import Kingfisher
 
@@ -27,7 +25,6 @@ extension UIButton {
         self.titleEdgeInsets = UIEdgeInsets(top: 0, left: (self.center.x/4)-10, bottom: 0, right: 0)
         self.contentHorizontalAlignment = .center
     }
-    
     
     ///  Method to add shadow on button
     /// - Parameter cornerRadius: CGFloat corner radius to apply on view.
@@ -101,4 +98,3 @@ extension UIButton {
         self.titleLabel?.font = font
     }
 }
-

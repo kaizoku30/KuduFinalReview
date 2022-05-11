@@ -8,10 +8,10 @@
 import UIKit
 
 extension UIView {
-    var gradientColorOne : CGColor { UIColor(white: 0.85, alpha: 0.5).cgColor }
-    var gradientColorTwo : CGColor { UIColor(white: 0.95, alpha: 0.5).cgColor }
+    var gradientColorOne: CGColor { UIColor(white: 0.85, alpha: 0.5).cgColor }
+    var gradientColorTwo: CGColor { UIColor(white: 0.95, alpha: 0.5).cgColor }
 
-    private func addGradientLayer(padding:(left:CGFloat,right:CGFloat,bottom:CGFloat,top:CGFloat)? = nil,cornerRadius:CGFloat? = nil) -> CAGradientLayer {
+    private func addGradientLayer(padding:(left: CGFloat, right: CGFloat, bottom: CGFloat, top: CGFloat)? = nil, cornerRadius: CGFloat? = nil) -> CAGradientLayer {
             
             let gradientLayer = CAGradientLayer()
             var boundsRect = self.bounds
@@ -23,8 +23,7 @@ extension UIView {
             gradientLayer.name = "ShimmerLayer"
             gradientLayer.locations = [0.0, 0.5, 1.0]
             
-            if padding.isNotNil
-            {
+            if padding.isNotNil {
             guard let padding = padding else {
                 self.layer.addSublayer(gradientLayer)
                 return gradientLayer
@@ -33,8 +32,7 @@ extension UIView {
                 boundsRect = CGRect(x: padding.left, y: padding.top, width: boundsRect.width - (padding.left + padding.right), height: boundsRect.height - (padding.top + padding.bottom))
             }
             gradientLayer.frame = boundsRect
-            if cornerRadius.isNotNil
-            {
+            if cornerRadius.isNotNil {
             gradientLayer.cornerRadius = cornerRadius ?? 0
             }
             self.layer.addSublayer(gradientLayer)
@@ -51,23 +49,22 @@ extension UIView {
             return animation
         }
         
-    func startShimmering(padding:(left:CGFloat,right:CGFloat,bottom:CGFloat,top:CGFloat)? = nil,cornerRadius:CGFloat? = nil) {
+    func startShimmering(padding:(left: CGFloat, right: CGFloat, bottom: CGFloat, top: CGFloat)? = nil, cornerRadius: CGFloat? = nil) {
         
         let alreadyAdded = layer.sublayers?.contains(where: {$0.name == "ShimmerLayer"}) ?? false
-        if alreadyAdded
-        { return }
-        let gradientLayer = addGradientLayer(padding: padding,cornerRadius: cornerRadius)
+        if alreadyAdded { return }
+        let gradientLayer = addGradientLayer(padding: padding, cornerRadius: cornerRadius)
         let animation = addAnimation()
         gradientLayer.add(animation, forKey: animation.keyPath)
         
     }
     
-    var isShimmering:Bool {
+    var isShimmering: Bool {
         let alreadyAdded = layer.sublayers?.contains(where: {$0.name == "ShimmerLayer"}) ?? false
         return alreadyAdded
     }
     
-    func stopShimmering(){
+    func stopShimmering() {
         layer.sublayers?.forEach({
             if $0.name == "ShimmerLayer" { $0.removeFromSuperlayer()}
         })

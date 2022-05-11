@@ -10,7 +10,7 @@ import Frames
 
 class TestPaymentVC: UIViewController {
 
-    var checkoutAPIClient: CheckoutAPIClient = CheckoutAPIClient(publicKey: "pk_test_f3ca1a66-0179-4f20-a025-bab60806da45",environment: .sandbox)
+    var checkoutAPIClient: CheckoutAPIClient = CheckoutAPIClient(publicKey: "pk_test_f3ca1a66-0179-4f20-a025-bab60806da45", environment: .sandbox)
     
     @IBOutlet weak var cardNumberView: CardNumberInputView!
     @IBOutlet weak var expirationDateView: ExpirationDateInputView!
@@ -62,13 +62,11 @@ class TestPaymentVC: UIViewController {
             
             print("Card Token")
             print(cardToken)
-            WebServices.PaymentTestEndPoints.payADollar(cardToken: cardToken, success: {
-                _ in
+            WebServices.PaymentTestEndPoints.payADollar(cardToken: cardToken, success: { _ in
                 let alert = UIAlertController(title: "Payment Success",
                                               message: "", preferredStyle: .alert)
                 self.present(alert, animated: true, completion: nil)
-            }, failure: {
-                _ in
+            }, failure: { _ in
                 let alert = UIAlertController(title: "Payment Failed",
                                               message: "", preferredStyle: .alert)
                 self.present(alert, animated: true, completion: nil)
@@ -79,4 +77,3 @@ class TestPaymentVC: UIViewController {
     }
     
 }
-

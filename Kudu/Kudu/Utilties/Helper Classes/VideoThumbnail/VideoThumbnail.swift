@@ -3,26 +3,22 @@ import AVKit
 
 struct VideoThumbnail {
     
-    static var pendingThumbnails:[String] = [] {
+    static var pendingThumbnails: [String] = [] {
         didSet {
-            if pendingThumbnails.count == 0
-            {
+            if pendingThumbnails.count == 0 {
                 NotificationCenter.postNotificationForObservers(.videoThumbnailsUpdated)
             }
         }
     }
     
-    let image:UIImage
-    let url:String
+    let image: UIImage
+    let url: String
     
-    static func getThumbnail(url: URL)->UIImage? {
+    static func getThumbnail(url: URL) -> UIImage? {
         let thumbnail = loadImage(videoUrl: url.absoluteString)
-        if thumbnail.isNotNil
-        {
+        if thumbnail.isNotNil {
             return thumbnail?.image
-        }
-        else
-        {
+        } else {
             VideoThumbnail.pendingThumbnails.append(url.absoluteString)
             DispatchQueue.global().async {
                 let asset = AVAsset(url: url)
@@ -45,21 +41,19 @@ struct VideoThumbnail {
         return nil
     }
     
-    private static func saveThumbnail(image:UIImage?,videoUrl:String) {
-        guard let _ = image else { return }
+    private static func saveThumbnail(image: UIImage?, videoUrl: String) {
+        if image == nil { return }
         guard let data = image?.jpegData(compressionQuality: 0.5) else { return }
         let encoded = try? PropertyListEncoder().encode(data)
-        if encoded.isNil
-        { return }
+        if encoded.isNil { return }
         debugPrint("Saved image for \(videoUrl)")
         UserDefaults.standard.set(encoded!, forKey: videoUrl)
     }
 
-    private static func loadImage(videoUrl:String)->VideoThumbnail? {
+    private static func loadImage(videoUrl: String) -> VideoThumbnail? {
          guard let data = UserDefaults.standard.data(forKey: videoUrl) else { return nil }
          let decoded = try? PropertyListDecoder().decode(Data.self, from: data)
-         if decoded.isNil
-        { return nil }
+         if decoded.isNil { return nil }
          let image = UIImage(data: decoded!)
          debugPrint("Loaded image for \(videoUrl)")
          return image.isNil ? nil : VideoThumbnail(image: image!, url: videoUrl)

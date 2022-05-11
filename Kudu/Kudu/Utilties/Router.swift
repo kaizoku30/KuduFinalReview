@@ -10,7 +10,7 @@ import UIKit
 class Router: NSObject {
     
     static let shared = Router()
-    private var mainNavigation:BaseNavVC?
+    private var mainNavigation: BaseNavVC?
     var appWindow: UIWindow? {
         var window: UIWindow?
         window = SceneDelegate.shared?.window
@@ -34,8 +34,7 @@ class Router: NSObject {
     }
     
     func goToLanguagePrefSelectionVC(fromVC: BaseVC) {
-        if fromVC.navigationController.isNotNil
-        {
+        if fromVC.navigationController.isNotNil {
             fromVC.navigationController!.pushViewController(LanguageSelectionVC.instantiate(fromAppStoryboard: .Onboarding), animated: true)
         }
     }

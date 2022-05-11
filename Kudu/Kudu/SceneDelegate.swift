@@ -10,14 +10,13 @@ import LanguageManager_iOS
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
-    var window: UIWindow?  {
+    var window: UIWindow? {
         didSet {
             self.window?.overrideUserInterfaceStyle = .light
         }
     }
     
     private(set) static var shared: SceneDelegate?
-
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         guard let windowScene = (scene as? UIWindowScene) else { return }

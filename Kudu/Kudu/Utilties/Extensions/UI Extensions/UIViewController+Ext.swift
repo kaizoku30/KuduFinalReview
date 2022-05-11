@@ -1,4 +1,3 @@
-
 import Foundation
 import UIKit
 import AssetsLibrary
@@ -7,7 +6,7 @@ import Photos
 import MobileCoreServices
 
 // UIViewController extension
-extension UIViewController{
+extension UIViewController {
     
     //UIViewController extension for Image picker
     typealias ImagePickerDelegateController = (UIViewController & UIImagePickerControllerDelegate & UINavigationControllerDelegate)

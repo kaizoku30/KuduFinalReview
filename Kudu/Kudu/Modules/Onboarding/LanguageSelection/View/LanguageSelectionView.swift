@@ -7,7 +7,7 @@
 
 import UIKit
 
-class LanguageSelectionView:UIView {
+class LanguageSelectionView: UIView {
     
     @IBOutlet private weak var englishView: UIView!
     @IBOutlet private weak var arabicView: UIView!
@@ -15,8 +15,8 @@ class LanguageSelectionView:UIView {
     @IBOutlet private var arabicLabels: [UILabel]!
     @IBOutlet private var englishLabels: [UILabel]!
 
-    var handleViewActions:((ViewActions) -> Void)?
-    var currentLanguage:LanguageButtons = .arabic
+    var handleViewActions: ((ViewActions) -> Void)?
+    var currentLanguage: LanguageButtons = .arabic
     
     enum ViewActions {
         case continueButtonPressed

@@ -1,11 +1,9 @@
-
 import Foundation
 import AWSCore
 import AWSS3
 import UIKit
 import AVKit
 import AVFoundation
-
 
 typealias progressBlock = (_ progress: Double) -> Void //2
 typealias completionBlock = (_ response: String?, _ error: Error?) -> Void //3
@@ -14,24 +12,24 @@ class AWSUploadController {
     private static let requestParameter = "x-amz-acl"
     private static let publicRead = "public-read"
     
-    static func uploadTheVideoToAWS(videoUrl: URL,progress: progressBlock?, completion: completionBlock?) {
+    static func uploadTheVideoToAWS(videoUrl: URL, progress: progressBlock?, completion: completionBlock?) {
             encodeVideo(videoUrl: videoUrl) { (url) in
-                guard let url = url else{
+                guard let url = url else {
                     let err = NSError(domain: "Error while encoding the video.", code: 01, userInfo: nil)
-                    completion?(nil,err)
+                    completion?(nil, err)
                     return
                 }
                 self.uploadVideoToS3(url: url, success: completion, progress: progress)
             }
     }
     
-    static func uploadVideoToS3(url: URL, success: completionBlock?, progress: progressBlock?){
+    static func uploadVideoToS3(url: URL, success: completionBlock?, progress: progressBlock?) {
         
         let expression = AWSS3TransferUtilityUploadExpression()
         let transferUtility = AWSS3TransferUtility.default()
         let pathExt = url.pathExtension.lowercased()
         let name = "KUDU_\(UUID().uuidString)." + pathExt
-        let progressBlock: AWSS3TransferUtilityProgressBlock = {(task, progres) in
+        let progressBlock: AWSS3TransferUtilityProgressBlock = { (_, progres) in
             DispatchQueue.main.async(execute: {
                 progress?(progres.fractionCompleted)
             })
@@ -41,15 +39,15 @@ class AWSUploadController {
         expression.setValue(self.publicRead, forRequestParameter: self.requestParameter)
         expression.setValue(self.publicRead, forRequestHeader: self.requestParameter)
         
-        let completionHandler: AWSS3TransferUtilityUploadCompletionHandlerBlock = { (task, error) -> Void in
+        let completionHandler: AWSS3TransferUtilityUploadCompletionHandlerBlock = { (_, error) -> Void in
             DispatchQueue.main.async(execute: {
                 if let error = error {
                     print("Failed with error: \(error)")
-                    success?(nil,error)
+                    success?(nil, error)
                 } else {
                     let videoUrl = "\(Constants.S3BucketCredentials.s3BaseUrl)\(name)"
                     print(videoUrl)
-                    success?(videoUrl,nil)
+                    success?(videoUrl, nil)
                 }
             })
         }
@@ -64,7 +62,7 @@ class AWSUploadController {
                 completionHandler: completionHandler).continueWith { (task) -> AnyObject? in
                     if let error = task.error {
                         print("Error: \(error.localizedDescription)")
-                        success?(nil,error)
+                        success?(nil, error)
                     }
                     
                     if task.result != nil {
@@ -72,28 +70,25 @@ class AWSUploadController {
                     }
                     return nil
                 }
-        }catch {
-            print("error ",error.localizedDescription)
+        } catch {
+            print("error ", error.localizedDescription)
         }
     }
     
-    static func uploadTheImageToAWS(compression:Double = 1,image:UIImage,
-                         completion: completionBlock?,
-                         progress: progressBlock?)
-    {
+    static func uploadTheImageToAWS(compression: Double = 1, image: UIImage, completion: completionBlock?, progress: progressBlock?) {
         
         let expression = AWSS3TransferUtilityUploadExpression()
         let transferUtility = AWSS3TransferUtility.default()
         let name = "KUDU_\(UUID().uuidString).png"
         
-      //   MARK: - Compressing image before making upload request...
+      // MARK: - Compressing image before making upload request...
         guard let data = image.jpegData(compressionQuality: compression) else {
             let err = NSError(domain: "Error while compressing the image.", code: 01, userInfo: nil)
-            completion?(nil,err)
+            completion?(nil, err)
             return
         }
         
-        let progressBlock: AWSS3TransferUtilityProgressBlock = {(task, progres) in
+        let progressBlock: AWSS3TransferUtilityProgressBlock = { (_, progres) in
             DispatchQueue.main.async(execute: {
                 //debugPrint("Image upload progress : \(progres.fractionCompleted)")
                 progress?(CGFloat(progres.fractionCompleted))
@@ -104,11 +99,11 @@ class AWSUploadController {
         expression.setValue(self.publicRead, forRequestParameter: self.requestParameter)
         expression.setValue(self.publicRead, forRequestHeader: self.requestParameter)
         
-        let completionHandler: AWSS3TransferUtilityUploadCompletionHandlerBlock = { (task, error) -> Void in
+        let completionHandler: AWSS3TransferUtilityUploadCompletionHandlerBlock = { (_, error) -> Void in
             DispatchQueue.main.async(execute: {
                 if let error = error {
                     printDebug("Failed with error: \(error)")
-                    completion?(nil,error)
+                    completion?(nil, error)
                 } else {
                     let imageURL = "\(Constants.S3BucketCredentials.s3BaseUrl)\(name)"
                     //printDebug(imageURL)
@@ -125,7 +120,7 @@ class AWSUploadController {
             completionHandler: completionHandler).continueWith { (task) -> AnyObject? in
                 if let error = task.error {
                     printDebug("Error: \(error.localizedDescription)")
-                    completion?(nil,error)
+                    completion?(nil, error)
                 }
                 
                 if task.result != nil {
@@ -135,20 +130,19 @@ class AWSUploadController {
         }
     }
     
-    
     static func encodeVideo(videoUrl: URL, resultClosure: @escaping (URL?) -> Void ) {
         
         let copyURL = videoUrl
         let asset = AVURLAsset(url: videoUrl)
-        guard let docDir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first as NSURL? else{return}
+        guard let docDir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first as NSURL? else {return}
         let fileActualName = copyURL.deletingPathExtension().lastPathComponent
         var fileNameInDocDir = "\(fileActualName).mp4"
         var completePath = docDir.appendingPathComponent(fileNameInDocDir)
-        if FileManager.default.fileExists(atPath: completePath?.path ?? ""){
+        if FileManager.default.fileExists(atPath: completePath?.path ?? "") {
            fileNameInDocDir = "\(fileActualName)_1.mp4"
             completePath = docDir.appendingPathComponent(fileNameInDocDir)
-            if FileManager.default.fileExists(atPath: completePath?.path ?? ""){
-                guard ((try? FileManager.default.removeItem(atPath: completePath?.path ?? "")) != nil) else{return}
+            if FileManager.default.fileExists(atPath: completePath?.path ?? "") {
+                guard (try? FileManager.default.removeItem(atPath: completePath?.path ?? "")) != nil else {return}
             }
         }
         
@@ -159,7 +153,7 @@ class AWSUploadController {
             let range = CMTimeRangeMake(start: start, duration: asset.duration)
             exportSession.timeRange = range
             exportSession.shouldOptimizeForNetworkUse = true
-            exportSession.exportAsynchronously() {
+            exportSession.exportAsynchronously {
                 
                 switch exportSession.status {
                 case .failed:
@@ -168,14 +162,13 @@ class AWSUploadController {
                     resultClosure(nil)
                 case .completed:
                     resultClosure(completePath)
-                    default:
+                default:
                         break
                     }
                 }
             } else {
                 resultClosure(nil)
             }
-
 
     }
     // MARK: Setting S3 server with the credentials...
@@ -188,7 +181,7 @@ class AWSUploadController {
         AWSServiceManager.default().defaultServiceConfiguration = configuration
     }
     
-    static func deleteS3Object(fileName: String,handler:@escaping (Bool) -> ()) {
+    static func deleteS3Object(fileName: String, handler:@escaping (Bool) -> Void) {
         let s3 = AWSS3.default()
         if let deleteObjectRequest = AWSS3DeleteObjectRequest() {
             deleteObjectRequest.bucket = Constants.S3BucketCredentials.s3BucketName
@@ -208,7 +201,4 @@ class AWSUploadController {
             print("Something went wrong")
         }
     }
-    
-    
-    
 }

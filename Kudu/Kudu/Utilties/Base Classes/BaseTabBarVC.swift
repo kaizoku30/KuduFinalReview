@@ -1,6 +1,6 @@
 import UIKit
 
-class BaseTabBarVC: UITabBarController,UITabBarControllerDelegate {
+class BaseTabBarVC: UITabBarController, UITabBarControllerDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()

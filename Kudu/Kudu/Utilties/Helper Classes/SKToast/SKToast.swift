@@ -1,4 +1,3 @@
-
 import Foundation
 import UIKit
 
@@ -7,17 +6,15 @@ public class SKToast {
     public typealias completionHandlerType = () -> Swift.Void
     
     // MARK: - Custom Properties
-    var window          : UIWindow?
-    var toastView       : UIVisualEffectView?
-    var statusLabel     : UILabel?
-    var toastViewHeight : CGFloat = 50
-    
+    var window: UIWindow?
+    var toastView: UIVisualEffectView?
+    var statusLabel: UILabel?
+    var toastViewHeight: CGFloat = 50
     
     /// HUD Customization Properties
-    fileprivate var messageFont              : UIFont = UIFont.systemFont(ofSize  : 16, weight  : .regular)
-    fileprivate var messageTextColor         : UIColor = UIColor.white
-    fileprivate var toastViewBackgroundStyle : UIBlurEffect.Style = .dark
-    
+    fileprivate var messageFont: UIFont = UIFont.systemFont(ofSize: 16, weight: .regular)
+    fileprivate var messageTextColor: UIColor = UIColor.white
+    fileprivate var toastViewBackgroundStyle: UIBlurEffect.Style = .dark
     
     // MARK: - Singleton Accessors
     static let shared: SKToast = {
@@ -25,13 +22,11 @@ public class SKToast {
         return instance
     }()
     
-    
     // MARK: - Initialization
     private init() {
         toastView = nil
         statusLabel = nil
     }
-    
     
     // MARK: - Display Methods
     /**
@@ -39,7 +34,7 @@ public class SKToast {
      
      - parameter message : status message to display
      */
-    public static func show(withMessage message:String) {
+    public static func show(withMessage message: String) {
         DispatchQueue.main.async {
             self.shared.createToastView(message, completionHandler: nil)
         }
@@ -50,7 +45,7 @@ public class SKToast {
      
      - parameter message : status message to display
      */
-    public static func show(withMessage message:String, completionHandler: (@escaping completionHandlerType)) {
+    public static func show(withMessage message: String, completionHandler: (@escaping completionHandlerType)) {
         DispatchQueue.main.async {
             self.shared.createToastView(message, completionHandler: {
                 completionHandler()
@@ -58,9 +53,8 @@ public class SKToast {
         }
     }
     
-    
     // MARK: - Configure Toastview
-    fileprivate func createToastView(_ statusMessage:String, completionHandler: (completionHandlerType)? = nil) {
+    fileprivate func createToastView(_ statusMessage: String, completionHandler: (completionHandlerType)? = nil) {
         
         if #available(iOS 13.0, *) {
             if let windowObj = getKeyWindow() {
@@ -68,7 +62,7 @@ public class SKToast {
             }
         } else {
             // Fallback on earlier versions
-            if let delegate: UIApplicationDelegate = UIApplication.shared.delegate,let windowObj = delegate.window {
+            if let delegate: UIApplicationDelegate = UIApplication.shared.delegate, let windowObj = delegate.window {
                     window = windowObj
             }
         }
@@ -89,11 +83,11 @@ public class SKToast {
         
         /// Setup Message Label
         if statusLabel == nil {
-            statusLabel                     = UILabel.init(frame : CGRect.zero)
-            statusLabel!.font               = messageFont
-            statusLabel!.textColor          = messageTextColor
-            statusLabel!.backgroundColor    = UIColor.clear
-            statusLabel!.textAlignment      = .center
+            statusLabel = UILabel.init(frame: CGRect.zero)
+            statusLabel!.font = messageFont
+            statusLabel!.textColor = messageTextColor
+            statusLabel!.backgroundColor = UIColor.clear
+            statusLabel!.textAlignment = .center
             statusLabel!.baselineAdjustment = .alignCenters
             statusLabel!.numberOfLines      = 0
         }
@@ -122,19 +116,17 @@ public class SKToast {
         }
     }
     
-    
     // MARK: - Configure ToastView
     fileprivate func setToastViewSize() {
-        let screen    : CGRect  = UIScreen.main.bounds
-        var rectLabel : CGRect  = CGRect.zero
-        let toastViewWidth  : CGFloat = (screen.size.width)-30
+        let screen: CGRect  = UIScreen.main.bounds
+        var rectLabel: CGRect  = CGRect.zero
+        let toastViewWidth: CGFloat = (screen.size.width)-30
         
         if let statusMessage =  statusLabel?.text, statusMessage.count != 0 {
             
             let attributes = [NSAttributedString.Key.font: statusLabel?.font]
             let options: NSStringDrawingOptions = [.usesFontLeading, .usesLineFragmentOrigin]
-            rectLabel = (statusLabel?.text?.boundingRect(with: CGSize(width: toastViewWidth-10, height: 300),
-                                                         options: options, attributes: attributes as [NSAttributedString.Key : AnyObject],
+            rectLabel = (statusLabel?.text?.boundingRect(with: CGSize(width: toastViewWidth-10, height: 300), options: options, attributes: attributes as [NSAttributedString.Key: AnyObject],
                                                          context: nil))!
             
             toastViewHeight = rectLabel.size.height + 18
@@ -146,11 +138,10 @@ public class SKToast {
             rectLabel.origin.y = (toastViewHeight - rectLabel.size.height) / 2
         }
         
-        toastView?.bounds    = CGRect(x  : 0, y  : 0, width  : toastViewWidth, height  : toastViewHeight)
-        toastView?.center    = CGPoint(x : window!.center.x, y : (screen.size.height-(25+toastViewHeight)))
+        toastView?.bounds = CGRect(x: 0, y: 0, width: toastViewWidth, height: toastViewHeight)
+        toastView?.center = CGPoint(x: window!.center.x, y: (screen.size.height-(25+toastViewHeight)))
         statusLabel?.frame = rectLabel
     }
-    
     
     // MARK: - ToastView Position
     @objc fileprivate func setToastViewPosistion(notification: NSNotification?) {
@@ -162,7 +153,7 @@ public class SKToast {
         if notification != nil {
             if let keyboardFrame: NSValue = notification?.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
                 let keyboardRectangle = keyboardFrame.cgRectValue
-                if (notification!.name == UIResponder.keyboardWillShowNotification || notification!.name == UIResponder.keyboardDidShowNotification) {
+                if notification!.name == UIResponder.keyboardWillShowNotification || notification!.name == UIResponder.keyboardDidShowNotification {
                     keyboardHeight    = keyboardRectangle.height
                 }
             }
@@ -177,20 +168,18 @@ public class SKToast {
         }, completion: nil)
     }
     
-    
     // MARK: - Show
     fileprivate func showToastView() {
         if toastView != nil {
             toastView!.alpha = 0
             
-            UIView.animate(withDuration:0.50 , delay: 0, options: [.allowUserInteraction, .curveLinear], animations: {
+            UIView.animate(withDuration: 0.50, delay: 0, options: [.allowUserInteraction, .curveLinear], animations: {
                 self.toastView?.alpha = 1
-            }, completion: {(success) in
+            }, completion: {(_) in
                 self.hideToastView()
             })
         }
     }
-    
     
     // MARK: - Hide
     fileprivate func hideToastView() {
@@ -198,12 +187,11 @@ public class SKToast {
             
             UIView.animate(withDuration: 0.15, delay: 3, options: [.allowUserInteraction, .curveEaseIn], animations: {
                 self.toastView?.alpha = 0
-            }, completion: { (succes) in
+            }, completion: { (_) in
                 self.destroyToastView()
             })
         }
     }
-    
     
     // MARK: - Deallocate ToastView
     fileprivate func destroyToastView() {
@@ -214,7 +202,6 @@ public class SKToast {
         toastView = nil
     }
     
-    
     // MARK: - Keyboard Notifications
     func registerForKeyboardNotificatoins() {
         NotificationCenter.default.addObserver(self, selector: #selector(self.setToastViewPosistion), name: UIDevice.orientationDidChangeNotification, object: nil)
@@ -223,7 +210,6 @@ public class SKToast {
         NotificationCenter.default.addObserver(self, selector: #selector(self.setToastViewPosistion), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.setToastViewPosistion), name: UIResponder.keyboardDidShowNotification, object: nil)
     }
-    
     
     // MARK: - Customization Methods
     public static func messageFont(_ font: UIFont) {
@@ -238,7 +224,6 @@ public class SKToast {
         self.shared.toastViewBackgroundStyle = backgroundStyle
     }
     
-    
     // MARK: - Helper Methods
     @available(iOS 13.0, *)
     fileprivate func getKeyWindow() -> UIWindow? {
@@ -252,4 +237,3 @@ public class SKToast {
         return currentWindow ?? Router.shared.appWindow
     }
 }
-

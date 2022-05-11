@@ -7,8 +7,7 @@
 
 import UIKit
 
-class TutorialVC:BaseVC
-{
+class TutorialVC: BaseVC {
     @IBOutlet var baseView: TutorialView!
     
     override func viewDidLoad() {
@@ -22,8 +21,7 @@ class TutorialVC:BaseVC
         self.navigationController?.interactivePopGestureRecognizer?.delegate = self.navigationController as? UIGestureRecognizerDelegate
     }
     
-    private func handleActions()
-    {
+    private func handleActions() {
         baseView.handleViewActions = {
             if $0 == .continueButtonPressed {
                 debugPrint("Move To Sign In")

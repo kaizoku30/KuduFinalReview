@@ -7,9 +7,7 @@
 
 import UIKit
 
-class LaunchVC:BaseVC
-
-{
+class LaunchVC: BaseVC {
     @IBOutlet weak var welcomeBackLabel: UILabel!
 
     override func viewDidLoad() {

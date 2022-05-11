@@ -1,12 +1,9 @@
-
 import Foundation
 import CoreGraphics
 
 extension Array {
-    func iteratorFunction(_ blockForEachIndex: (Int)->())
-    {
-        for i in 0..<self.count
-        {
+    func iteratorFunction(_ blockForEachIndex: (Int) -> Void) {
+        for i in 0..<self.count {
             blockForEachIndex(i)
         }
     }
@@ -14,8 +11,6 @@ extension Array {
 
 extension Array where Element: Equatable {
 
-    
-    
     ///Removes a given object from array if present. otherwise does nothing
     mutating func removeObject(_ object: Iterator.Element) {
         if let index = self.firstIndex(of: object) {
@@ -70,7 +65,7 @@ extension Array where Element: FloatingPoint {
 }
 
 extension Array where Element: Hashable {
-    ///Method to remove duplicates
+    /// Method to remove duplicates
     func removingDuplicates() -> [Element] {
         var addedDict = [Element: Bool]()
         return filter {
@@ -94,7 +89,7 @@ extension Array where Element: Equatable {
     
     // Remove all collection element that is equal to the given `object`:
     mutating func removeAll(object: Element) {
-        for (index,item) in self.enumerated() {
+        for (index, item) in self.enumerated() {
             if item == object {
                 remove(at: index)
             }
@@ -121,7 +116,6 @@ extension Sequence {
     }
 }
 
-
 extension Sequence where Element: Hashable {
     func unique() -> [Element] {
         NSOrderedSet(array: self as! [Any]).array as! [Element]
@@ -130,7 +124,7 @@ extension Sequence where Element: Hashable {
 
 extension Array {
     
-    func filterDuplicates(includeElement: @escaping (_ lhs:Element, _ rhs:Element) -> Bool) -> [Element] {
+    func filterDuplicates(includeElement: @escaping (_ lhs: Element, _ rhs: Element) -> Bool) -> [Element] {
         
         var results = [Element]()
         
@@ -155,8 +149,8 @@ extension Array {
         }
     }
     
-    func eachSlice(_ clump:Int) -> [[Self.Element]] {
-        return self.reduce(into:[]) { memo, cur in
+    func eachSlice(_ clump: Int) -> [[Self.Element]] {
+        return self.reduce(into: []) { memo, cur in
             if memo.count == 0 {
                 return memo.append([cur])
             }
@@ -170,9 +164,9 @@ extension Array {
     
 }
 
-extension Array where Element : Equatable {
+extension Array where Element: Equatable {
 
-    mutating func updateObject(_ object : Iterator.Element) {
+    mutating func updateObject(_ object: Iterator.Element) {
         if let index = self.firstIndex(of: object) {
             self[index] = object
         }
@@ -224,4 +218,3 @@ extension Array {
         return indices ~= index ? self[index] : nil
     }
 }
-

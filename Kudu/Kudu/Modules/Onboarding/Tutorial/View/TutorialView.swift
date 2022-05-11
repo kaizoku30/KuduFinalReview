@@ -7,13 +7,12 @@
 
 import UIKit
 
-class TutorialView:UIView
-{
+class TutorialView: UIView {
     @IBOutlet private weak var foodDeliveryLabel: UILabel!
     @IBOutlet private weak var greatTasteLabel: UILabel!
     @IBOutlet private weak var continueButton: AppButton!
     
-    var handleViewActions:((ViewActions) -> Void)?
+    var handleViewActions: ((ViewActions) -> Void)?
     
     enum ViewActions {
         case continueButtonPressed

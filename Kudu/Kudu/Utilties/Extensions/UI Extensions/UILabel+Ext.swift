@@ -1,4 +1,3 @@
-
 import Foundation
 import UIKit
 
@@ -223,13 +222,13 @@ extension UILabel {
         paragraphStyle.alignment = self.textAlignment
         
         let attrString = NSMutableAttributedString()
-        if (self.attributedText != nil) {
+        if self.attributedText != nil {
             attrString.append( self.attributedText!)
         } else {
             attrString.append( NSMutableAttributedString(string: self.text!))
             attrString.addAttribute(NSAttributedString.Key.font, value: self.font!, range: NSMakeRange(0, attrString.length))
         }
-        attrString.addAttribute(NSAttributedString.Key.paragraphStyle, value:paragraphStyle, range:NSMakeRange(0, attrString.length))
+        attrString.addAttribute(NSAttributedString.Key.paragraphStyle, value: paragraphStyle, range: NSMakeRange(0, attrString.length))
         self.attributedText = attrString
     }
     
@@ -252,7 +251,7 @@ extension UILabel {
         let sizeConstraint = CGSize(width: labelWidth, height: CGFloat.greatestFiniteMagnitude)
         
         let attributes: [AnyHashable: Any] = [NSAttributedString.Key.font: font]
-        let attributedText = NSAttributedString(string: self.text!, attributes: attributes as? [NSAttributedString.Key : Any])
+        let attributedText = NSAttributedString(string: self.text!, attributes: attributes as? [NSAttributedString.Key: Any])
         let boundingRect: CGRect = attributedText.boundingRect(with: sizeConstraint, options: .usesLineFragmentOrigin, context: nil)
         
         if boundingRect.size.height > labelHeight {
@@ -266,7 +265,7 @@ extension UILabel {
                 } else {
                     index = (self.text! as NSString).rangeOfCharacter(from: characterSet, options: [], range: NSRange(location: index + 1, length: self.text!.count - index - 1)).location
                 }
-            } while index != NSNotFound && index < self.text!.count && (self.text! as NSString).substring(to: index).boundingRect(with: sizeConstraint, options: .usesLineFragmentOrigin, attributes: attributes as? [NSAttributedString.Key : Any], context: nil).size.height <= labelHeight
+            } while index != NSNotFound && index < self.text!.count && (self.text! as NSString).substring(to: index).boundingRect(with: sizeConstraint, options: .usesLineFragmentOrigin, attributes: attributes as? [NSAttributedString.Key: Any], context: nil).size.height <= labelHeight
             return prev
         }
         return self.text!.count
@@ -301,7 +300,7 @@ extension UILabel {
 
 extension String {
     func createLabelAndCheckTruncation(width: CGFloat, font: UIFont, numberOfLines: Int) -> Bool {
-        let label:UILabel = UILabel(frame: CGRect(x: 24, y: 0, width: width, height: CGFloat.greatestFiniteMagnitude))
+        let label: UILabel = UILabel(frame: CGRect(x: 24, y: 0, width: width, height: CGFloat.greatestFiniteMagnitude))
         label.frame.origin = CGPoint.zero
         label.size.width = width
         label.numberOfLines = numberOfLines
@@ -318,8 +317,7 @@ extension UILabel {
                             toOriginY newOriginY: CGFloat,
                             toWidth newWidth: CGFloat,
                             toHeight newHeight: CGFloat,
-                            duration: TimeInterval)
-    {
+                            duration: TimeInterval) {
         let oldFrame = self.frame
         let newFrame = CGRect(x: newOriginX, y: newOriginY, width: newWidth, height: newHeight)
 
