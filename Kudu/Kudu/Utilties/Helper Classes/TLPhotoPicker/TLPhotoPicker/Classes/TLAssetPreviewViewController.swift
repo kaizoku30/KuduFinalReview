@@ -73,10 +73,8 @@ private extension TLAssetPreviewViewController {
             contentMode: .aspectFit,
             options: options,
             resultHandler: { (image, info) in
-                if !canHandleDegraded {
-                    if let isDegraded = info?[PHImageResultIsDegradedKey] as? Bool, isDegraded {
+                if !canHandleDegraded, let isDegraded = info?[PHImageResultIsDegradedKey] as? Bool, isDegraded {
                         return
-                    }
                 }
                 completion(image)
         })

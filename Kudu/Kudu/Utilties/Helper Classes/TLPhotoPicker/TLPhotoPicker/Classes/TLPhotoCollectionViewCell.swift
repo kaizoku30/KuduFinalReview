@@ -78,10 +78,10 @@ open class TLPhotoCollectionViewCell: UICollectionViewCell {
                 self.playerView?.playerLayer.player = self.player
                 self.observer = NotificationCenter.default.addObserver(forName: .AVPlayerItemDidPlayToEndTime, object: self.player?.currentItem, queue: nil, using: { [weak self] (_) in
                     DispatchQueue.main.async {
-                        guard let `self` = self else { return }
-                        self.player?.seek(to: CMTime.zero)
-                        self.player?.play()
-                        self.player?.isMuted = self.configure.muteAudio
+                        guard let cell = self else { return }
+                        cell.player?.seek(to: CMTime.zero)
+                        cell.player?.play()
+                        cell.player?.isMuted = cell.configure.muteAudio
                     }
                 })
             }
