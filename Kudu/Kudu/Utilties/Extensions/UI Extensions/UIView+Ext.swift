@@ -220,12 +220,12 @@ extension UIView {
         roundCorner(.allCorners, radius: self.bounds.width/2.0)
     }
 
-    public func round() {
+    func round() {
         self.layer.masksToBounds = true
         self.layer.cornerRadius = height/2
     }
 
-    public func round(radius: CGFloat) {
+    func round(radius: CGFloat) {
         self.layer.masksToBounds = true
         self.layoutIfNeeded()
         self.layer.cornerRadius = radius

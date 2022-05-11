@@ -29,6 +29,8 @@ class LanguageSelectionVC: BaseVC {
             guard let vc = self else { return }
             switch $0 {
             case .continueButtonPressed:
+                let selectedLanguage = vc.baseView.currentLanguage == .arabic ? "ar" : "en"
+                AppUserDefaults.save(value: selectedLanguage, forKey: .selectedLanguage)
                 if vc.baseView.currentLanguage == .arabic {
                     LanguageManager.shared.setLanguage(language: .ar, for: nil, viewControllerFactory: nil, animation: nil)
                 }

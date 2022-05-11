@@ -21,4 +21,5 @@ target 'Kudu' do
   pod 'SwiftyJSON'
   pod 'LanguageManager-iOS'
   pod 'SwiftLint'
+  pod 'AnimationSugar'
 end

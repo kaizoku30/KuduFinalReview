@@ -75,7 +75,7 @@ class LanguageSelectionView: UIView {
             case .unselected:
                 arabicView.borderWidth = 1
                 arabicView.backgroundColor = AppColors.white
-                arabicLabels.forEach({ $0.textColor = .black })
+                arabicLabels.forEach({ $0.textColor = .black.withAlphaComponent(0.7) })
             }
         case .english:
             switch state {
@@ -86,7 +86,7 @@ class LanguageSelectionView: UIView {
             case .unselected:
                 englishView.borderWidth = 1
                 englishView.backgroundColor = AppColors.white
-                englishLabels.forEach({ $0.textColor = .black })
+                englishLabels.forEach({ $0.textColor = .black.withAlphaComponent(0.7) })
             }
         }
     }

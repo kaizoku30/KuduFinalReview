@@ -106,6 +106,8 @@
 		8486CC50282A186A00C33329 /* UITableViewCell+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8486CC4F282A186A00C33329 /* UITableViewCell+Ext.swift */; };
 		84920165282AEA8500D1FBA2 /* TutorialVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84920164282AEA8500D1FBA2 /* TutorialVC.swift */; };
 		84920167282AEA9E00D1FBA2 /* TutorialView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84920166282AEA9E00D1FBA2 /* TutorialView.swift */; };
+		84A26B80282BF231001637D5 /* TutorialCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A26B7F282BF231001637D5 /* TutorialCollectionViewCell.swift */; };
+		84A26B83282BF566001637D5 /* ScaledVisibleCellsCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A26B82282BF566001637D5 /* ScaledVisibleCellsCollectionView.swift */; };
 		84D8C954282AD20D00A7BDFD /* Roboto-BlackItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 84D8C948282AD20C00A7BDFD /* Roboto-BlackItalic.ttf */; };
 		84D8C955282AD20D00A7BDFD /* Roboto-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 84D8C949282AD20C00A7BDFD /* Roboto-LightItalic.ttf */; };
 		84D8C956282AD20D00A7BDFD /* Roboto-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 84D8C94A282AD20C00A7BDFD /* Roboto-Light.ttf */; };
@@ -228,6 +230,8 @@
 		8486CC4F282A186A00C33329 /* UITableViewCell+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableViewCell+Ext.swift"; sourceTree = "<group>"; };
 		84920164282AEA8500D1FBA2 /* TutorialVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialVC.swift; sourceTree = "<group>"; };
 		84920166282AEA9E00D1FBA2 /* TutorialView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialView.swift; sourceTree = "<group>"; };
+		84A26B7F282BF231001637D5 /* TutorialCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialCollectionViewCell.swift; sourceTree = "<group>"; };
+		84A26B82282BF566001637D5 /* ScaledVisibleCellsCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScaledVisibleCellsCollectionView.swift; sourceTree = "<group>"; };
 		84D8C948282AD20C00A7BDFD /* Roboto-BlackItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-BlackItalic.ttf"; sourceTree = "<group>"; };
 		84D8C949282AD20C00A7BDFD /* Roboto-LightItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-LightItalic.ttf"; sourceTree = "<group>"; };
 		84D8C94A282AD20C00A7BDFD /* Roboto-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Light.ttf"; sourceTree = "<group>"; };
@@ -409,7 +413,6 @@
 				8463D34C2817F68C002D6553 /* AppDelegate.swift */,
 				8463D34E2817F68C002D6553 /* SceneDelegate.swift */,
 				8463D3502817F68C002D6553 /* TestPaymentVC.swift */,
-				84D9EAF0282386F2008512C5 /* LaunchVC.swift */,
 			);
 			path = Kudu;
 			sourceTree = "<group>";
@@ -508,6 +511,7 @@
 		84719A1C2823B81F00FECB8D /* Helper Classes */ = {
 			isa = PBXGroup;
 			children = (
+				84A26B81282BF557001637D5 /* ScaledVisibleCellsCollectionView */,
 				8485FBAE282B8FE1000BB362 /* TLPhotoPicker */,
 				84719A1D2823B81F00FECB8D /* AWSRequestManager */,
 				84719A1F2823B81F00FECB8D /* SwipeableView */,
@@ -647,6 +651,7 @@
 		84920161282AEA6D00D1FBA2 /* Tutorial */ = {
 			isa = PBXGroup;
 			children = (
+				84A26B7E282BF1F4001637D5 /* CollectionViewCells */,
 				84920163282AEA7700D1FBA2 /* Controller */,
 				84920162282AEA7300D1FBA2 /* View */,
 			);
@@ -667,6 +672,22 @@
 				84920164282AEA8500D1FBA2 /* TutorialVC.swift */,
 			);
 			path = Controller;
+			sourceTree = "<group>";
+		};
+		84A26B7E282BF1F4001637D5 /* CollectionViewCells */ = {
+			isa = PBXGroup;
+			children = (
+				84A26B7F282BF231001637D5 /* TutorialCollectionViewCell.swift */,
+			);
+			path = CollectionViewCells;
+			sourceTree = "<group>";
+		};
+		84A26B81282BF557001637D5 /* ScaledVisibleCellsCollectionView */ = {
+			isa = PBXGroup;
+			children = (
+				84A26B82282BF566001637D5 /* ScaledVisibleCellsCollectionView.swift */,
+			);
+			path = ScaledVisibleCellsCollectionView;
 			sourceTree = "<group>";
 		};
 		84D8C947282AD1FC00A7BDFD /* Fonts */ = {
@@ -699,6 +720,7 @@
 		84D8C961282ADE8600A7BDFD /* Onboarding */ = {
 			isa = PBXGroup;
 			children = (
+				84D9EAF0282386F2008512C5 /* LaunchVC.swift */,
 				84920161282AEA6D00D1FBA2 /* Tutorial */,
 				84D8C962282ADE8E00A7BDFD /* LanguageSelection */,
 			);
@@ -941,6 +963,7 @@
 				84719A332823B81F00FECB8D /* RTPaginationTableView.swift in Sources */,
 				840AFD06281F922E003CE5A0 /* AppStoryboard.swift in Sources */,
 				840AFCFA281F8C39003CE5A0 /* Router.swift in Sources */,
+				84A26B83282BF566001637D5 /* ScaledVisibleCellsCollectionView.swift in Sources */,
 				8485FBC6282B8FE1000BB362 /* TLCollectionTableViewCell.swift in Sources */,
 				8485FBC8282B8FE1000BB362 /* TLBundle.swift in Sources */,
 				847199F32823B7F500FECB8D /* Data+Ext.swift in Sources */,
@@ -968,6 +991,7 @@
 				847199F72823B7F500FECB8D /* NSError+Ext.swift in Sources */,
 				8485FBCD282B8FE1000BB362 /* SynchronizedDictionary.swift in Sources */,
 				847199E12823B7C100FECB8D /* AppTextFieldView.swift in Sources */,
+				84A26B80282BF231001637D5 /* TutorialCollectionViewCell.swift in Sources */,
 				84719A3F2823B85300FECB8D /* WebServices.swift in Sources */,
 				847199E32823B7D500FECB8D /* CommonStrings.swift in Sources */,
 				840AFD1A281F9BA1003CE5A0 /* Optional+Ext.swift in Sources */,

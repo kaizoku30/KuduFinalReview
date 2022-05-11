@@ -132,6 +132,9 @@ public struct TLPHAsset {
         }
         return nil
     }
+}
+
+extension TLPHAsset {
     
     private func tempCopyLivePhotos(phAsset: PHAsset,
                                     livePhotoRequestOptions: PHLivePhotoRequestOptions? = nil,

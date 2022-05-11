@@ -1,6 +1,16 @@
 import Foundation
 
 extension Date {
+    
+    struct ComponentsDate {
+        let seconds: Int
+        let minutes: Int
+        let hours: Int
+        let days: Int
+        let weeks: Int
+        let months: Int
+        let years: Int
+    }
 
     // MARK: - DATE FORMAT ENUM
     enum DateFormat: String {
@@ -217,80 +227,26 @@ extension Date {
 }
 
 public extension Date {
-
-    func plus(seconds s: UInt) -> Date {
-        return self.addComponentsToDate(seconds: Int(s), minutes: 0, hours: 0, days: 0, weeks: 0, months: 0, years: 0)
-    }
-
-    func minus(seconds s: UInt) -> Date {
-        return self.addComponentsToDate(seconds: -Int(s), minutes: 0, hours: 0, days: 0, weeks: 0, months: 0, years: 0)
-    }
-
-    func plus(minutes m: UInt) -> Date {
-        return self.addComponentsToDate(seconds: 0, minutes: Int(m), hours: 0, days: 0, weeks: 0, months: 0, years: 0)
-    }
-
-    func minus(minutes m: UInt) -> Date {
-        return self.addComponentsToDate(seconds: 0, minutes: -Int(m), hours: 0, days: 0, weeks: 0, months: 0, years: 0)
-    }
-
-    func plus(hours h: UInt) -> Date {
-        return self.addComponentsToDate(seconds: 0, minutes: 0, hours: Int(h), days: 0, weeks: 0, months: 0, years: 0)
-    }
-
-    func minus(hours h: UInt) -> Date {
-        return self.addComponentsToDate(seconds: 0, minutes: 0, hours: -Int(h), days: 0, weeks: 0, months: 0, years: 0)
-    }
-
-    func plus(days d: UInt) -> Date {
-        return self.addComponentsToDate(seconds: 0, minutes: 0, hours: 0, days: Int(d), weeks: 0, months: 0, years: 0)
-    }
-
-    func minus(days d: UInt) -> Date {
-        return self.addComponentsToDate(seconds: 0, minutes: 0, hours: 0, days: -Int(d), weeks: 0, months: 0, years: 0)
-    }
-
-    func plus(weeks w: UInt) -> Date {
-        return self.addComponentsToDate(seconds: 0, minutes: 0, hours: 0, days: 0, weeks: Int(w), months: 0, years: 0)
-    }
-
-    func minus(weeks w: UInt) -> Date {
-        return self.addComponentsToDate(seconds: 0, minutes: 0, hours: 0, days: 0, weeks: -Int(w), months: 0, years: 0)
-    }
-
-    func plus(months m: UInt) -> Date {
-        return self.addComponentsToDate(seconds: 0, minutes: 0, hours: 0, days: 0, weeks: 0, months: Int(m), years: 0)
-    }
-
-    func minus(months m: UInt) -> Date {
-        return self.addComponentsToDate(seconds: 0, minutes: 0, hours: 0, days: 0, weeks: 0, months: -Int(m), years: 0)
-    }
-
-    func plus(years y: UInt) -> Date {
-        return self.addComponentsToDate(seconds: 0, minutes: 0, hours: 0, days: 0, weeks: 0, months: 0, years: Int(y))
-    }
-
-    func minus(years y: UInt) -> Date {
-        return self.addComponentsToDate(seconds: 0, minutes: 0, hours: 0, days: 0, weeks: 0, months: 0, years: -Int(y))
-    }
     
     func minus(date d: Date) -> DateComponents {
-        return Calendar.current.dateComponents([.month, .weekOfMonth, .day], from: self, to: d.plus(days: 1))
+        let component = ComponentsDate(seconds: 0, minutes: 0, hours: 0, days: 1, weeks: 0, months: 0, years: 0)
+        return Calendar.current.dateComponents([.month, .weekOfMonth, .day], from: self, to: self.addComponentsToDate(component))
     }
     
     func noOfDaysFrom(date d: Date) -> Int {
-        return Calendar.current.dateComponents([.day], from: d, to: self.plus(days: 1)).day ?? 0
+        let component = ComponentsDate(seconds: 0, minutes: 0, hours: 0, days: 1, weeks: 0, months: 0, years: 0)
+        return Calendar.current.dateComponents([.day], from: d, to: self.addComponentsToDate(component)).day ?? 0
     }
 
-    fileprivate func addComponentsToDate(seconds sec: Int, minutes min: Int, hours hrs: Int, days d: Int, weeks wks: Int, months mts: Int, years yrs: Int) -> Date {
+    fileprivate func addComponentsToDate(_ components: ComponentsDate) -> Date {
         var dc = DateComponents()
-        dc.second = sec
-        dc.minute = min
-        dc.hour = hrs
-        dc.day = d
-        dc.weekOfYear = wks
-        dc.month = mts
-        dc.year = yrs
+        dc.second = components.seconds
+        dc.minute = components.minutes
+        dc.hour = components.hours
+        dc.day = components.days
+        dc.weekOfYear = components.weeks
+        dc.month = components.months
+        dc.year = components.years
         return Calendar.current.date(byAdding: dc, to: self)!
     }
 

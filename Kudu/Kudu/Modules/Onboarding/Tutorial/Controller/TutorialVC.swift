@@ -12,7 +12,7 @@ class TutorialVC: BaseVC {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        baseView.setupView()
+        baseView.setupView(delegate: self)
         handleActions()
     }
     
@@ -27,5 +27,24 @@ class TutorialVC: BaseVC {
                 debugPrint("Move To Sign In")
             }
         }
+    }
+}
+
+extension TutorialVC: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UIScrollViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        3
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueCell(with: TutorialCollectionViewCell.self, indexPath: indexPath)
+        return cell
+    }
+    
+    func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+        baseView.handleScrollViewDidEndDragging(scrollView, withVelocity: velocity, targetContentOffset: targetContentOffset)
+    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        baseView.handleScrollViewScrolled(scrollView)
     }
 }

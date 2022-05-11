@@ -17,7 +17,15 @@ class LaunchVC: BaseVC {
     
     private func delayAndGoToNextVC() {
         DispatchQueue.main.asyncAfter(deadline: .now() + 2, execute: {
-            Router.shared.goToLanguagePrefSelectionVC(fromVC: self)
+            self.handleFlow()
         })
+    }
+    
+    private func handleFlow() {
+        if AppUserDefaults.value(forKey: .selectedLanguage).isNotNil {
+            Router.shared.goToTutorialVC(fromVC: self)
+        } else {
+            Router.shared.goToLanguagePrefSelectionVC(fromVC: self)
+        }
     }
 }
