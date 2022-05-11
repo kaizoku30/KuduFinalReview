@@ -32,7 +32,8 @@ struct AWSUploadCache {
                 var updatedUploadIds = unusedUploadIds
                 updatedUploadIds.remove(object: $0)
                 AppUserDefaults.save(value: updatedUploadIds, forKey: .pendingAWSRequests)
-                if object.awsLink != "" { deleteOnAWS(awsLink: object.awsLink) }
+                if object.awsLink != "" {
+                    deleteOnAWS(awsLink: object.awsLink) }
             }
         })
         logCacheStatus()

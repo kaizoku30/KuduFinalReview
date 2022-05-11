@@ -195,7 +195,6 @@ public class SKToast {
     
     // MARK: - Deallocate ToastView
     fileprivate func destroyToastView() {
-        NotificationCenter.default.removeObserver(self)
         statusLabel?.removeFromSuperview()
         statusLabel = nil
         toastView?.removeFromSuperview()

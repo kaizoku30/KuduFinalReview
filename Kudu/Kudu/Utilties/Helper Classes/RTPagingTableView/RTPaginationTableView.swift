@@ -33,7 +33,8 @@ class RTPaginationTableView: UITableView {
     }
     
     func configurePagination(inVC vc: UITableViewDelegate, pageConfigs: [RTPaginationConfig]) {
-        if pageConfigs.count == 0 { return }
+        if pageConfigs.count == 0 {
+            return }
         configs = pageConfigs
         if !paginationSetup {
             self.showsVerticalScrollIndicator = false

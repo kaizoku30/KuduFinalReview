@@ -86,6 +86,23 @@
 		84719A3D2823B84E00FECB8D /* Environment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84719A3C2823B84E00FECB8D /* Environment.swift */; };
 		84719A3F2823B85300FECB8D /* WebServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84719A3E2823B85300FECB8D /* WebServices.swift */; };
 		84827BC5282AE20800BA8AF9 /* LanguageSelectionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84827BC4282AE20800BA8AF9 /* LanguageSelectionVC.swift */; };
+		8485FBC3282B8FE1000BB362 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 8485FBAF282B8FE1000BB362 /* LICENSE */; };
+		8485FBC4282B8FE1000BB362 /* TLPhotoLibrary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8485FBB2282B8FE1000BB362 /* TLPhotoLibrary.swift */; };
+		8485FBC5282B8FE1000BB362 /* TLPhotopickerDataSourcesProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8485FBB3282B8FE1000BB362 /* TLPhotopickerDataSourcesProtocol.swift */; };
+		8485FBC6282B8FE1000BB362 /* TLCollectionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8485FBB4282B8FE1000BB362 /* TLCollectionTableViewCell.swift */; };
+		8485FBC7282B8FE1000BB362 /* TLCollectionTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8485FBB5282B8FE1000BB362 /* TLCollectionTableViewCell.xib */; };
+		8485FBC8282B8FE1000BB362 /* TLBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8485FBB6282B8FE1000BB362 /* TLBundle.swift */; };
+		8485FBC9282B8FE1000BB362 /* TLAlbumPopView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8485FBB7282B8FE1000BB362 /* TLAlbumPopView.swift */; };
+		8485FBCA282B8FE1000BB362 /* TLAssetPreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8485FBB8282B8FE1000BB362 /* TLAssetPreviewViewController.swift */; };
+		8485FBCB282B8FE1000BB362 /* TLPhotoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8485FBB9282B8FE1000BB362 /* TLPhotoCollectionViewCell.swift */; };
+		8485FBCC282B8FE1000BB362 /* TLPhotoCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8485FBBA282B8FE1000BB362 /* TLPhotoCollectionViewCell.xib */; };
+		8485FBCD282B8FE1000BB362 /* SynchronizedDictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8485FBBB282B8FE1000BB362 /* SynchronizedDictionary.swift */; };
+		8485FBCE282B8FE1000BB362 /* TLAssetCollection+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8485FBBC282B8FE1000BB362 /* TLAssetCollection+Extension.swift */; };
+		8485FBCF282B8FE1000BB362 /* TLPhotosPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8485FBBD282B8FE1000BB362 /* TLPhotosPickerViewController.swift */; };
+		8485FBD0282B8FE1000BB362 /* TLAssetsCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8485FBBE282B8FE1000BB362 /* TLAssetsCollection.swift */; };
+		8485FBD1282B8FE1000BB362 /* TLPhotosPickerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8485FBBF282B8FE1000BB362 /* TLPhotosPickerViewController.xib */; };
+		8485FBD2282B8FE1000BB362 /* TLPhotoPickerController.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 8485FBC1282B8FE1000BB362 /* TLPhotoPickerController.bundle */; };
+		8485FBD3282B8FE1000BB362 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 8485FBC2282B8FE1000BB362 /* README.md */; };
 		8486CC50282A186A00C33329 /* UITableViewCell+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8486CC4F282A186A00C33329 /* UITableViewCell+Ext.swift */; };
 		84920165282AEA8500D1FBA2 /* TutorialVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84920164282AEA8500D1FBA2 /* TutorialVC.swift */; };
 		84920167282AEA9E00D1FBA2 /* TutorialView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84920166282AEA9E00D1FBA2 /* TutorialView.swift */; };
@@ -191,6 +208,23 @@
 		84719A3C2823B84E00FECB8D /* Environment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Environment.swift; sourceTree = "<group>"; };
 		84719A3E2823B85300FECB8D /* WebServices.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebServices.swift; sourceTree = "<group>"; };
 		84827BC4282AE20800BA8AF9 /* LanguageSelectionVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguageSelectionVC.swift; sourceTree = "<group>"; };
+		8485FBAF282B8FE1000BB362 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		8485FBB2282B8FE1000BB362 /* TLPhotoLibrary.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TLPhotoLibrary.swift; sourceTree = "<group>"; };
+		8485FBB3282B8FE1000BB362 /* TLPhotopickerDataSourcesProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TLPhotopickerDataSourcesProtocol.swift; sourceTree = "<group>"; };
+		8485FBB4282B8FE1000BB362 /* TLCollectionTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TLCollectionTableViewCell.swift; sourceTree = "<group>"; };
+		8485FBB5282B8FE1000BB362 /* TLCollectionTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TLCollectionTableViewCell.xib; sourceTree = "<group>"; };
+		8485FBB6282B8FE1000BB362 /* TLBundle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TLBundle.swift; sourceTree = "<group>"; };
+		8485FBB7282B8FE1000BB362 /* TLAlbumPopView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TLAlbumPopView.swift; sourceTree = "<group>"; };
+		8485FBB8282B8FE1000BB362 /* TLAssetPreviewViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TLAssetPreviewViewController.swift; sourceTree = "<group>"; };
+		8485FBB9282B8FE1000BB362 /* TLPhotoCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TLPhotoCollectionViewCell.swift; sourceTree = "<group>"; };
+		8485FBBA282B8FE1000BB362 /* TLPhotoCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TLPhotoCollectionViewCell.xib; sourceTree = "<group>"; };
+		8485FBBB282B8FE1000BB362 /* SynchronizedDictionary.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SynchronizedDictionary.swift; sourceTree = "<group>"; };
+		8485FBBC282B8FE1000BB362 /* TLAssetCollection+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "TLAssetCollection+Extension.swift"; sourceTree = "<group>"; };
+		8485FBBD282B8FE1000BB362 /* TLPhotosPickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TLPhotosPickerViewController.swift; sourceTree = "<group>"; };
+		8485FBBE282B8FE1000BB362 /* TLAssetsCollection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TLAssetsCollection.swift; sourceTree = "<group>"; };
+		8485FBBF282B8FE1000BB362 /* TLPhotosPickerViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TLPhotosPickerViewController.xib; sourceTree = "<group>"; };
+		8485FBC1282B8FE1000BB362 /* TLPhotoPickerController.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = TLPhotoPickerController.bundle; sourceTree = "<group>"; };
+		8485FBC2282B8FE1000BB362 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		8486CC4F282A186A00C33329 /* UITableViewCell+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableViewCell+Ext.swift"; sourceTree = "<group>"; };
 		84920164282AEA8500D1FBA2 /* TutorialVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialVC.swift; sourceTree = "<group>"; };
 		84920166282AEA9E00D1FBA2 /* TutorialView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialView.swift; sourceTree = "<group>"; };
@@ -474,6 +508,7 @@
 		84719A1C2823B81F00FECB8D /* Helper Classes */ = {
 			isa = PBXGroup;
 			children = (
+				8485FBAE282B8FE1000BB362 /* TLPhotoPicker */,
 				84719A1D2823B81F00FECB8D /* AWSRequestManager */,
 				84719A1F2823B81F00FECB8D /* SwipeableView */,
 				84719A212823B81F00FECB8D /* RTPagingTableView */,
@@ -559,6 +594,54 @@
 				84719A302823B81F00FECB8D /* ShimmerSwift.swift */,
 			);
 			path = ShimmerSwift;
+			sourceTree = "<group>";
+		};
+		8485FBAE282B8FE1000BB362 /* TLPhotoPicker */ = {
+			isa = PBXGroup;
+			children = (
+				8485FBAF282B8FE1000BB362 /* LICENSE */,
+				8485FBB0282B8FE1000BB362 /* TLPhotoPicker */,
+				8485FBC2282B8FE1000BB362 /* README.md */,
+			);
+			path = TLPhotoPicker;
+			sourceTree = "<group>";
+		};
+		8485FBB0282B8FE1000BB362 /* TLPhotoPicker */ = {
+			isa = PBXGroup;
+			children = (
+				8485FBB1282B8FE1000BB362 /* Classes */,
+				8485FBC0282B8FE1000BB362 /* TLPhotoPicker */,
+				8485FBC1282B8FE1000BB362 /* TLPhotoPickerController.bundle */,
+			);
+			path = TLPhotoPicker;
+			sourceTree = "<group>";
+		};
+		8485FBB1282B8FE1000BB362 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				8485FBB2282B8FE1000BB362 /* TLPhotoLibrary.swift */,
+				8485FBB3282B8FE1000BB362 /* TLPhotopickerDataSourcesProtocol.swift */,
+				8485FBB4282B8FE1000BB362 /* TLCollectionTableViewCell.swift */,
+				8485FBB5282B8FE1000BB362 /* TLCollectionTableViewCell.xib */,
+				8485FBB6282B8FE1000BB362 /* TLBundle.swift */,
+				8485FBB7282B8FE1000BB362 /* TLAlbumPopView.swift */,
+				8485FBB8282B8FE1000BB362 /* TLAssetPreviewViewController.swift */,
+				8485FBB9282B8FE1000BB362 /* TLPhotoCollectionViewCell.swift */,
+				8485FBBA282B8FE1000BB362 /* TLPhotoCollectionViewCell.xib */,
+				8485FBBB282B8FE1000BB362 /* SynchronizedDictionary.swift */,
+				8485FBBC282B8FE1000BB362 /* TLAssetCollection+Extension.swift */,
+				8485FBBD282B8FE1000BB362 /* TLPhotosPickerViewController.swift */,
+				8485FBBE282B8FE1000BB362 /* TLAssetsCollection.swift */,
+				8485FBBF282B8FE1000BB362 /* TLPhotosPickerViewController.xib */,
+			);
+			path = Classes;
+			sourceTree = "<group>";
+		};
+		8485FBC0282B8FE1000BB362 /* TLPhotoPicker */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = TLPhotoPicker;
 			sourceTree = "<group>";
 		};
 		84920161282AEA6D00D1FBA2 /* Tutorial */ = {
@@ -739,7 +822,9 @@
 			files = (
 				84D8C95A282AD20D00A7BDFD /* Roboto-Medium.ttf in Resources */,
 				84D8C958282AD20D00A7BDFD /* Roboto-BoldItalic.ttf in Resources */,
+				8485FBC3282B8FE1000BB362 /* LICENSE in Resources */,
 				8463D3662817FA7F002D6553 /* QA.plist in Resources */,
+				8485FBD3282B8FE1000BB362 /* README.md in Resources */,
 				84D9EAF528238C33008512C5 /* Localizable.strings in Resources */,
 				84D8C95C282AD20D00A7BDFD /* Roboto-Thin.ttf in Resources */,
 				84D8C955282AD20D00A7BDFD /* Roboto-LightItalic.ttf in Resources */,
@@ -754,12 +839,16 @@
 				84D8C95E282AD20D00A7BDFD /* Roboto-Bold.ttf in Resources */,
 				8463D36D2817FE26002D6553 /* Development.xcconfig in Resources */,
 				8463D3592817F68D002D6553 /* LaunchScreen.storyboard in Resources */,
+				8485FBD1282B8FE1000BB362 /* TLPhotosPickerViewController.xib in Resources */,
 				84D8C95B282AD20D00A7BDFD /* Roboto-Regular.ttf in Resources */,
+				8485FBD2282B8FE1000BB362 /* TLPhotoPickerController.bundle in Resources */,
+				8485FBCC282B8FE1000BB362 /* TLPhotoCollectionViewCell.xib in Resources */,
 				8463D3562817F68D002D6553 /* Assets.xcassets in Resources */,
 				8463D3682817FA86002D6553 /* Staging.plist in Resources */,
 				8463D3732817FE3B002D6553 /* Staging.xcconfig in Resources */,
 				84D8C959282AD20D00A7BDFD /* Roboto-MediumItalic.ttf in Resources */,
 				84D8C95F282AD20D00A7BDFD /* Roboto-Black.ttf in Resources */,
+				8485FBC7282B8FE1000BB362 /* TLCollectionTableViewCell.xib in Resources */,
 				84D8C95D282AD20D00A7BDFD /* Roboto-ThinItalic.ttf in Resources */,
 				8463D3542817F68C002D6553 /* Onboarding.storyboard in Resources */,
 			);
@@ -842,13 +931,18 @@
 				84719A342823B81F00FECB8D /* RTLoadingCell.swift in Sources */,
 				847199F42823B7F500FECB8D /* Double+Ext.swift in Sources */,
 				8463D385281A58DA002D6553 /* CustomRefreshRetrier.swift in Sources */,
+				8485FBCB282B8FE1000BB362 /* TLPhotoCollectionViewCell.swift in Sources */,
 				84719A392823B81F00FECB8D /* VideoThumbnail.swift in Sources */,
 				847199F12823B7F500FECB8D /* Array+Ext.swift in Sources */,
+				8485FBC9282B8FE1000BB362 /* TLAlbumPopView.swift in Sources */,
+				8485FBCA282B8FE1000BB362 /* TLAssetPreviewViewController.swift in Sources */,
 				84719A042823B80100FECB8D /* URL+Ext.swift in Sources */,
 				840AFD12281F9476003CE5A0 /* AppGlobals.swift in Sources */,
 				84719A332823B81F00FECB8D /* RTPaginationTableView.swift in Sources */,
 				840AFD06281F922E003CE5A0 /* AppStoryboard.swift in Sources */,
 				840AFCFA281F8C39003CE5A0 /* Router.swift in Sources */,
+				8485FBC6282B8FE1000BB362 /* TLCollectionTableViewCell.swift in Sources */,
+				8485FBC8282B8FE1000BB362 /* TLBundle.swift in Sources */,
 				847199F32823B7F500FECB8D /* Data+Ext.swift in Sources */,
 				84719A022823B80100FECB8D /* NotificationCenter+Ext.swift in Sources */,
 				847199F02823B7F500FECB8D /* String+Ext.swift in Sources */,
@@ -862,6 +956,7 @@
 				847199DE2823B7BC00FECB8D /* AppNavigationBar.swift in Sources */,
 				8463D34D2817F68C002D6553 /* AppDelegate.swift in Sources */,
 				84920165282AEA8500D1FBA2 /* TutorialVC.swift in Sources */,
+				8485FBD0282B8FE1000BB362 /* TLAssetsCollection.swift in Sources */,
 				84827BC5282AE20800BA8AF9 /* LanguageSelectionVC.swift in Sources */,
 				840AFD0A281F9274003CE5A0 /* AppImages.swift in Sources */,
 				84719A3B2823B81F00FECB8D /* ShimmerSwift.swift in Sources */,
@@ -871,6 +966,7 @@
 				84719A322823B81F00FECB8D /* SwipeableView.swift in Sources */,
 				840AFD14281F967A003CE5A0 /* AppFonts.swift in Sources */,
 				847199F72823B7F500FECB8D /* NSError+Ext.swift in Sources */,
+				8485FBCD282B8FE1000BB362 /* SynchronizedDictionary.swift in Sources */,
 				847199E12823B7C100FECB8D /* AppTextFieldView.swift in Sources */,
 				84719A3F2823B85300FECB8D /* WebServices.swift in Sources */,
 				847199E32823B7D500FECB8D /* CommonStrings.swift in Sources */,
@@ -882,9 +978,11 @@
 				8463D384281A58DA002D6553 /* API.swift in Sources */,
 				8486CC50282A186A00C33329 /* UITableViewCell+Ext.swift in Sources */,
 				84719A172823B80600FECB8D /* CGPoint+Ext.swift in Sources */,
+				8485FBCE282B8FE1000BB362 /* TLAssetCollection+Extension.swift in Sources */,
 				840AFD0E281F93C0003CE5A0 /* DeviceDetail.swift in Sources */,
 				84719A182823B80600FECB8D /* UIButton+Ext.swift in Sources */,
 				847199E52823B7D900FECB8D /* CommonValidation.swift in Sources */,
+				8485FBC4282B8FE1000BB362 /* TLPhotoLibrary.swift in Sources */,
 				84719A012823B80100FECB8D /* DispatchQueue+Ext.swift in Sources */,
 				8463D386281A58DA002D6553 /* Endpoint.swift in Sources */,
 				840AFD03281F9074003CE5A0 /* BaseVC.swift in Sources */,
@@ -895,8 +993,10 @@
 				84719A1A2823B80600FECB8D /* UIViewController+Ext.swift in Sources */,
 				8463D391281A58DA002D6553 /* ResponseStatus.swift in Sources */,
 				84719A372823B81F00FECB8D /* SKToast.swift in Sources */,
+				8485FBC5282B8FE1000BB362 /* TLPhotopickerDataSourcesProtocol.swift in Sources */,
 				847199F82823B7F500FECB8D /* Int+Ext.swift in Sources */,
 				847199F52823B7F500FECB8D /* UIImage+Ext.swift in Sources */,
+				8485FBCF282B8FE1000BB362 /* TLPhotosPickerViewController.swift in Sources */,
 				84719A382823B81F00FECB8D /* PhotoVideoUploadHandler.swift in Sources */,
 				84D8C966282ADEB000A7BDFD /* LanguageSelectionView.swift in Sources */,
 				847199F92823B7F500FECB8D /* UIColor+Ext.swift in Sources */,
@@ -1066,10 +1166,12 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = LRU6GC2TL6;
+				GCC_WARN_INHIBIT_ALL_WARNINGS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Kudu/Plist Files/Development.plist";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIRequiresFullScreen = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = UIInterfaceOrientationPortrait;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1093,10 +1195,12 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = LRU6GC2TL6;
+				GCC_WARN_INHIBIT_ALL_WARNINGS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Kudu/Plist Files/Staging.plist";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIRequiresFullScreen = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = UIInterfaceOrientationPortrait;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1183,10 +1287,12 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = LRU6GC2TL6;
+				GCC_WARN_INHIBIT_ALL_WARNINGS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Kudu/Plist Files/QA.plist";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIRequiresFullScreen = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = UIInterfaceOrientationPortrait;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1267,10 +1373,12 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = LRU6GC2TL6;
+				GCC_WARN_INHIBIT_ALL_WARNINGS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Kudu/Plist Files/Production.plist";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIRequiresFullScreen = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = UIInterfaceOrientationPortrait;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

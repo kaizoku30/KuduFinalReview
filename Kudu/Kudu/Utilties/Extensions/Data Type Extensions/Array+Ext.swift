@@ -89,10 +89,8 @@ extension Array where Element: Equatable {
     
     // Remove all collection element that is equal to the given `object`:
     mutating func removeAll(object: Element) {
-        for (index, item) in self.enumerated() {
-            if item == object {
+        for (index, item) in self.enumerated() where item == object {
                 remove(at: index)
-            }
         }
     }
 

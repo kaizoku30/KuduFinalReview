@@ -52,7 +52,8 @@ extension UIView {
     func startShimmering(padding:(left: CGFloat, right: CGFloat, bottom: CGFloat, top: CGFloat)? = nil, cornerRadius: CGFloat? = nil) {
         
         let alreadyAdded = layer.sublayers?.contains(where: {$0.name == "ShimmerLayer"}) ?? false
-        if alreadyAdded { return }
+        if alreadyAdded {
+            return }
         let gradientLayer = addGradientLayer(padding: padding, cornerRadius: cornerRadius)
         let animation = addAnimation()
         gradientLayer.add(animation, forKey: animation.keyPath)

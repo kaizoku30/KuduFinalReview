@@ -42,10 +42,13 @@ struct VideoThumbnail {
     }
     
     private static func saveThumbnail(image: UIImage?, videoUrl: String) {
-        if image == nil { return }
-        guard let data = image?.jpegData(compressionQuality: 0.5) else { return }
+        if image == nil {
+            return }
+        guard let data = image?.jpegData(compressionQuality: 0.5) else {
+            return }
         let encoded = try? PropertyListEncoder().encode(data)
-        if encoded.isNil { return }
+        if encoded.isNil {
+            return }
         debugPrint("Saved image for \(videoUrl)")
         UserDefaults.standard.set(encoded!, forKey: videoUrl)
     }

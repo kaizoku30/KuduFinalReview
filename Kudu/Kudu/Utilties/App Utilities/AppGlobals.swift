@@ -23,21 +23,6 @@ var isSimulatorDevice: Bool {
     return isSimulator
 }
 
-/// Is this iPhone X or not
-func isDeviceIsIphoneX() -> Bool {
-    let device: UIDevice = UIDevice()
-    if device.userInterfaceIdiom == .phone {
-        switch UIScreen.main.nativeBounds.height {
-        case 1136: return false
-        case 1334: return false
-        case 2208: return false
-        case 2436: return true
-        default: return false
-        }
-    }
-    return false
-}
-
 /// checking Iphone model to set navigation bar bounds
 func checkIsIphoneXOrGreater() -> Bool {
     switch UIScreen.main.nativeBounds.height {

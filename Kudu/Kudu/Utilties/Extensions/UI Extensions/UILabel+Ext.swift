@@ -215,23 +215,6 @@ extension UILabel {
         return (ceil(textHeight / lineHeight))
     }
     
-    func setLineHeight(lineHeight: CGFloat, lineSpacing: CGFloat = 1.0) {
-        let paragraphStyle = NSMutableParagraphStyle()
-        paragraphStyle.lineSpacing = lineSpacing
-        paragraphStyle.lineHeightMultiple = lineHeight
-        paragraphStyle.alignment = self.textAlignment
-        
-        let attrString = NSMutableAttributedString()
-        if self.attributedText != nil {
-            attrString.append( self.attributedText!)
-        } else {
-            attrString.append( NSMutableAttributedString(string: self.text!))
-            attrString.addAttribute(NSAttributedString.Key.font, value: self.font!, range: NSMakeRange(0, attrString.length))
-        }
-        attrString.addAttribute(NSAttributedString.Key.paragraphStyle, value: paragraphStyle, range: NSMakeRange(0, attrString.length))
-        self.attributedText = attrString
-    }
-    
     func addCharacterSpacing(kernValue: Double = 1.15) {
         if let labelText = text, labelText.count > 0 {
             let attributedString = NSMutableAttributedString(string: labelText)
@@ -308,31 +291,5 @@ extension String {
         label.text = self
         label.sizeToFit()
         return label.isTruncated
-    }
-}
-
-extension UILabel {
-    func animateAndChangeFrame(
-                            toOriginX newOriginX: CGFloat,
-                            toOriginY newOriginY: CGFloat,
-                            toWidth newWidth: CGFloat,
-                            toHeight newHeight: CGFloat,
-                            duration: TimeInterval) {
-        let oldFrame = self.frame
-        let newFrame = CGRect(x: newOriginX, y: newOriginY, width: newWidth, height: newHeight)
-
-        let translation = CGAffineTransform(translationX: newFrame.midX - oldFrame.midX,
-                                            y: newFrame.midY - oldFrame.midY)
-        let scaling = CGAffineTransform(scaleX: newFrame.width / oldFrame.width,
-                                        y: newFrame.height / oldFrame.height)
-
-        let transform = scaling.concatenating(translation)
-
-        UIView.animate(withDuration: duration, animations: {
-            self.transform = transform
-        }) { _ in
-            self.transform = .identity
-            self.frame = newFrame
-        }
     }
 }

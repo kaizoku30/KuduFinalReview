@@ -32,7 +32,8 @@ class BaseVC: UIViewController {
     
     @discardableResult
     func popToSpecificViewController(kindOf viewController: UIViewController.Type, animated: Bool = true) -> Bool {
-        if self.navigationController.isNil { return false }
+        if self.navigationController.isNil {
+            return false }
         
         for vc in self.navigationController!.viewControllers where vc.isKind(of: viewController.classForCoder()) {
             self.navigationController!.popToViewController(vc, animated: animated)
