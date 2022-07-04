@@ -6,10 +6,11 @@
 //
 
 import Foundation
+import GoogleSignIn
 
 class Constants {
     struct BasicAuthCredentials {
-        static var apiUserNameAndPass = "vida:vida@123"
+        static var apiUserNameAndPass = "kuduApp:kuduApp@123"
         static var b64String: String {
                 let data = apiUserNameAndPass.data(using: String.Encoding.utf8)
                 return data?.base64EncodedString() ?? ""
@@ -18,6 +19,16 @@ class Constants {
     
     struct CheckOutCredentials {
         static let postApiURL = "https://api.sandbox.checkout.com/payments"
+    }
+    
+    struct GoogleSingInCredentials {
+        static let signInConfig = GIDConfiguration(clientID: "952805797575-sj2m31v6gc9cj8aa8u9ib0g23fa1gjq7.apps.googleusercontent.com")
+    }
+    
+    struct TwitterCredentials {
+        static let apiKey = "y3c1y8ZDb0Bt7UeV1G7SiqvWd"
+        static let apiKeySecret = "VFE1XCNpks2k3oMoOjQlYbRtQ0JaxcEukqTESyy10f5tPdW93H"
+        static let scheme = "twittersdk"
     }
     
     struct S3BucketCredentials {
@@ -33,12 +44,24 @@ class Constants {
     }
     
     enum NotificationObservers: String {
+        case pushLoginVC
+        case sessionExpired
         case resetLoginState
         case videoThumbnailsUpdated
+        case twitterCallBack
+        case endTutorialFlow
     }
     
-    struct APIKeys {
-        static let profilePicture = "profilePicture"
+    enum APIKeys: String {
+        case mobileNo
+        case countryCode
+        case fullName
+        case email
+        case deviceId
+        case deviceToken
+        case mobileOtp
+        case socialLoginType
+        case socialId
     }
     
     enum MediaTypes: String {
@@ -58,5 +81,12 @@ class Constants {
     enum S3MediaType: Int {
         case image = 1
         case video = 2
+    }
+    
+    struct CustomViewTags {
+        static let bottomSheetOverlay = 100001
+        static let dimViewTag = 123456
+        static let alertTag = 123455
+        static let changeExpTag = 123454
     }
 }

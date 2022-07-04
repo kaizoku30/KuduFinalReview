@@ -99,9 +99,9 @@ extension AppButton {
         self.isUserInteractionEnabled = false
     }
     
-    func stopBtnLoader() {
+    func stopBtnLoader(titleColor: UIColor = .white) {
         self.activityIndicator?.stopAnimating()
-        self.setTitleColorForAllMode(color: enabledFontColor)
+        self.setTitleColorForAllMode(color: titleColor)
         self.isUserInteractionEnabled = true
     }
 }

@@ -2,20 +2,91 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>CFBundleDevelopmentRegion</key>
+	<string>$(DEVELOPMENT_LANGUAGE)</string>
+	<key>CFBundleExecutable</key>
+	<string>$(EXECUTABLE_NAME)</string>
+	<key>CFBundleIdentifier</key>
+	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
+	<key>CFBundleInfoDictionaryVersion</key>
+	<string>6.0</string>
+	<key>CFBundleName</key>
+	<string>Kudu</string>
+	<key>CFBundlePackageType</key>
+	<string>$(PRODUCT_BUNDLE_PACKAGE_TYPE)</string>
+	<key>CFBundleShortVersionString</key>
+	<string>$(MARKETING_VERSION)</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLName</key>
+			<string>GoogleSignIn</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>com.googleusercontent.apps.952805797575-sj2m31v6gc9cj8aa8u9ib0g23fa1gjq7</string>
+			</array>
+		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLName</key>
+			<string></string>
+			<key>CFBundleURLSchemes</key>
+			<array/>
+		</dict>
+		<dict>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>fb715156706269661</string>
+			</array>
+		</dict>
+	</array>
+	<key>CFBundleVersion</key>
+	<string>$(CURRENT_PROJECT_VERSION)</string>
+	<key>FacebookAppID</key>
+	<string>$(FacebookAppID)</string>
+	<key>FacebookClientToken</key>
+	<string>$(FacebookClientToken)</string>
+	<key>FacebookDisplayName</key>
+	<string>$(FacebookDisplayName)</string>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>twitter</string>
+		<string>twitterauth</string>
+		<string>fbapi</string>
+		<string>fb-messenger-share-api</string>
+	</array>
+	<key>LSRequiresIPhoneOS</key>
+	<true/>
+	<key>MinimumOSVersion</key>
+	<string>13.0</string>
+	<key>NSAppTransportSecurity</key>
+	<dict>
+		<key>NSAllowsArbitraryLoads</key>
+		<true/>
+	</dict>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Kudu wants to access your photo library to upload pictures</string>
 	<key>UIAppFonts</key>
 	<array>
-		<string>Roboto-Black</string>
-		<string>Roboto-BlackItalic</string>
-		<string>Roboto-Bold</string>
-		<string>Roboto-BoldItalic</string>
-		<string>Roboto-Italic</string>
-		<string>Roboto-Light</string>
-		<string>Roboto-LightItalic</string>
-		<string>Roboto-Medium</string>
-		<string>Roboto-MediumItalic</string>
-		<string>Roboto-Regular</string>
-		<string>Roboto-Thin</string>
-		<string>Roboto-ThinItalic</string>
+		<string>Mulish-Black</string>
+		<string>Mulish-BlackItalic</string>
+		<string>Mulish-Bold</string>
+		<string>Mulish-BoldItalic</string>
+		<string>Mulish-ExtraBold</string>
+		<string>Mulish-ExtraBoldItalic</string>
+		<string>Mulish-ExtraLight</string>
+		<string>Mulish-ExtraLightItalic</string>
+		<string>Mulish-Italic</string>
+		<string>Mulish-Light</string>
+		<string>Mulish-LightItalic</string>
+		<string>Mulish-Medium</string>
+		<string>Mulish-MediumItalic</string>
+		<string>Mulish-Regular</string>
+		<string>Mulish-SemiBold</string>
+		<string>Mulish-SemiBoldItalic</string>
 	</array>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
@@ -34,7 +105,19 @@
 			</array>
 		</dict>
 	</dict>
+	<key>UIApplicationSupportsIndirectInputEvents</key>
+	<true/>
+	<key>UILaunchStoryboardName</key>
+	<string>LaunchScreen</string>
+	<key>UIRequiresFullScreen</key>
+	<true/>
+	<key>UISupportedInterfaceOrientations~iphone</key>
+	<array>
+		<string>UIInterfaceOrientationPortrait</string>
+	</array>
 	<key>kBaseUrl</key>
 	<string>$(kBaseUrl)</string>
+	<key>slash</key>
+	<string>$(slash)</string>
 </dict>
 </plist>

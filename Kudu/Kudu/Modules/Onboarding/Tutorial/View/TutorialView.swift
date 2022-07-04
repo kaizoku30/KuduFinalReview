@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import LanguageManager_iOS
 
 class TutorialView: UIView {
     @IBOutlet private weak var tutorialCollectionView: UICollectionView!
@@ -18,9 +19,12 @@ class TutorialView: UIView {
     @IBOutlet weak var page2No: UIView!
     @IBOutlet var page3No: [UIView]!
     @IBOutlet var page3Yes: [UIView]!
-    
-    
     var handleViewActions: ((ViewActions) -> Void)?
+    private var invertPageControl = false
+    
+    @IBAction func continueButtonPressed(_ sender: Any) {
+        handleViewActions?(.continueButtonPressed)
+    }
     
     enum ViewActions {
         case continueButtonPressed
@@ -28,9 +32,12 @@ class TutorialView: UIView {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        foodDeliveryLabel.text = LS.TutorialVC.getFoodDelivery
-        greatTasteLabel.text = LS.TutorialVC.greatTasteLabel
-        continueButton.setTitleForAllMode(title: LS.TutorialVC.continueButtonTitle)
+        foodDeliveryLabel.text = LocalizedStrings.Tutorial.getFoodDelivery
+        greatTasteLabel.text = LocalizedStrings.Tutorial.greatTasteLabel
+        continueButton.setTitleForAllMode(title: LocalizedStrings.Tutorial.continueButtonTitle)
+        if AppUserDefaults.value(forKey: .selectedLanguage) as? String ?? "" == Languages.ar.rawValue {
+            invertPageControl = true
+        }
     }
     
     func handleScrollViewDidEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
@@ -48,9 +55,19 @@ class TutorialView: UIView {
         let progressInPage = scrollView.contentOffset.x - (page * scrollView.bounds.width)
         let progress = CGFloat(page) + progressInPage
         let handleNegativeProgress = progress < 0 ? 0 : progress
-        let actualPage = handleNegativeProgress.rounded() + 1
-        mainThread {
-            self.changePageControl(pageNo: Int(actualPage))
+        var actualPage = handleNegativeProgress.rounded() + 1
+        mainThread { [weak self] in
+            if self?.invertPageControl ?? false == true {
+                if actualPage == 1 {
+                    actualPage = 3
+                } else if actualPage == 3 {
+                    actualPage = 1
+                } else {
+                    actualPage = 2
+                }
+            }
+            debugPrint(actualPage)
+            self?.changePageControl(pageNo: Int(actualPage))
         }
     }
     
@@ -83,16 +100,11 @@ class TutorialView: UIView {
     }
     
     func setupView(delegate: TutorialVC) {
-        continueButton.handleBtnTap = {
-            [weak self] in
-            guard let view = self else { return }
-            view.handleViewActions?(.continueButtonPressed)
-        }
         tutorialCollectionView.delegate = delegate
         tutorialCollectionView.dataSource = delegate
         let flowLayout = tutorialCollectionView.collectionViewLayout as! UICollectionViewFlowLayout
         let cellWidth = self.width - (48*2)
-        flowLayout.itemSize = CGSize(width: cellWidth, height: tutorialCollectionView.height - 20)
+        flowLayout.itemSize = CGSize(width: cellWidth, height: tutorialCollectionView.height - tutorialCollectionView.height*(2*0.01))
         tutorialCollectionView.contentInset = UIEdgeInsets(top: 0, left: (self.width - cellWidth)/2.0, bottom: 0, right: (self.width - cellWidth)/2.0)
         tutorialCollectionView.decelerationRate = .fast
     }

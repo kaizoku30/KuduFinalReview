@@ -1,0 +1,23 @@
+{
+  "images" : [
+    {
+      "filename" : "Get Food Delivered with No Contact Delivery (3).png",
+      "idiom" : "universal",
+      "scale" : "1x"
+    },
+    {
+      "filename" : "Get Food Delivered with No Contact Delivery (4).png",
+      "idiom" : "universal",
+      "scale" : "2x"
+    },
+    {
+      "filename" : "Get Food Delivered with No Contact Delivery (5).png",
+      "idiom" : "universal",
+      "scale" : "3x"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

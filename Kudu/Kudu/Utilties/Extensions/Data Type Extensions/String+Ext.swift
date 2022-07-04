@@ -601,3 +601,53 @@ extension String {
            return size.width
     }
 }
+
+extension String {
+  var urlEncoded: String {
+    var charset: CharacterSet = .urlQueryAllowed
+    charset.remove(charactersIn: "\n:#/?@!$&'()*+,;=")
+    return self.addingPercentEncoding(withAllowedCharacters: charset)!
+  }
+    
+    var urlQueryStringParameters: [String: String] {
+        // breaks apart query string into a dictionary of values
+        var params = [String: String]()
+        let items = self.split(separator: "&")
+        for item in items {
+          let combo = item.split(separator: "=")
+          if combo.count == 2 {
+            let key = "\(combo[0])"
+            let val = "\(combo[1])"
+            params[key] = val
+          }
+        }
+        return params
+      }
+}
+
+extension String {
+
+    var length: Int {
+        return count
+    }
+
+    subscript (i: Int) -> String {
+        return self[i ..< i + 1]
+    }
+
+    func substring(fromIndex: Int) -> String {
+        return self[min(fromIndex, length) ..< length]
+    }
+
+    func substring(toIndex: Int) -> String {
+        return self[0 ..< max(0, toIndex)]
+    }
+
+    subscript (r: Range<Int>) -> String {
+        let range = Range(uncheckedBounds: (lower: max(0, min(length, r.lowerBound)),
+                                            upper: min(length, max(0, r.upperBound))))
+        let start = index(startIndex, offsetBy: range.lowerBound)
+        let end = index(start, offsetBy: range.upperBound - range.lowerBound)
+        return String(self[start ..< end])
+    }
+}

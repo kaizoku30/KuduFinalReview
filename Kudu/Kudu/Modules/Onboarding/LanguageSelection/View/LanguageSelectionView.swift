@@ -9,12 +9,19 @@ import UIKit
 
 class LanguageSelectionView: UIView {
     
+    @IBOutlet weak var arabicSubtitle: UILabel!
+    @IBOutlet weak var arabicTitle: UILabel!
+    @IBOutlet weak var englishSubtitle: UILabel!
+    @IBOutlet weak var englishTitle: UILabel!
     @IBOutlet private weak var englishView: UIView!
     @IBOutlet private weak var arabicView: UIView!
-    @IBOutlet private weak var continueButton: AppButton!
-    @IBOutlet private var arabicLabels: [UILabel]!
-    @IBOutlet private var englishLabels: [UILabel]!
-
+    @IBOutlet private weak var continueButton: UIButton!
+    @IBOutlet weak var englishImgView: UIImageView!
+    @IBOutlet weak var arabicImgView: UIImageView!
+    @IBAction func continueButtonPressed(_ sender: Any) {
+        handleViewActions?(.continueButtonPressed)
+    }
+    
     var handleViewActions: ((ViewActions) -> Void)?
     var currentLanguage: LanguageButtons = .arabic
     
@@ -36,16 +43,10 @@ class LanguageSelectionView: UIView {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        arabicLabels.forEach({ $0.adjustsFontSizeToFitWidth = true })
-        englishLabels.forEach({ $0.adjustsFontSizeToFitWidth = true })
+        englishViewTapped()
     }
     
     func setupView() {
-        continueButton.handleBtnTap = {
-            [weak self] in
-            guard let view = self else { return }
-            view.handleViewActions?(.continueButtonPressed)
-        }
         englishView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(englishViewTapped)))
         arabicView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(arabicViewTapped)))
     }
@@ -69,24 +70,28 @@ class LanguageSelectionView: UIView {
         case .arabic:
             switch state {
             case .selected:
-                arabicView.borderWidth = 0
-                arabicView.backgroundColor = AppColors.gray636367
-                arabicLabels.forEach({ $0.textColor = .white })
+                arabicTitle.textColor = .white
+                arabicSubtitle.textColor = .white.withAlphaComponent(0.8)
+                arabicView.borderColor = AppColors.LanguagePrefScreen.selectedBorder
+                arabicImgView.image = AppImages.LanguagePrefScreen.selected
             case .unselected:
-                arabicView.borderWidth = 1
-                arabicView.backgroundColor = AppColors.white
-                arabicLabels.forEach({ $0.textColor = .black.withAlphaComponent(0.7) })
+                arabicTitle.textColor = .white.withAlphaComponent(0.6)
+                arabicSubtitle.textColor = .white.withAlphaComponent(0.7)
+                arabicView.borderColor = AppColors.LanguagePrefScreen.unselectedBorder
+                arabicImgView.image = AppImages.LanguagePrefScreen.unSelected
             }
         case .english:
             switch state {
             case .selected:
-                englishView.borderWidth = 0
-                englishView.backgroundColor = AppColors.gray636367
-                englishLabels.forEach({ $0.textColor = .white })
+                englishTitle.textColor = .white
+                englishSubtitle.textColor = .white.withAlphaComponent(0.8)
+                englishView.borderColor = AppColors.LanguagePrefScreen.selectedBorder
+                englishImgView.image = AppImages.LanguagePrefScreen.selected
             case .unselected:
-                englishView.borderWidth = 1
-                englishView.backgroundColor = AppColors.white
-                englishLabels.forEach({ $0.textColor = .black.withAlphaComponent(0.7) })
+                englishTitle.textColor = .white.withAlphaComponent(0.6)
+                englishSubtitle.textColor = .white.withAlphaComponent(0.7)
+                englishView.borderColor = AppColors.LanguagePrefScreen.unselectedBorder
+                englishImgView.image = AppImages.LanguagePrefScreen.unSelected
             }
         }
     }

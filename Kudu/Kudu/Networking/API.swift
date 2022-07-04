@@ -41,31 +41,24 @@ struct Api {
                 failureHandler(.init(msg: "Error in request url"))
                 return
             }
-            let credentials = URLCredential()
 
             print("NEW REQUEST STARTED AT: \(Date())")
             
             let customRefreshRetrier: RequestRetrier & RequestAdapter = CustomRequestRetrier(endpoint: endpoint)
             let interceptor = Interceptor(adapter: customRefreshRetrier, retrier: customRefreshRetrier)
-            AF.request(url,
-                       method: endpoint.method,
-                       parameters: endpoint.parameters,
-                       encoding: endpoint.encoding,
-                       headers: endpoint.header,
-                       interceptor: interceptor)
-                .validate(contentType: ["application/json"])
-                .authenticate(with: credentials)
-                .responseJSON { (response) in
+            AF.request(url, method: endpoint.method, parameters: endpoint.parameters, encoding: endpoint.encoding, headers: endpoint.header, interceptor: interceptor, requestModifier: nil).validate(contentType: ["application/json"]).response(completionHandler: { (response) in
                     if endpoint.method == .get && response.request?.url != nil {
                         debugPrint("Request GET URL with Parameters : \((response.request?.url)!)")
                     }
+                    if response.value?.isNotNil ?? false, let jsonDict = try? JSONSerialization.jsonObject(with: (response.value!)!, options: []), let jsonData = try? JSONSerialization.data(withJSONObject: jsonDict, options: .prettyPrinted) {
+                            print(String(decoding: jsonData, as: UTF8.self))
+                    }
+                    
                     print("""
                           NEW REQUEST: \n\n Now: \(Date()) \n
-                          Url: \(endpoint.path) \n Parameters: \(endpoint.parameters) \n Value: \n \
-                          (String(describing: response.value)) \n Header: \(String(describing: endpoint.header)) \n
+                          Url: \(endpoint.path) \n Parameters: \(endpoint.parameters) \n Header: \(String(describing: endpoint.header)) \n
                           Validation Error: \(String(describing: response.error?.localizedDescription)) \n\n
                           """)
-                    
                     switch response.result {
                     
                     case .failure(let error):
@@ -77,14 +70,13 @@ struct Api {
                     case .success:
                         handleSuccessNew(response: response, successHandler: successHandler, failureHandler: failureHandler)
                     }
-                }
-        } else {
-            failureHandler(.init(code: 100, msg: "No Internet Connection"))
+                })
+            
         }
     }
     
     /// Parses response to the generic requested type
-    static private func handleSuccessNew<T: Codable>(response: DataResponse<Any, AFError>, successHandler: @escaping SuccessCompletionBlock<T>, failureHandler: @escaping ErrorFailureCompletionBlock) {
+    static private func handleSuccessNew<T: Codable>(response: AFDataResponse<Data?>, successHandler: @escaping SuccessCompletionBlock<T>, failureHandler: @escaping ErrorFailureCompletionBlock) {
         if let value = response.data {
             do {
                 let emptyDataResponse = try JSONDecoder().decode(EmptyDataResponse.self, from: value)
@@ -94,9 +86,11 @@ struct Api {
                 
                 // MARK: HANDLE DELETION/BLOCKED ACROSS APP AFTER CODES ARE PROVIDED FROM BACKEND
                 // emptyDataResponse.statusCode == Constants.StatusCode.BLOCKED || emptyDataResponse.statusCode == Constants.StatusCode.DELETED ||
-                if emptyDataResponse.type == "SESSION_EXPIRED" || emptyDataResponse.type == "INVALID_TOKEN" {
+                if emptyDataResponse.type == "INVALID_TOKEN" || emptyDataResponse.statusCode == 406 || emptyDataResponse.statusCode == 423 {
                    // NotificationCenter.postNotificationForObservers(.resetLoginState)
                     handleUserDeletedOrBlocked(msg: emptyDataResponse.message ?? "LS.Errors.somethingWentWrong")
+                } else if emptyDataResponse.statusCode ?? 0 > 299 {
+                    failureHandler(.init(code: emptyDataResponse.statusCode ?? 0, msg: emptyDataResponse.message ?? "", errorObject: nil))
                 } else {
                     let decodableObject = try JSONDecoder().decode(T.self, from: value)
                     successHandler(decodableObject)
@@ -112,6 +106,7 @@ struct Api {
     }
     
     static func handleUserDeletedOrBlocked(msg: String) {
+        Router.shared.goToLoginVC(fromVC: nil, sessionExpiryText: msg)
         debugPrint("Handle Delete Response Here :\(msg)")
     }
     

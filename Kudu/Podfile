@@ -21,5 +21,10 @@ target 'Kudu' do
   pod 'SwiftyJSON'
   pod 'LanguageManager-iOS'
   pod 'SwiftLint'
-  pod 'AnimationSugar'
+  pod 'GoogleSignIn'
+  pod 'FBSDKLoginKit'
+  pod 'Gifu'
+  pod 'liquid-swipe'
+  pod 'KDCircularProgress'
+  
 end

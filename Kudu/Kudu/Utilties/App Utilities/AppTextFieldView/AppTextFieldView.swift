@@ -10,7 +10,7 @@ import IQKeyboardManagerSwift
 
 enum AppTextFieldType {
     case email
-    case userName
+    case phoneNo
     case password
     case name
 }
@@ -21,16 +21,28 @@ enum AppTextFieldUIType {
 }
 
 class AppTextFieldView: UIView {
-    @IBOutlet weak var txtFieldBottomConstraint: NSLayoutConstraint!
-    @IBOutlet weak var txtFieldTopConstraint: NSLayoutConstraint!
-    @IBOutlet weak var txtFieldLeftConstraint: NSLayoutConstraint!
-    @IBOutlet var mainContentView: UIView!
-    @IBOutlet weak var txtField: UITextField!
-    @IBOutlet weak var txtFieldClearBtn: AppButton!
-    @IBOutlet weak var txtFieldShowPasswordBtn: AppButton!
+    @IBOutlet private weak var txtFieldBottomConstraint: NSLayoutConstraint!
+    @IBOutlet private weak var txtFieldTopConstraint: NSLayoutConstraint!
+    @IBOutlet private var mainContentView: UIView!
+    @IBOutlet private weak var txtField: UITextField!
+    @IBOutlet private weak var rightClearButton: AppButton!
+    @IBAction private func clearBtnPressed(_ sender: Any) {
+        txtField.text = ""
+        textFieldDidChangeCharacters?(txtField.text)
+    }
+    @IBOutlet private weak var leftClearButton: AppButton!
+    @IBOutlet private weak var leftSpaceConstraint: NSLayoutConstraint! // [ Left Clear Button ] --- [ Textfield ]
+    @IBOutlet private weak var leftClearButtonWidth: NSLayoutConstraint! // 0 - 35
+    @IBOutlet weak var rightClearButtonWidth: NSLayoutConstraint!
+    @IBOutlet weak var rightSpaceConstraint: NSLayoutConstraint!
     
     var currentText: String {
+        get {
         txtField.text ?? ""
+        }
+        set {
+        txtField.text = newValue
+        }
     }
     
     var placeholderText: String {
@@ -41,8 +53,9 @@ class AppTextFieldView: UIView {
 
     var textFieldClearBtnPressed:(() -> Void)?
     var textFieldDidChangeCharacters: ((String?) -> Void)?
+    var textFieldDidBeginEditing: (() -> Void)?
     var textFieldFinishedEditing: ((String?) -> Void)?
-    
+    var textFieldValidInputEntered: (() -> Void)?
     var disableTextField: Bool? {
         didSet {
             setTextFieldEnabled()
@@ -52,6 +65,11 @@ class AppTextFieldView: UIView {
     var font: UIFont? {
         didSet {
             self.txtField.font = font
+        }
+    }
+    var textColor: UIColor? {
+        didSet {
+            self.txtField.textColor = textColor
         }
     }
     var textFieldType: AppTextFieldType {
@@ -70,11 +88,19 @@ class AppTextFieldView: UIView {
                 return CommonValidation.isValidEmail(txtField.text ?? "")
             case .password:
                 return CommonValidation.isValidPassword(currentText)
-            case .userName:
-                return CommonValidation.isValidUsername(currentText)
+            case .phoneNo:
+                return true
             case .name:
                 return true
             }
+    }
+    var alignmentOfTextField: NSTextAlignment {
+        get {
+            return txtField.textAlignment
+        }
+        set {
+            txtField.textAlignment = newValue
+        }
     }
     private var lastEnteredCharacter = ""
     
@@ -131,24 +157,38 @@ extension AppTextFieldView {
         }
     }
     
+    func focus() {
+        self.txtField.becomeFirstResponder()
+    }
+    
     func configureTF() {
+        let currentLanguage = AppUserDefaults.selectedLanguage()
+        if textFieldType != .phoneNo {
+            txtField.textAlignment = currentLanguage == .en ? .left : .right
+        } else {
+            txtField.textAlignment = .left
+        }
+        
+//        if textFieldType == .phoneNo && currentLanguage == .ar {
+//           setupViewForPhoneNumberField()
+//        }
         switch textFieldType {
         case .email:
             
-            // txtField.placeholder = LS.Placeholder.email
+            txtField.placeholder = LocalizedStrings.SignUp.emailId
             txtField.keyboardType = .emailAddress
             
-        case.userName:
-           // txtField.placeholder = LS.Placeholder.username
-            txtField.keyboardType = .asciiCapable
+        case.phoneNo:
+            txtField.textAlignment = .left
+            txtField.placeholder = LocalizedStrings.Login.phoneNo
+            txtField.keyboardType = .phonePad
         case .password:
          //   txtField.placeholder = LS.Placeholder.password
             txtField.keyboardType = .asciiCapable
             txtField.isSecureTextEntry = true
-            txtFieldShowPasswordBtn.isHidden = false
         case .name:
-         //   txtField.placeholder = LS.Placeholder.name
-            txtField.keyboardType = .alphabet
+            txtField.placeholder = LocalizedStrings.SignUp.name
+            //txtField.keyboardType = .
         }
         switch textFieldUI {
         case .plain:
@@ -159,14 +199,25 @@ extension AppTextFieldView {
     }
     
     func setUpRoundedTFWithBorder() {
+        self.backgroundColor = UIColor(r: 196, g: 196, b: 196, alpha: 0.2)
+        leftSpaceConstraint.constant = 10
         txtFieldTopConstraint.constant = 10
-        txtFieldLeftConstraint.constant = 10
         txtFieldBottomConstraint.constant = 10
-        self.layer.borderColor = AppColors.gray.cgColor
-        self.layer.borderWidth = 1.0
-        self.layer.cornerRadius = 8.0
+        self.layer.borderColor = UIColor.black.withAlphaComponent(0.4).cgColor
+        self.layer.borderWidth = 0.5
+        self.layer.cornerRadius = 4.0
         self.layoutIfNeeded()
     }
+    
+//    func setupViewForPhoneNumberField() {
+//        txtField.textAlignment = .left
+//        rightClearButton.isHidden = true
+//        rightClearButtonWidth.constant = 0
+//        rightSpaceConstraint.constant = 0
+//        leftSpaceConstraint.constant = 5
+//        leftClearButtonWidth.constant = 35
+//        leftClearButton.isHidden = true
+//    }
     
 }
 
@@ -179,8 +230,10 @@ extension AppTextFieldView: UITextFieldDelegate {
             if currentText.contains(".") {
                 textField.text = currentText.replacingOccurrences(of: ".", with: "")
             }
-        case .userName:
-            textField.text = textField.text?.lowercased()
+        case .phoneNo:
+            if textField.text?.count ?? 0 == 9 {
+                textField.resignFirstResponder()
+            }
         case .password:
             break
         }
@@ -193,12 +246,15 @@ extension AppTextFieldView: UITextFieldDelegate {
         debugPrint("Textfield selected")
         CommonFunctions.hideToast()
         switch textFieldType {
-        case .email, .name, .userName:
-            txtFieldClearBtn.isHidden = false
-        case .password:
+        case .email, .name, .password:
             break
+           // rightClearButton.isHidden = false
+           // leftClearButton.isHidden = false
+        case .phoneNo:
+            txtField.textAlignment = .left
             
         }
+        self.textFieldDidBeginEditing?()
         
     }
     
@@ -208,8 +264,8 @@ extension AppTextFieldView: UITextFieldDelegate {
         switch textFieldType {
         case .email:
             return string != CommonStrings.whiteSpace && !newString.contains(CommonStrings.whiteSpace) && !string.isEmojiString()
-        case .userName:
-            return self.validateUserNameTextField(newString, string)
+        case .phoneNo:
+            return self.validatePhoneNumber(newString, string)
         case .password:
             if newString.count > 16 || string == CommonStrings.whiteSpace || newString.contains(CommonStrings.whiteSpace) || string.isEmojiString() {
                 return false
@@ -220,21 +276,17 @@ extension AppTextFieldView: UITextFieldDelegate {
         }
     }
     
-    private func validateUserNameTextField(_ newString: String, _ string: String) -> Bool {
-        let alphaNumericCharacter = CharacterSet.alphanumerics
-        let specialCharsAllows = CharacterSet(charactersIn: "._")
-        let allAllowedUsernameChars = alphaNumericCharacter.union(specialCharsAllows)
+    private func validatePhoneNumber(_ newString: String, _ string: String) -> Bool {
+        let allowed = CharacterSet(charactersIn: "1234567890")
         let enteredCharacterSet = CharacterSet(charactersIn: newString)
-        if !enteredCharacterSet.isSubset(of: allAllowedUsernameChars) {
-            return false
-        }
-        if newString.count > 15 || string == CommonStrings.whiteSpace || newString.contains(CommonStrings.whiteSpace) || string.isEmojiString() {
+        if !enteredCharacterSet.isSubset(of: allowed) || newString.count > 9 {
             return false
         }
         return true
     }
     
     private func validateNameTextField(_ newString: String, _ string: String) -> Bool {
+        
         let alphabetSet = CharacterSet.letters
         let allowedSet = alphabetSet.union(CharacterSet(charactersIn: CommonStrings.whiteSpace))
         let enteredSet = CharacterSet(charactersIn: newString)
@@ -243,10 +295,14 @@ extension AppTextFieldView: UITextFieldDelegate {
             return false
         }
         
-        if newString.count > 20 || (string == CommonStrings.whiteSpace && lastEnteredCharacter == CommonStrings.whiteSpace) || string.isEmojiString() {
+        if newString.count > 40 || (string == CommonStrings.whiteSpace && lastEnteredCharacter == CommonStrings.whiteSpace) {
             return false
         }
-        if !enteredSet.isSubset(of: allowedSet) {
+        
+        let predicate = NSPredicate(format: "SELF MATCHES %@", "(?s).*\\p{Arabic}.*")
+        let isArabic = predicate.evaluate(with: newString)
+        
+        if !enteredSet.isSubset(of: allowedSet) && isArabic == false {
             return false
         }
         lastEnteredCharacter = string
@@ -254,41 +310,14 @@ extension AppTextFieldView: UITextFieldDelegate {
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
-        txtFieldClearBtn.isHidden = true
+        leftClearButton.isHidden = true
+        rightClearButton.isHidden = true
         switch textFieldType {
         case .email:
             debugPrint("Valid email :\(CommonValidation.isValidEmail(textField.text ?? ""))")
-        case .userName, .password, .name:
-            debugPrint("Valid?")
+        case .phoneNo, .password, .name:
+            break
         }
         textFieldFinishedEditing?(textField.text)
-    }
-}
-
-extension AppTextFieldView {
-    @IBAction func clearBtnPressed() {
-        txtField.resignFirstResponder()
-        txtField.text = ""
-        textFieldDidChangeCharacters?(txtField.text)
-    }
-    
-    func resetShowPasswordBtnState() {
-        if self.textFieldType == .password {
-            txtField.isSecureTextEntry = true
-           // txtFieldShowPasswordBtn.setImageForAllMode(image: AppImages.PasswordTF.showPassword)
-        }
-        
-    }
-    
-    @IBAction func showPasswordBtnTapped() {
-        txtField.isSecureTextEntry = !txtField.isSecureTextEntry
-        switch txtField.isSecureTextEntry {
-        case true:
-            debugPrint("show password")
-           // txtFieldShowPasswordBtn.setImageForAllMode(image: AppImages.PasswordTF.showPassword)
-        case false:
-            debugPrint("hide password")
-            // txtFieldShowPasswordBtn.setImageForAllMode(image: AppImages.PasswordTF.hidePassword)
-        }
     }
 }

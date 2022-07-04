@@ -33,6 +33,14 @@ class TestPaymentVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+//        WebServices.TestEndPoints.getQuestions(success: {
+//            (response) in
+//            
+//            debugPrint("Success found \(response.data!)")
+//        }, failure: { _ in
+//            debugPrint("error found")
+//        })
+        
         let views: [StandardInputView] = [cardNumberView, expirationDateView, cvvView]
         views.forEach { view in
             view.layer.borderColor = UIColor.lightGray.cgColor

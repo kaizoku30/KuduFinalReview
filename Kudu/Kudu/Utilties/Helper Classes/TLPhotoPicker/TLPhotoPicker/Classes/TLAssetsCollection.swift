@@ -76,7 +76,7 @@ public struct TLPHAsset {
         if let fileSize = resource?.value(forKey: "fileSize") as? Int {
             completion(fileSize)
         } else {
-            PHImageManager.default().requestImageData(for: phAsset, options: nil) { (data, _, _, _) in
+            PHImageManager.default().requestImageDataAndOrientation(for: phAsset, options: nil) { (data, _, _, _) in
                 var fileSize = -1
                 if let data = data {
                     let bcf = ByteCountFormatter()
@@ -236,7 +236,7 @@ extension TLPHAsset {
                     progressBlock?(progress)
                 }
             }
-            return PHImageManager.default().requestImageData(for: phAsset,
+            return PHImageManager.default().requestImageDataAndOrientation(for: phAsset,
                                                              options: requestOptions) { (data, _, _, _) in
                 do {
                     var data = data

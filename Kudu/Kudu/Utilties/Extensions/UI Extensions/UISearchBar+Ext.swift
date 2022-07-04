@@ -77,7 +77,7 @@ extension UISearchBar {
         }
     }
     
-    func setAttributedPlaceholderText(placeHolderText: String = "Search", color: UIColor = AppColors.black, font: UIFont = AppFonts.robotoRegular.withSize(17.0)) {
+    func setAttributedPlaceholderText(placeHolderText: String = "Search", color: UIColor = AppColors.black, font: UIFont = AppFonts.mulishBold.withSize(17.0)) {
         guard let textField = self.getTextField() else { return }
         textField.attributedPlaceholder = NSAttributedString(string: placeHolderText, attributes: [NSAttributedString.Key.font: font, .foregroundColor: color])
     }

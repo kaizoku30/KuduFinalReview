@@ -34,6 +34,11 @@ class AppUserDefaults {
         return value
     }
     
+    static func selectedLanguage() -> Language {
+        let rawVal = AppUserDefaults.value(forKey: .selectedLanguage) as? String ?? ""
+        return rawVal == Language.en.rawValue ? .en : .ar
+    }
+    
     static func save(value: Any, forKey key: Key) {
         
         UserDefaults.standard.set(value, forKey: key.rawValue)
@@ -69,6 +74,7 @@ extension AppUserDefaults {
     
     enum Key: String {
         case selectedLanguage
+        case loginResponse
         case pendingAWSRequests
     }
     

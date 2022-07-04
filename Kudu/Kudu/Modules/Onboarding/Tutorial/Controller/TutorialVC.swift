@@ -8,7 +8,7 @@
 import UIKit
 
 class TutorialVC: BaseVC {
-    @IBOutlet var baseView: TutorialView!
+    @IBOutlet private weak var baseView: TutorialView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -18,13 +18,14 @@ class TutorialVC: BaseVC {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.navigationController?.interactivePopGestureRecognizer?.delegate = self.navigationController as? UIGestureRecognizerDelegate
+        weak var weakSelf = self.navigationController as? BaseNavVC
+        weakSelf?.disableSwipeBackGesture = false
     }
     
     private func handleActions() {
-        baseView.handleViewActions = {
+        baseView.handleViewActions = { [weak self] in 
             if $0 == .continueButtonPressed {
-                debugPrint("Move To Sign In")
+                Router.shared.goToLoginVC(fromVC: self)
             }
         }
     }

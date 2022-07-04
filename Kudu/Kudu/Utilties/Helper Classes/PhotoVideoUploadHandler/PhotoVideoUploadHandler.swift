@@ -21,7 +21,7 @@ struct TLImageUploadRequest {
 
 final class PhotoVideoUploadHandler {
     
-    static func uploadVideoOnAws(path: URL, uploadId: String, progress: @escaping progressBlock, handler: @escaping (Bool, String?, String?) -> Void) {
+    static func uploadVideoOnAws(path: URL, uploadId: String, progress: @escaping ProgressBlock, handler: @escaping (Bool, String?, String?) -> Void) {
         var request = AWSUploadRequest(awsLink: "", uploaded: false, videoLocalURL: path, uploadIdentifier: uploadId)
         AWSUploadCache.addAWSRequest(request)
         //DataManager.shared.awsRequests?.append(AWSUploadRequest(awsLink: "", uploaded: false, localURL: path))

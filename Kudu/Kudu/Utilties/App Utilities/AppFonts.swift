@@ -8,18 +8,21 @@
 import UIKit
 
 enum AppFonts: String {
-    case robotoRegular = "Roboto-Regular"
-    case robotoBlack = "Roboto-Black"
-    case robotoBoldItalic = "Roboto-BoldItalic"
-    case robotoBold = "Roboto-Bold"
-    case robotoBlackItalic = "Roboto-BlackItalic"
-    case robotoItalic = "Roboto-Italic"
-    case robotoLight = "Roboto-Light"
-    case robotoLightItalic = "Roboto-LightItalic"
-    case robotoMedium = "Roboto-Medium"
-    case robotoMediumItalic = "Roboto-MediumItalic"
-    case robotoThin = "Roboto-Thin"
-    case robotoThinItalic = "Roboto-ThinItalic"
+    case mulishBlack = "Mulish-Black"
+    case mulishBlackItalic = "Mulish-BlackItalic"
+    case mulishBold = "Mulish-Bold"
+    case mulishBoldItalic = "Mulish-BoldItalic"
+    case mulishExtraBold = "Mulish-ExtraBold"
+    case mulishExtraBoldiTalic = "Mulish-ExtraBoldItalic"
+    case mulishExtraLight = "Mulish-ExtraLight"
+    case mulishExtraLightItalic = "Mulish-ExtraLightItalic"
+    case mulishItalic = "Mulish-Italic"
+    case mulishLightItalic = "Mulish-LightItalic"
+    case mulishMedium = "Mulish-Medium"
+    case mulishMediumItalic = "Mulish-MediumItalic"
+    case mulishRegular = "Mulish-Regular"
+    case mulishSemiBold = "Mulish-SemiBold"
+    case mulishSemiBoldItalic = "Mulish-SemiBoldItalic"
 }
 
 extension AppFonts {

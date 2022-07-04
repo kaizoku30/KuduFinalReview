@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import FBSDKCoreKit
 import LanguageManager_iOS
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
@@ -21,10 +22,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         Self.shared = self
-        // let _ = DataManager.shared
-        // AWSUploadCache.logCacheStatus()
-        // AWSUploadCache.deleteUnusedAWSFiles()
         SceneDelegate.shared?.window = UIWindow(windowScene: windowScene)
+        var language: Languages = .en
+        if AppUserDefaults.value(forKey: .selectedLanguage) as? String ?? "" == AppUserDefaults.Language.ar.rawValue {
+            language = .ar
+        }
+        LanguageManager.shared.setLanguage(language: language, for: nil, viewControllerFactory: nil, animation: nil)
         Router.shared.initialiseLaunchVC()
     }
 
@@ -33,6 +36,19 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // This occurs shortly after the scene enters the background, or when its session is discarded.
         // Release any resources associated with this scene that can be re-created the next time the scene connects.
         // The scene may re-connect later, as its session was not necessarily discarded (see `application:didDiscardSceneSessions` instead).
+    }
+    
+    func scene(_ scene: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>) {
+        guard let url = URLContexts.first?.url else {
+               return
+           }
+
+           ApplicationDelegate.shared.application(
+               UIApplication.shared,
+               open: url,
+               sourceApplication: nil,
+               annotation: [UIApplication.OpenURLOptionsKey.annotation]
+           )
     }
 
     func sceneDidBecomeActive(_ scene: UIScene) {

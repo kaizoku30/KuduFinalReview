@@ -7,6 +7,8 @@ enum PushTransition: Int {
 
 class BaseNavVC: UINavigationController, UIGestureRecognizerDelegate {
 
+    var disableSwipeBackGesture = false
+    
     override init(rootViewController: UIViewController) {
         super.init(rootViewController: rootViewController)
         setNavigationBarHidden(true, animated: false)
@@ -34,6 +36,9 @@ class BaseNavVC: UINavigationController, UIGestureRecognizerDelegate {
     }
     
     func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+           if disableSwipeBackGesture {
+            return false
+           }
            return viewControllers.count > 1
        }
     

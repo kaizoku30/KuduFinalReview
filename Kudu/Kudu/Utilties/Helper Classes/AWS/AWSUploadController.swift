@@ -5,14 +5,14 @@ import UIKit
 import AVKit
 import AVFoundation
 
-typealias progressBlock = (_ progress: Double) -> Void //2
-typealias completionBlock = (_ response: String?, _ error: Error?) -> Void //3
+typealias ProgressBlock = (_ progress: Double) -> Void //2
+typealias CompletionBlock = (_ response: String?, _ error: Error?) -> Void //3
 
 class AWSUploadController {
     private static let requestParameter = "x-amz-acl"
     private static let publicRead = "public-read"
     
-    static func uploadTheVideoToAWS(videoUrl: URL, progress: progressBlock?, completion: completionBlock?) {
+    static func uploadTheVideoToAWS(videoUrl: URL, progress: ProgressBlock?, completion: CompletionBlock?) {
             encodeVideo(videoUrl: videoUrl) { (url) in
                 guard let url = url else {
                     let err = NSError(domain: "Error while encoding the video.", code: 01, userInfo: nil)
@@ -23,7 +23,7 @@ class AWSUploadController {
             }
     }
     
-    static func uploadVideoToS3(url: URL, success: completionBlock?, progress: progressBlock?) {
+    static func uploadVideoToS3(url: URL, success: CompletionBlock?, progress: ProgressBlock?) {
         
         let expression = AWSS3TransferUtilityUploadExpression()
         let transferUtility = AWSS3TransferUtility.default()
@@ -75,7 +75,7 @@ class AWSUploadController {
         }
     }
     
-    static func uploadTheImageToAWS(compression: Double = 1, image: UIImage, completion: completionBlock?, progress: progressBlock?) {
+    static func uploadTheImageToAWS(compression: Double = 1, image: UIImage, completion: CompletionBlock?, progress: ProgressBlock?) {
         
         let expression = AWSS3TransferUtilityUploadExpression()
         let transferUtility = AWSS3TransferUtility.default()

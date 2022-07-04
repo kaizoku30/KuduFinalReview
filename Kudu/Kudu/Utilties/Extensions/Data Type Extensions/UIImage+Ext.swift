@@ -20,7 +20,7 @@ extension UIImageView {
         if let imageURL = URL(string: imageString) {
             self.kf.setImage(with: imageURL, placeholder: placeHolderImage, completionHandler: { (result) in
                 switch result {
-                case .success(_):
+                case .success:
                     completionHandler?(true)
                 case .failure(let error):
                     if error.isInvalidResponseStatusCode {

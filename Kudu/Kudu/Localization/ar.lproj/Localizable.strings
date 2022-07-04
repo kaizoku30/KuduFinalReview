@@ -6,6 +6,36 @@
   
 */
 
-"greatTasteLabel" = "طعم رائع.\nسلمت آمنة";
-"getFoodDelivery" = "احصل على الطعام الذي تم توصيله دون توصيل";
-"Continue" = "يكمل";
+"greatTasteLabel" = "Great Taste.\nDelivered Safe";
+"getFoodDelivery" = "Get Food Delivered with No Contact Delivery";
+"Continue" = "Continue";
+"phoneNo" = "Phone Number";
+"helloSignIn" = "Hello! Let's Sign In";
+"phoneNotRegistered" = "This Phone number isn’t registered with us";
+"login" = "login";
+"continueGoogle" = "Continue with Google";
+"continueFacebook" = "Continue with Facebook";
+"continueTwitter" = "Continue with Twitter";
+"continueWithApple" = "Continue with Apple";
+"dontHaveAnAccount" = "Don’t have an account?";
+"signUp" = "Sign Up";
+"weHaveSentCode" = "We have sent a verification code on your phone number. Please enter the code here to validate your phone number";
+"phoneNumberVerification" = "Phone Number\n Verification";
+"name" = "Name";
+"emailId" = "Email id";
+"pleaseEnterFullName" = "Please enter Full Name.";
+"pleaseEnterPhoneNumber" = "Please enter Phone Number.";
+"pleaseEnterValidFullName" = "Please enter valid Full Name.";
+"pleaseEnterValidPhoneNumber" = "Please enter the valid Phone Number.";
+"pleaseEnterValidEmail" = "Please enter valid Email ID.";
+"skip" = "تخطي";
+"pleaseEnterYourPhoneNumber" = "ادخل رقم الجوال";
+"enterPhoneNumber" = "ادخل رقم جوالك";
+"enterYourName" = "ادخل اسمك";
+"enterYourEmailOptional" = "ادخل بريدك الالكتروني (اختياري)";
+"enterYourPhoneNumber" = "ادخل رقم جوالك";
+"verifyPhoneNumber" = "تأكيد رقم الجوال";
+"differentNumberQ" = "رقم جوال اخر؟";
+"verify" = "تأكيد";
+"alreadyHaveAnAccount" = " لدي حساب ";
+"signIn" = "تسجيل الدخول";

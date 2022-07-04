@@ -6,8 +6,8 @@ extension BaseVC {
     }
 }
 extension NotificationCenter {
-    static func postNotificationForObservers(_ type: Constants.NotificationObservers) {
-        NotificationCenter.default.post(name: NSNotification.Name.init(rawValue: type.rawValue), object: nil)
+    static func postNotificationForObservers(_ type: Constants.NotificationObservers, object: [AnyHashable: Any]? = nil) {
+        NotificationCenter.default.post(name: NSNotification.Name.init(rawValue: type.rawValue), object: nil, userInfo: object)
     }
 }
 extension BaseTabBarVC {

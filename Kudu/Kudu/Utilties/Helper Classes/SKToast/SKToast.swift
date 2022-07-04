@@ -3,7 +3,7 @@ import UIKit
 
 public class SKToast {
     
-    public typealias completionHandlerType = () -> Swift.Void
+    public typealias CompletionHandlerType = () -> Swift.Void
     
     // MARK: - Custom Properties
     var window: UIWindow?
@@ -45,7 +45,7 @@ public class SKToast {
      
      - parameter message : status message to display
      */
-    public static func show(withMessage message: String, completionHandler: (@escaping completionHandlerType)) {
+    public static func show(withMessage message: String, completionHandler: (@escaping CompletionHandlerType)) {
         DispatchQueue.main.async {
             self.shared.createToastView(message, completionHandler: {
                 completionHandler()
@@ -54,7 +54,7 @@ public class SKToast {
     }
     
     // MARK: - Configure Toastview
-    fileprivate func createToastView(_ statusMessage: String, completionHandler: (completionHandlerType)? = nil) {
+    fileprivate func createToastView(_ statusMessage: String, completionHandler: (CompletionHandlerType)? = nil) {
         
         if #available(iOS 13.0, *) {
             if let windowObj = getKeyWindow() {

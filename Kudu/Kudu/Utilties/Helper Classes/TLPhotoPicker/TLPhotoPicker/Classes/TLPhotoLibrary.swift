@@ -97,7 +97,7 @@ class TLPhotoLibrary {
             debugPrint(info ?? "")
             progressBlock(progress)
         }
-        let requestID = PHCachingImageManager().requestImageData(for: asset, options: options) { (imageData, dataUTI, orientation, info) in
+        let requestID = PHCachingImageManager().requestImageDataAndOrientation(for: asset, options: options) { (imageData, dataUTI, orientation, info) in
             debugPrint(dataUTI ?? "")
             debugPrint(orientation)
             if let data = imageData, info.isNotNil {
@@ -117,7 +117,7 @@ class TLPhotoLibrary {
         options.isNetworkAccessAllowed = true
         options.version = .current
         var image: UIImage?
-        _ = PHCachingImageManager().requestImageData(for: asset, options: options) { (imageData, _, _, _) in
+        _ = PHCachingImageManager().requestImageDataAndOrientation(for: asset, options: options) { (imageData, _, _, _) in
             if let data = imageData {
                 image = UIImage(data: data)
             }

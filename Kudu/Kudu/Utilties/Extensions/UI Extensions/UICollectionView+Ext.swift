@@ -45,7 +45,8 @@ extension UICollectionView {
     
     ///Dequeue Collection View Cell
     func dequeueCell <T: UICollectionViewCell> (with identifier: T.Type, indexPath: IndexPath) -> T {
-        return self.dequeueReusableCell(withReuseIdentifier: "\(identifier.self)", for: indexPath) as! T
+        weak var weakSelf = self
+        return weakSelf?.dequeueReusableCell(withReuseIdentifier: "\(identifier.self)", for: indexPath) as! T
     }
     
     func dequeueReusableView<T: UICollectionReusableView> (with identifier: T.Type, indexPath: IndexPath, isHeader: Bool) -> T {

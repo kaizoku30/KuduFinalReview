@@ -121,7 +121,7 @@ extension UITableView {
         messageLabel.textColor = AppColors.lightGray
         messageLabel.numberOfLines = 0
         messageLabel.textAlignment = .center
-        messageLabel.font = AppFonts.robotoRegular.withSize(20.0)
+        messageLabel.font = AppFonts.mulishBold.withSize(20.0)
         messageLabel.sizeToFit()
         self.backgroundView = messageLabel
         self.bringSubviewToFront(messageLabel)
@@ -134,7 +134,7 @@ extension UITableView {
         messageLabel.textColor = AppColors.lightGray
         messageLabel.numberOfLines = 0
         messageLabel.textAlignment = .center
-        messageLabel.font = AppFonts.robotoRegular.withSize(20.0)
+        messageLabel.font = AppFonts.mulishBold.withSize(20.0)
         messageLabel.sizeToFit()
         self.backgroundView = messageLabel
         self.separatorStyle = .none

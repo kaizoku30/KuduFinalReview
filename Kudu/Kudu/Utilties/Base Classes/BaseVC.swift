@@ -1,6 +1,8 @@
 import UIKit
 import IQKeyboardManagerSwift
 import AVFoundation
+import FBSDKLoginKit
+import GoogleSignIn
 
 class BaseVC: UIViewController {
     
@@ -47,6 +49,23 @@ class BaseVC: UIViewController {
         super.viewDidLoad()
         self.setNeedsStatusBarAppearanceUpdate()
         self.setupToHideKeyboardOnTapOnView()
+        self.observeFor(.pushLoginVC, selector: #selector(pushLogin(notification:)))
+    }
+    
+    @objc private func pushLogin(notification: NSNotification) {
+        let msg = notification.userInfo?["msg"] as? String ?? ""
+        let loginVC = LoginVC.instantiate(fromAppStoryboard: .Onboarding)
+        let currentLanguage: LanguageSelectionView.LanguageButtons = AppUserDefaults.selectedLanguage() == .ar ? .arabic : .english
+        loginVC.viewModel = LoginVM(selectedLang: currentLanguage, _delegate: loginVC, _expiryError: msg)
+        let fbLoginManager = LoginManager()
+        fbLoginManager.logOut()
+        GIDSignIn.sharedInstance.signOut()
+        AppUserDefaults.removeValue(forKey: .loginResponse)
+        self.push(vc: loginVC)
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
     }
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
